@@ -93,15 +93,47 @@ public class PrincipalEscritorio extends JFrame {
 		mnAdministracin.add(mnTipoDeElemento);
 		
 		JMenuItem mntmTipoDeElemento = new JMenuItem("Agregar Tipo de Elemento");
+		mntmTipoDeElemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarTipoElemento ventanaTE = new AgregarTipoElemento();
+				ventanaTE.setVisible(true);
+				desktopPane.add(ventanaTE);
+				
+			}
+		});
 		mnTipoDeElemento.add(mntmTipoDeElemento);
 		
 		JMenuItem mntmModificarTipoDe = new JMenuItem("Modificar Tipo de Elemento");
+		mntmModificarTipoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarTipoElemento ventanaTE = new ModificarTipoElemento();
+				ventanaTE.setVisible(true);
+				desktopPane.add(ventanaTE);
+				
+			}
+		});
 		mnTipoDeElemento.add(mntmModificarTipoDe);
 		
 		JMenuItem mntmConsultarTipoDe = new JMenuItem("Consultar Tipo de Elento");
+		mntmConsultarTipoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarTipoElemento ventanaTE = new ConsultarTipoElemento();
+				ventanaTE.setVisible(true);
+				desktopPane.add(ventanaTE);
+				
+			}
+		});
 		mnTipoDeElemento.add(mntmConsultarTipoDe);
 		
 		JMenuItem mntmEliminarTipoDe = new JMenuItem("Borrar Tipo de Elemento");
+		mntmEliminarTipoDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EliminarTipoElemento ventanaTE = new EliminarTipoElemento();
+				ventanaTE.setVisible(true);
+				desktopPane.add(ventanaTE);
+				
+			}
+		});
 		mnTipoDeElemento.add(mntmEliminarTipoDe);
 		
 ///////////////Elemento//////////////////////
@@ -109,15 +141,47 @@ public class PrincipalEscritorio extends JFrame {
 		mnAdministracin.add(mnElemento);
 		
 		JMenuItem mntmElemento = new JMenuItem("Agregar Elemento");
+		mntmElemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarElemento ventanaE = new AgregarElemento();
+				ventanaE.setVisible(true);
+				desktopPane.add(ventanaE);
+				
+			}
+		});
 		mnElemento.add(mntmElemento);
 		
 		JMenuItem mntmConsultarElemento = new JMenuItem("Consultar Elemento");
+		mntmConsultarElemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarElemento ventanaE = new ConsultarElemento();
+				ventanaE.setVisible(true);
+				desktopPane.add(ventanaE);
+				
+			}
+		});
 		mnElemento.add(mntmConsultarElemento);
 		
 		JMenuItem mntmModificarElemento = new JMenuItem("Modificar Elemento");
+		mntmModificarElemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarElemento ventanaE = new ModificarElemento();
+				ventanaE.setVisible(true);
+				desktopPane.add(ventanaE);
+				
+			}
+		});
 		mnElemento.add(mntmModificarElemento);
 		
 		JMenuItem mntmEliminarElemento = new JMenuItem("Borrar Elemento");
+		mntmEliminarElemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EliminarElemento ventanaE = new EliminarElemento();
+				ventanaE.setVisible(true);
+				desktopPane.add(ventanaE);
+				
+			}
+		});
 		mnElemento.add(mntmEliminarElemento);
 		
 ///////////////Reserva Administracion//////////////////////
@@ -125,15 +189,47 @@ public class PrincipalEscritorio extends JFrame {
 		mnAdministracin.add(mnNewMenu);
 		
 		JMenuItem mntmReserva = new JMenuItem("Agregar Reserva");
+		mntmReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AgregarReserva ventanaRE = new AgregarReserva();
+				ventanaRE.setVisible(true);
+				desktopPane.add(ventanaRE);
+				
+			}
+		});
 		mnNewMenu.add(mntmReserva);
 		
 		JMenuItem mntmConsultarReserva = new JMenuItem("Consultar Reserva");
+		mntmConsultarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarReserva ventanaRE = new ConsultarReserva();
+				ventanaRE.setVisible(true);
+				desktopPane.add(ventanaRE);
+				
+			}
+		});
 		mnNewMenu.add(mntmConsultarReserva);
 		
 		JMenuItem mntmModificarReserva = new JMenuItem("Modificar Reserva");
+		mntmModificarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarReserva ventanaRE = new ModificarReserva();
+				ventanaRE.setVisible(true);
+				desktopPane.add(ventanaRE);
+				
+			}
+		});
 		mnNewMenu.add(mntmModificarReserva);
 		
 		JMenuItem mntmBorrarReserva = new JMenuItem("Borrar Reserva");
+		mntmBorrarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EliminarReserva ventanaRE = new EliminarReserva();
+				ventanaRE.setVisible(true);
+				desktopPane.add(ventanaRE);
+				
+			}
+		});
 		mnNewMenu.add(mntmBorrarReserva);
 
 ///////////////Reserva Usuario//////////////////////
