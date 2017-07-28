@@ -2,12 +2,13 @@ package entidades;
 
 public class Persona {
 	private int id;
-	private int dni;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private String usuario;
-	private String password;
+	private String contrasena;
 	private boolean habilitado;
+	private String categoria;
 	
 	public int getId() {
 		return id;
@@ -15,10 +16,10 @@ public class Persona {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getNombre() {
@@ -39,17 +40,26 @@ public class Persona {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	public boolean isHabilitado() {
 		return habilitado;
 	}
 	public void setHabilitado(boolean habilitado) {
 		this.habilitado = habilitado;
 	}
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
+	
 
 }

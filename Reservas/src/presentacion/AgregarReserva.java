@@ -2,13 +2,18 @@ package presentacion;
 
 import java.awt.EventQueue;
 
-public class Principal {
+import javax.swing.JInternalFrame;
 
+public class AgregarReserva extends JInternalFrame {
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PrincipalEscritorio frame = new PrincipalEscritorio();
+					AgregarReserva frame = new AgregarReserva();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -16,4 +21,13 @@ public class Principal {
 			}
 		});
 	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AgregarReserva() {
+		setBounds(100, 100, 450, 300);
+
+	}
+
 }
