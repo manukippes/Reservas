@@ -1,12 +1,8 @@
 package presentacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
@@ -24,7 +20,7 @@ public class PrincipalEscritorio extends JFrame {
 
 	public PrincipalEscritorio() {
 		setTitle("Sistema de Reservas");
-		setExtendedState(Frame.MAXIMIZED_BOTH);
+//		setExtendedState(Frame.);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1500, 1000);
@@ -188,43 +184,10 @@ public class PrincipalEscritorio extends JFrame {
 		JMenu mnNewMenu = new JMenu("Reserva");
 		mnAdministracin.add(mnNewMenu);
 		
-		JMenuItem mntmReserva = new JMenuItem("Agregar Reserva");
-		mntmReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AgregarReserva ventanaRE = new AgregarReserva();
-				ventanaRE.setVisible(true);
-				desktopPane.add(ventanaRE);
-				
-			}
-		});
-		mnNewMenu.add(mntmReserva);
-		
-		JMenuItem mntmConsultarReserva = new JMenuItem("Consultar Reserva");
-		mntmConsultarReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ConsultarReserva ventanaRE = new ConsultarReserva();
-				ventanaRE.setVisible(true);
-				desktopPane.add(ventanaRE);
-				
-			}
-		});
-		mnNewMenu.add(mntmConsultarReserva);
-		
-		JMenuItem mntmModificarReserva = new JMenuItem("Modificar Reserva");
-		mntmModificarReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ModificarReserva ventanaRE = new ModificarReserva();
-				ventanaRE.setVisible(true);
-				desktopPane.add(ventanaRE);
-				
-			}
-		});
-		mnNewMenu.add(mntmModificarReserva);
-		
-		JMenuItem mntmBorrarReserva = new JMenuItem("Borrar Reserva");
+		JMenuItem mntmBorrarReserva = new JMenuItem("Anular Reserva");
 		mntmBorrarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EliminarReserva ventanaRE = new EliminarReserva();
+				AnularReserva ventanaRE = new AnularReserva();
 				ventanaRE.setVisible(true);
 				desktopPane.add(ventanaRE);
 				
@@ -236,17 +199,26 @@ public class PrincipalEscritorio extends JFrame {
 		JMenu mnReserva = new JMenu("Reserva");
 		menuBar.add(mnReserva);
 		
-		JMenuItem mntmAlta = new JMenuItem("Alta");
+		JMenuItem mntmAlta = new JMenuItem("Reservar Elemento");
+		mntmAlta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReservarElemento ventanaRE = new ReservarElemento();
+				ventanaRE.setVisible(true);
+				desktopPane.add(ventanaRE);
+			}
+		});
 		mnReserva.add(mntmAlta);
 		
-		JMenuItem mntmBaja = new JMenuItem("Baja");
+		JMenuItem mntmBaja = new JMenuItem("Mis Reservas");
+			mntmBaja.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MisReservas ventanaMISRE = new MisReservas();
+					ventanaMISRE.setVisible(true);
+					desktopPane.add(ventanaMISRE);
+				}
+			});
 		mnReserva.add(mntmBaja);
 		
-		JMenuItem mntmConsulta = new JMenuItem("Consulta");
-		mnReserva.add(mntmConsulta);
-		
-		JMenuItem mntmModificar = new JMenuItem("Modificar");
-		mnReserva.add(mntmModificar);
 /////////////////////////////////////////////////////
 		
 

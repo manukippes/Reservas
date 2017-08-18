@@ -1,22 +1,14 @@
 package presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-import javax.swing.SwingConstants;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import datos.DatosPersona;
-import entidades.Persona;
 import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import java.awt.CardLayout;
@@ -26,6 +18,9 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import entidades.Persona;
+import logica.ControladorDePersona;
+
 
 public class ConsultarPersona extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -34,6 +29,7 @@ public class ConsultarPersona extends JInternalFrame {
 	private JTextField txtDni;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
+	private ControladorDePersona ctrlPersona;
 
 	public ConsultarPersona() {
 		setIconifiable(true);
@@ -120,11 +116,15 @@ public class ConsultarPersona extends JInternalFrame {
 
 	}
 
-//////////METODO QUE CARGA PERSONAS DE LA BASE DE DATOS////////////
+//////////METODO QUE CARGA TODAS LAS PERSONAS DE LA BASE DE DATOS A LA GRILLA////////////
 	public Object[][] obtenerPersona() {
 		ArrayList <Persona> pers = new ArrayList<Persona>();
-		DatosPersona datospersona = new DatosPersona();	
-		pers = datospersona.buscarTodo();
+		ctrlPersona	= new ControladorDePersona();
+		try {
+			pers = ctrlPersona.consultarTodo();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
 		Object matrizInfo [][] = new Object [pers.size()][8];
 		for (int i = 0; i < pers.size(); i++) {
 			matrizInfo [i][0]=pers.get(i).getId();
@@ -140,6 +140,7 @@ public class ConsultarPersona extends JInternalFrame {
 		return matrizInfo;
 	}
 
+//////////METODO QUE CREA LA GRILLA////////////
 	public void crearTabla() {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(15, 225, 701, 204);
@@ -156,12 +157,17 @@ public class ConsultarPersona extends JInternalFrame {
 		scrollPane.setViewportView(table);
 	}
 	
+//////////METODO BUSCA UNA PERSONA POR DNI Y LA AGREGA A AL GRILLA////////////
 	public void buscarPorDni() {
 		Persona pers = new Persona();
-		DatosPersona datospersona = new	DatosPersona();
+		ctrlPersona = new ControladorDePersona();
 		Persona personanueva = new Persona();
 		personanueva.setDni(txtDni.getText());
-		pers = datospersona.buscarPorDni(personanueva);
+		try {
+			pers = ctrlPersona.consultaPorDni(personanueva);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
 		Object matrizInfo [][] = new Object [1][8];
 			matrizInfo [0][0]=pers.getId();
 			matrizInfo [0][1]=pers.getDni();
@@ -188,6 +194,7 @@ public class ConsultarPersona extends JInternalFrame {
 	}
 	
 
+//////////METODO BUSCA UNA PERSONA POR NOMBRE Y APELLIDO Y LA AGREGA A AL GRILLA////////////
 	public void buscarPorNYA() {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(15, 225, 701, 204);
@@ -196,11 +203,15 @@ public class ConsultarPersona extends JInternalFrame {
 		scrollPane.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		ArrayList <Persona> pers = new ArrayList<Persona>();
-		DatosPersona datospersona = new DatosPersona();	
+		ctrlPersona = new ControladorDePersona();
 		Persona personanueva = new Persona();
 		personanueva.setNombre(txtNombre.getText());
 		personanueva.setApellido(txtApellido.getText());
-		pers = datospersona.buscarPorNYA(personanueva);
+		try {
+			pers = ctrlPersona.consultaPorNombreApellido(personanueva);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
 		Object matrizInfo [][] = new Object [pers.size()][8];
 		for (int i = 0; i < pers.size(); i++) {
 			matrizInfo [i][0]=pers.get(i).getId();

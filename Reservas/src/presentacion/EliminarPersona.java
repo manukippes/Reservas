@@ -1,17 +1,12 @@
 package presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import datos.DatosPersona;
-import entidades.Persona;
-
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
@@ -19,7 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
+import entidades.Persona;
+import logica.ControladorDePersona;
+
+
+
 public class EliminarPersona extends JInternalFrame {
+
+	private static final long serialVersionUID = 1L;
 	private JTextField txtBuscaDni;
 	private JTextField txtBuscaApellido;
 	private JTextField txtBuscaNombre;
@@ -31,6 +33,7 @@ public class EliminarPersona extends JInternalFrame {
 	private JTextField txtEliminaID;
 	private JPasswordField passContra;
 	private JCheckBox checkEliminaHabilitado;
+	private ControladorDePersona ctrlPersona;
 
 	public EliminarPersona() {
 		setClosable(true);
@@ -189,10 +192,14 @@ public class EliminarPersona extends JInternalFrame {
 ////////METODO QUE BUSCA POR DNI/////////
 	public void buscarPorDni() {
 		Persona pers = new Persona();
-		DatosPersona datospersona = new	DatosPersona();
+		ctrlPersona = new ControladorDePersona();
 		Persona personanueva = new Persona();
 		personanueva.setDni(txtBuscaDni.getText());
-		pers = datospersona.buscarPorDni(personanueva);
+		try {
+			pers = ctrlPersona.consultaPorDni(personanueva);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
 		txtEliminaID.setText(String.valueOf(pers.getId()));
 		txtEliminaDni.setText(pers.getDni());
 		txtEliminaNombre.setText(pers.getNombre());
@@ -207,10 +214,13 @@ public class EliminarPersona extends JInternalFrame {
 ////////METODO QUE ELIMINA PERSONA/////////
 	public void eliminar() {
 		Persona personaeliminar = new Persona();
-		DatosPersona datospers = new DatosPersona();
-		
+		ctrlPersona = new ControladorDePersona();
 		personaeliminar.setId(Integer.parseInt(txtEliminaID.getText()));
-		datospers.eliminarPersona(personaeliminar);
+		try {
+			ctrlPersona.borrarPersona(personaeliminar);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
 		
 	}
 

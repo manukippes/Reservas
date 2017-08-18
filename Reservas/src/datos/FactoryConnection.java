@@ -1,6 +1,8 @@
 package datos;
 import java.sql.*;
 
+import utilidades.ExcepcionesEscritorio;
+
 public class FactoryConnection {
 	private String driver="com.mysql.jdbc.Driver";
 	private String host="localhost";
@@ -34,7 +36,7 @@ public class FactoryConnection {
 	} 
 	
 	
-	public Connection getConn()
+	public Connection getConn() throws SQLException, ExcepcionesEscritorio
 	{
 		
 		try 
@@ -44,20 +46,20 @@ public class FactoryConnection {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			throw new ExcepcionesEscritorio(e,"Error al intentar conectarse a la Base de Datos");
 		}
 		cantConn++;
 		return conn;
     }	
 	
-	public void releaseConn(){
+	public void releaseConn() throws SQLException{
 		try {
 			cantConn--;
 			if(cantConn==0){
 				conn.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 }

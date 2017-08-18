@@ -3,12 +3,12 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import entidades.*;
-import java.security.KeyStore.ProtectionParameter;
+import utilidades.ExcepcionesEscritorio;
 
 public class DatosPersona 
 {
 	
-	public ArrayList<Persona> buscarTodo()
+	public ArrayList<Persona> buscarTodo() throws Exception
 	{
 		Statement stm=null;
 		ResultSet rs=null;
@@ -35,7 +35,12 @@ public class DatosPersona
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			throw e;
+		}
+		
+		catch (ExcepcionesEscritorio excep) 
+		{
+			throw excep;
 		}
 		
 		try {
@@ -51,7 +56,7 @@ public class DatosPersona
 		
 	}
 	
-	public Persona buscarPorDni(Persona p){ 
+	public Persona buscarPorDni(String dni) throws Exception{ 
 		PreparedStatement stm= null;
 		ResultSet rs= null;
 		Persona pers = null;
@@ -60,7 +65,7 @@ public class DatosPersona
 		try {
 			stm = FactoryConnection.getinstancia().getConn().prepareStatement
 					("SELECT * FROM personas WHERE dni=?");
-			stm.setString(1,p.getDni());
+			stm.setString(1,dni);
 			rs=stm.executeQuery();
 			if(rs!=null && rs.next()){
 				pers=new Persona();
@@ -73,23 +78,23 @@ public class DatosPersona
 				pers.setHabilitado(rs.getBoolean("habilitado"));
 				pers.setCategoria(rs.getString("categoria"));
 		}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		try {
 			if(rs!=null)rs.close();
 			if(stm!=null)stm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		
 		return pers;
 	}
 	
-	public ArrayList<Persona> buscarPorNYA(Persona p)
+	public ArrayList<Persona> buscarPorNYA(Persona p) throws Exception
 	{
 		PreparedStatement stm= null;
 		ResultSet rs= null;
@@ -132,22 +137,22 @@ public class DatosPersona
 				pers.setCategoria(rs.getString("categoria"));
 				personas.add(pers);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		try {
 			if(rs!=null)rs.close();
 			if(stm!=null)stm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		return personas;
 	}
 	
-	public void agregarPersona (Persona pers)
+	public void agregarPersona (Persona pers) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -168,21 +173,21 @@ public class DatosPersona
 			if(rs!=null && rs.next()){
 				pers.setId(rs.getInt(1));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		try {
 			if(rs!=null)rs.close();
 			if(pstm!=null)pstm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 	}
 	
-	public void eliminarPersona(Persona perselimina)
+	public void eliminarPersona(Persona perselimina) throws Exception
 	{
 		PreparedStatement pstm = null;
 		
@@ -199,15 +204,15 @@ public class DatosPersona
 		try {
 			if(pstm!=null)pstm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}		
 	}
 	
-	public void modificarPersona(Persona persmodifica)
+	public void modificarPersona(Persona persmodifica) throws Exception
 	{
 		PreparedStatement pstm = null;
-		ResultSet rs = null;
+		
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -221,16 +226,21 @@ public class DatosPersona
 			pstm.setString(7, persmodifica.getDni());
 			pstm.setBoolean(8, persmodifica.isHabilitado());
 			pstm.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} 
+		catch (Exception e) 
+		{
+			throw e;
 		}
 		
-		try {
-			if(pstm!=null)pstm.close();
-			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}	
+		finally
+		{
+			try {
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} catch (Exception e) {
+				throw e;
+			}	
+		}
 		
 	}
 	

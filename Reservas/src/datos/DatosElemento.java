@@ -3,121 +3,164 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import entidades.*;
-import java.security.KeyStore.ProtectionParameter;
+
 
 public class DatosElemento 
 {
 	
-	public ArrayList<Persona> buscarTodo()
+	public ArrayList<Elemento> buscarTodo() throws Exception
 	{
 		Statement stm=null;
 		ResultSet rs=null;
-		ArrayList<Persona> pers= new ArrayList<Persona>();
+		ArrayList<Elemento> elemento= new ArrayList<Elemento>();
 		
 		try 
 		{
 			stm = FactoryConnection.getinstancia().getConn().createStatement();
-			rs = stm.executeQuery("select * from persona");
+			rs = stm.executeQuery("SELECT id,nombre,tipo FROM elemento");
 			if(rs!=null){
 				while(rs.next()){
-					Persona persona=new Persona();
-					persona.setId(rs.getInt("id"));
-					persona.setDni(rs.getString("dni"));
-					persona.setNombre(rs.getString("nombre"));
-					persona.setApellido(rs.getString("apellido"));
-					persona.setUsuario(rs.getString("usuario"));
-					persona.setHabilitado(rs.getBoolean("habilitado"));
-					persona.setCategoria(rs.getString("categoria"));
-					pers.add(persona);
+					Elemento ele=new Elemento();
+					ele.setId(rs.getInt("id"));
+					ele.setNombre(rs.getString("nombre"));
+					ele.setTipo(new TipoElemento());
+					ele.getTipo().setId(rs.getInt("tipo"));
+					ele.getTipo().setNombre(rs.getString("nombre"));
+					ele.getTipo().setCant_max_reservas(Integer.parseInt("cant_max_reservas"));
+					elemento.add(ele);
 				}
 			}
 		} 
-		catch (SQLException e) 
+		catch (Exception e) 
 		{
-			e.printStackTrace();
+			throw e;
 		}
 		
 		try {
 			if(rs!=null) rs.close();
 			if(stm!=null) stm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
-			e.printStackTrace();
+			throw e ;
 		}
 		
-		return pers;
+		return elemento;
 		
 	}
 	
-	public Persona buscarPorDni(Persona p){ 
+	public Elemento buscarPorNombre(Elemento ele) throws Exception{ 
 		PreparedStatement stm= null;
 		ResultSet rs= null;
-		Persona pers = null;
+		Elemento elemento = null;
 		
 		
 		try {
 			stm = FactoryConnection.getinstancia().getConn().prepareStatement
-					("SELECT id,nombre,apellido,dni,habilitado FROM personas WHERE dni=?");
-			stm.setString(1,p.getDni());
+					("SELECT * FROM elemento WHERE nombre=?");
+			stm.setString(1,ele.getNombre());
 			rs=stm.executeQuery();
 			if(rs!=null && rs.next()){
-				pers=new Persona();
-				pers.setId(rs.getInt("id"));
-				pers.setNombre(rs.getString("nombre"));
-				pers.setApellido(rs.getString("apellido"));
-				pers.setDni(rs.getString("dni"));
-				pers.setHabilitado(rs.getBoolean("habilitado"));
-		}
-		} catch (SQLException e) {
-			e.printStackTrace();
+				elemento=new Elemento();
+				elemento.setId(rs.getInt("id"));
+				elemento.setNombre(rs.getString("nombre"));
+				ele.setTipo(new TipoElemento());
+				ele.getTipo().setId(rs.getInt("tipo"));
+				ele.getTipo().setNombre(rs.getString("nombre"));
+				ele.getTipo().setCant_max_reservas(Integer.parseInt("cant_max_reservas"));
+				}
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		try {
 			if(rs!=null)rs.close();
 			if(stm!=null)stm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		
-		return pers;
+		return elemento;
 	}
 	
-	public void agregarPersona (Persona pers)
+	public void agregarElemento (Elemento ele) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO personas(dni,nombre,apellido,habilitado,categoria) VALUES (?,?,?,?,?)",
+					"INSERT INTO elemento(nombre,tipo) VALUES (?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			pstm.setString(1, pers.getDni());
-			pstm.setString(2, pers.getNombre());
-			pstm.setString(3, pers.getApellido());
-			pstm.setBoolean(4, pers.isHabilitado());
-			pstm.setString(5, pers.getCategoria());
+			pstm.setString(1, ele.getNombre());
+			pstm.setInt(2, ele.getTipo().getId());
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
-				pers.setId(rs.getInt(1));
+				ele.setId(rs.getInt(1));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 		try {
 			if(rs!=null)rs.close();
 			if(pstm!=null)pstm.close();
 			FactoryConnection.getinstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		
 	}
 	
+	public void eliminarElemento(Elemento ele) throws Exception
+	{
+		PreparedStatement pstm = null;
+		
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"DELETE FROM elemento WHERE id=?");
+			pstm.setInt(1, ele.getId());
+			pstm.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}		
+	}
+	
+	public void modificarElemento(Elemento ele) throws Exception
+	{
+		PreparedStatement pstm = null;
+		
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"UPDATE elemento SET nombre=?,tipo=? WHERE id=?");
+			pstm.setInt(1, ele.getId());
+			pstm.setString(2, ele.getNombre());
+			pstm.setString(3, (ele.getTipo().getNombre()));
+			pstm.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}	
+		
+	}
 	
 }
 

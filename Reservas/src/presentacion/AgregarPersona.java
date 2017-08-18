@@ -1,27 +1,25 @@
 package presentacion;
 
-import java.awt.Container;
-import java.awt.EventQueue;
+
 import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JDesktopPane;
+import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 import java.awt.CardLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-import datos.DatosPersona;
 import entidades.Persona;
-import javax.swing.JPasswordField;
+import logica.ControladorDePersona;
+
+
 
 public class AgregarPersona extends JInternalFrame {
 
@@ -34,6 +32,7 @@ public class AgregarPersona extends JInternalFrame {
 	private JTextField txtUsuario;
 	private JCheckBox checkHabilitado;
 	private JPasswordField passContrasena;
+	private ControladorDePersona ctrlPersona;
 
 	public AgregarPersona() 
 	{
@@ -138,7 +137,6 @@ public class AgregarPersona extends JInternalFrame {
 	public void altaPersona() 
 	{
 		Persona pers = new Persona();
-		DatosPersona datospersona = new DatosPersona();
 		pers.setDni(txtDni.getText());
 		pers.setNombre(txtNombre.getText());
 		pers.setApellido(txtApellido.getText());
@@ -146,14 +144,19 @@ public class AgregarPersona extends JInternalFrame {
 		pers.setContrasena(dameClave());
 		pers.setCategoria(txtCategoria.getText());
 		pers.setHabilitado(checkHabilitado.isSelected());
-		datospersona.agregarPersona(pers);
+		try {
+			ctrlPersona.crearPersona(pers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,e.getMessage());
+		}
+		
 	}
 	
 //////////METODO CAMBIAR PASS POR STRING////////////
-	private String dameClave() 
+private String dameClave() 
 	{
-		 char passArray[] = passContrasena.getPassword();
-		 String pass = new String(passArray);
-	     return pass;
+		char passArray[] = passContrasena.getPassword();
+		String pass = new String(passArray);
+	   return pass;
 	}
 }

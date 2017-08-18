@@ -5,6 +5,8 @@ public class Elemento {
 	private String nombre;
 	private TipoElemento tipo;
 	
+	public Elemento(){}
+	
 	public int getId() {
 		return id;
 	}
@@ -23,5 +25,12 @@ public class Elemento {
 	public void setTipo(TipoElemento tipo) {
 		this.tipo = tipo;
 	}
-
+	
+	@Override
+	public boolean equals(Object e)
+	{
+		return (e instanceof Elemento) && ((((Elemento) e).getNombre().equals(this.getNombre())));
+	}
+	
+	
 }

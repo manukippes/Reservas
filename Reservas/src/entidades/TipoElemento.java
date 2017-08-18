@@ -23,5 +23,17 @@ public class TipoElemento {
 	public void setCant_max_reservas(int cant_max_reservas) {
 		this.cant_max_reservas = cant_max_reservas;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return this.getNombre();
+	}
+	
+	@Override
+	public boolean equals(Object tp)
+	{
+		return (tp instanceof TipoElemento) && ((TipoElemento) tp).getNombre().equals(this.getNombre());
+	}
 
 }
