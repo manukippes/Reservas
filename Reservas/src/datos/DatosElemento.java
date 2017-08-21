@@ -25,8 +25,6 @@ public class DatosElemento
 					ele.setNombre(rs.getString("nombre"));
 					ele.setTipo(new TipoElemento());
 					ele.getTipo().setId(rs.getInt("tipo"));
-					ele.getTipo().setNombre(rs.getString("nombre"));
-					ele.getTipo().setCant_max_reservas(Integer.parseInt("cant_max_reservas"));
 					elemento.add(ele);
 				}
 			}
@@ -67,7 +65,7 @@ public class DatosElemento
 				ele.setTipo(new TipoElemento());
 				ele.getTipo().setId(rs.getInt("tipo"));
 				ele.getTipo().setNombre(rs.getString("nombre"));
-				ele.getTipo().setCant_max_reservas(Integer.parseInt("cant_max_reservas"));
+				ele.getTipo().setCant_max_reservas(rs.getInt("cant_max_reservas"));
 				}
 		} catch (Exception e) {
 			throw e;
@@ -145,9 +143,9 @@ public class DatosElemento
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"UPDATE elemento SET nombre=?,tipo=? WHERE id=?");
-			pstm.setInt(1, ele.getId());
-			pstm.setString(2, ele.getNombre());
-			pstm.setString(3, (ele.getTipo().getNombre()));
+			pstm.setString(1, ele.getNombre());
+			pstm.setInt(2, (ele.getTipo().getId()));
+			pstm.setInt(3, ele.getId());
 			pstm.executeUpdate();
 		} catch (Exception e) {
 			throw e;

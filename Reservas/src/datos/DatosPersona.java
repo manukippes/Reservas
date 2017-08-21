@@ -56,101 +56,7 @@ public class DatosPersona
 		
 	}
 	
-	public Persona buscarPorDni(String dni) throws Exception{ 
-		PreparedStatement stm= null;
-		ResultSet rs= null;
-		Persona pers = null;
-		
-		
-		try {
-			stm = FactoryConnection.getinstancia().getConn().prepareStatement
-					("SELECT * FROM personas WHERE dni=?");
-			stm.setString(1,dni);
-			rs=stm.executeQuery();
-			if(rs!=null && rs.next()){
-				pers=new Persona();
-				pers.setId(rs.getInt("id"));
-				pers.setNombre(rs.getString("nombre"));
-				pers.setApellido(rs.getString("apellido"));
-				pers.setUsuario(rs.getString("usuario"));
-				pers.setContrasena(rs.getString("contrasena"));
-				pers.setDni(rs.getString("dni"));
-				pers.setHabilitado(rs.getBoolean("habilitado"));
-				pers.setCategoria(rs.getString("categoria"));
-		}
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		try {
-			if(rs!=null)rs.close();
-			if(stm!=null)stm.close();
-			FactoryConnection.getinstancia().releaseConn();
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		
-		return pers;
-	}
 	
-	public ArrayList<Persona> buscarPorNYA(Persona p) throws Exception
-	{
-		PreparedStatement stm= null;
-		ResultSet rs= null;
-		ArrayList<Persona> personas = new ArrayList<>();
-		Persona pers = new Persona();
-		String nombre = p.getNombre();
-		String apellido = p.getApellido();
-				
-		try {
-			
-			if (!(nombre.isEmpty()) && !(apellido.isEmpty())) {
-				stm=FactoryConnection.getinstancia().getConn().prepareStatement
-						("SELECT * FROM personas WHERE nombre=? AND apellido=?");
-				stm.setString(1, nombre);
-				stm.setString(2, apellido);
-			}else 
-				if (nombre.isEmpty()) 
-				{
-				stm=FactoryConnection.getinstancia().getConn().prepareStatement
-						("SELECT * FROM personas WHERE apellido=?");
-				stm.setString(1, apellido);
-				}
-				else 
-				{
-				stm=FactoryConnection.getinstancia().getConn().prepareStatement
-						("SELECT * FROM personas WHERE nombre=?");
-				stm.setString(1, nombre);
-				}
-			
-			rs=stm.executeQuery();
-			if(rs!=null && rs.next())
-			{
-				pers.setId(rs.getInt("id"));
-				pers.setNombre(rs.getString("nombre"));
-				pers.setApellido(rs.getString("apellido"));
-				pers.setUsuario(rs.getString("usuario"));
-				pers.setContrasena(rs.getString("contrasena"));
-				pers.setDni(rs.getString("dni"));
-				pers.setHabilitado(rs.getBoolean("habilitado"));
-				pers.setCategoria(rs.getString("categoria"));
-				personas.add(pers);
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		try {
-			if(rs!=null)rs.close();
-			if(stm!=null)stm.close();
-			FactoryConnection.getinstancia().releaseConn();
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		return personas;
-	}
 	
 	public void agregarPersona (Persona pers) throws Exception
 	{
@@ -216,15 +122,15 @@ public class DatosPersona
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"UPDATE personas SET dni=?, nombre=?,apellido=?,usuario=?,contrasena=?,categoria=?,dni=?,habilitado=? WHERE id=?");
-			pstm.setInt(1, persmodifica.getId());
+					"UPDATE personas SET dni=?, nombre=?,apellido=?,usuario=?,contrasena=?,categoria=?,habilitado=? WHERE id=?");
+			pstm.setString(1, persmodifica.getDni());
 			pstm.setString(2, persmodifica.getNombre());
 			pstm.setString(3, persmodifica.getApellido());
 			pstm.setString(4, persmodifica.getUsuario());
 			pstm.setString(5, persmodifica.getContrasena());
 			pstm.setString(6, persmodifica.getCategoria());
-			pstm.setString(7, persmodifica.getDni());
-			pstm.setBoolean(8, persmodifica.isHabilitado());
+			pstm.setBoolean(7, persmodifica.isHabilitado());
+			pstm.setInt(8, persmodifica.getId());
 			pstm.executeUpdate();
 		} 
 		catch (Exception e) 

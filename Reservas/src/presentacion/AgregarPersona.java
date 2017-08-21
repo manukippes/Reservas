@@ -5,6 +5,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDesktopPane;
@@ -17,14 +18,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import entidades.Persona;
+import entidades.Persona;
+import entidades.TipoElemento;
+import logica.ControladorDeElemento;
 import logica.ControladorDePersona;
+import javax.swing.JComboBox;
 
 
 
 public class AgregarPersona extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtCategoria;
 	private JTextField txtApellido;
 	private JTextField txtNombre;
 	private JTextField txtDni;
@@ -32,7 +36,9 @@ public class AgregarPersona extends JInternalFrame {
 	private JTextField txtUsuario;
 	private JCheckBox checkHabilitado;
 	private JPasswordField passContrasena;
-	private ControladorDePersona ctrlPersona;
+	private ControladorDePersona ctrlPersona = new ControladorDePersona();
+	private JComboBox comboBoxCategoria;
+	private JTextField txtId;
 
 	public AgregarPersona() 
 	{
@@ -41,7 +47,7 @@ public class AgregarPersona extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 513, 511);
+		setBounds(100, 100, 761, 441);
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
@@ -56,13 +62,24 @@ public class AgregarPersona extends JInternalFrame {
 		lblAltaDeUna.setBounds(0, 16, 238, 20);
 		desktopPane.add(lblAltaDeUna);
 		
+//////////ID////////////	
+		JLabel lblId = new JLabel("Id");
+		lblId.setBounds(10, 52, 69, 20);
+		desktopPane.add(lblId);
+		
+		txtId = new JTextField();
+		txtId.setEditable(false);
+		txtId.setBounds(103, 52, 208, 26);
+		desktopPane.add(txtId);
+		txtId.setColumns(10);
+		
 //////////DNI////////////
 		JLabel lblDni = new JLabel("Dni");
-		lblDni.setBounds(10, 52, 24, 20);
+		lblDni.setBounds(365, 58, 24, 20);
 		desktopPane.add(lblDni);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(103, 52, 208, 26);
+		txtDni.setBounds(458, 58, 208, 26);
 		desktopPane.add(txtDni);
 		txtDni.setColumns(10);
 		
@@ -78,63 +95,165 @@ public class AgregarPersona extends JInternalFrame {
 		
 //////////APELLIDO////////////		
 		JLabel lblApellido_1 = new JLabel("Apellido");
-		lblApellido_1.setBounds(10, 143, 58, 20);
+		lblApellido_1.setBounds(365, 97, 58, 20);
 		desktopPane.add(lblApellido_1);
 		
 		txtApellido = new JTextField();
-		txtApellido.setBounds(101, 140, 210, 26);
+		txtApellido.setBounds(458, 104, 210, 26);
 		desktopPane.add(txtApellido);
 		txtApellido.setColumns(10);
 		
 //////////CATEGORIA////////////
 		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(12, 320, 67, 20);
+		lblCategoria.setBounds(365, 206, 67, 20);
 		desktopPane.add(lblCategoria);
 		
-		txtCategoria = new JTextField();
-		txtCategoria.setBounds(99, 317, 211, 26);
-		desktopPane.add(txtCategoria);
-		txtCategoria.setColumns(10);
+		comboBoxCategoria = new JComboBox();
+		comboBoxCategoria.setBounds(456, 203, 208, 26);
+		desktopPane.add(comboBoxCategoria);
+		llenarCombo();
+		
 		
 //////////HABILITADO////////////		
 		checkHabilitado = new JCheckBox("Habilitado");
-		checkHabilitado.setBounds(10, 269, 139, 29);
+		checkHabilitado.setBounds(8, 203, 139, 29);
 		desktopPane.add(checkHabilitado);
 
 //////////USUARIO////////////
 		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(10, 191, 69, 20);
+		lblUsuario.setBounds(10, 149, 69, 20);
 		desktopPane.add(lblUsuario);
 		txtUsuario = new JTextField();
 		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(101, 188, 210, 26);
+		txtUsuario.setBounds(101, 146, 210, 26);
 		desktopPane.add(txtUsuario);
 		
 //////////CONTRASEÑA////////////
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setBounds(12, 239, 113, 20);
+		lblContrasea.setBounds(365, 146, 113, 20);
 		desktopPane.add(lblContrasea);
 		passContrasena = new JPasswordField();
-		passContrasena.setBounds(103, 236, 208, 26);
+		passContrasena.setBounds(456, 143, 208, 26);
 		desktopPane.add(passContrasena);
 		
-/////////BOTON ALTA////////////		
-		JButton btnDarDeAlta = new JButton("Dar de Alta");
-		btnDarDeAlta.addActionListener(new ActionListener() 
+/////////BOTON Aceptar////////////		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				altaPersona();
+				gestionDepersona();
 			}
 		});
-		btnDarDeAlta.setBounds(136, 396, 113, 29);
-		desktopPane.add(btnDarDeAlta);
+		btnAceptar.setBounds(440, 308, 113, 29);
+		desktopPane.add(btnAceptar);
 		
+/////////BOTON Cancelar////////////
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(288, 308, 115, 29);
+		desktopPane.add(btnCancelar);
+		
+/////////BOTON Limpiar////////////
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarCampos();
+			}
+		});
+		btnLimpiar.setBounds(133, 308, 115, 29);
+		desktopPane.add(btnLimpiar);
+		
+
 		
 	}
 	
-//////////METODO ALTA DE PERSONA////////////
-	public void altaPersona() 
+//////////METODO CAMBIAR PASS POR STRING////////////
+	private String dameClave() 
+	{
+		char passArray[] = passContrasena.getPassword();
+		String pass = new String(passArray);
+	   return pass;
+	}
+
+///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
+	public void gestionDepersona() 
+	{
+		if(txtId.getText()==""){altaPersona();}
+		else{modificarPersona();}
+	}
+
+
+////////////////METODO PARA ALTA DE PERSONA///////////////////
+	private void altaPersona() 
+		{ 
+		Persona pers = mapearDeFormulario();
+		try
+		{
+			ctrlPersona.crearPersona(pers);
+			JOptionPane.showMessageDialog(this, "La persona se agregó correctamente.");
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"Error al crear la persona");
+		}
+	
+	}
+
+
+////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
+	private void modificarPersona() 
+	{
+		Persona pers = mapearDeFormulario();
+		try
+		{
+			ctrlPersona.modificarPersona(pers);
+			JOptionPane.showMessageDialog(this, "La persona se modificó correctamente.");
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"Error al modificar la persona");
+		}
+	
+	}
+
+////////////////METODO PARA LLENAR CON DATOS DE LA BASE DE DATOS EL COMBO DE TIPO DE ELEMENTO///////////////////
+	public void llenarCombo() 
+	{
+		comboBoxCategoria.addItem("Administrador");
+		comboBoxCategoria.addItem("Encargado");
+		comboBoxCategoria.addItem("Online");
+		comboBoxCategoria.setSelectedIndex(-1);
+	}
+
+////////////////METODO PARA MOSTRAR EL ELEMENTO QUE VIENE DEL LISTADO///////////////////
+	public void showPersona(Persona pers)
+	{
+		this.mapearAFormulario(pers);
+	}
+
+////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO///////////////////
+	
+	public void mapearAFormulario(Persona pers)
+	{
+		txtId.setText(String.valueOf(pers.getId()));
+		txtDni.setText(pers.getDni());
+		txtNombre.setText(pers.getNombre());
+		txtApellido.setText(pers.getApellido());
+		txtUsuario.setText(pers.getUsuario());
+		passContrasena.setText(pers.getContrasena());
+		checkHabilitado.setSelected(pers.isHabilitado());
+		if (pers.getCategoria()!=null)
+		{
+			comboBoxCategoria.setSelectedItem(pers.getCategoria());
+		}
+	}
+
+////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
+	
+	public Persona mapearDeFormulario()
 	{
 		Persona pers = new Persona();
 		pers.setDni(txtDni.getText());
@@ -142,21 +261,29 @@ public class AgregarPersona extends JInternalFrame {
 		pers.setApellido(txtApellido.getText());
 		pers.setUsuario(txtUsuario.getText());
 		pers.setContrasena(dameClave());
-		pers.setCategoria(txtCategoria.getText());
-		pers.setHabilitado(checkHabilitado.isSelected());
-		try {
-			ctrlPersona.crearPersona(pers);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,e.getMessage());
+		if (comboBoxCategoria.getSelectedIndex()!= -1)
+		{
+			pers.setCategoria((String)comboBoxCategoria.getSelectedItem());
 		}
-		
+		pers.setHabilitado(checkHabilitado.isSelected());
+		if(!this.txtId.getText().isEmpty())
+		{
+			pers.setId(Integer.parseInt(this.txtId.getText()));
+		}
+		return pers;
 	}
-	
-//////////METODO CAMBIAR PASS POR STRING////////////
-private String dameClave() 
+
+////////////////METODO PARA LIMPIAR LOS CAMPOS DEL FORMULARIO///////////////////
+	private void limpiarCampos() 
 	{
-		char passArray[] = passContrasena.getPassword();
-		String pass = new String(passArray);
-	   return pass;
+		txtId.setText("");
+		txtDni.setText("");
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtUsuario.setText("");
+		passContrasena.setText("");
+		checkHabilitado.setSelected(false);
+		comboBoxCategoria.setSelectedIndex(-1);
 	}
+
 }

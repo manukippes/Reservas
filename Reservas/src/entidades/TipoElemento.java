@@ -27,13 +27,14 @@ public class TipoElemento {
 	@Override
 	public String toString()
 	{
-		return this.getNombre();
+//		return	this.getNombre();
+		return (this.id + " - " + this.getNombre());
 	}
 	
 	@Override
 	public boolean equals(Object tp)
 	{
-		return (tp instanceof TipoElemento) && ((TipoElemento) tp).getNombre().equals(this.getNombre());
+		return (tp instanceof TipoElemento) && ((TipoElemento) tp).getId()==(this.getId());
 	}
 
 }

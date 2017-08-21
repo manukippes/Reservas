@@ -43,17 +43,6 @@ public class PrincipalEscritorio extends JFrame {
 		JMenu mnPersona = new JMenu("Persona");
 		mnAdministracin.add(mnPersona);
 		
-		JMenuItem mntmConsultarPersona = new JMenuItem("Consultar Persona");
-		mntmConsultarPersona.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ConsultarPersona ventanaCP = new ConsultarPersona();
-				ventanaCP.setVisible(true);
-				desktopPane.add(ventanaCP);
-				
-			}
-		});
-		mnPersona.add(mntmConsultarPersona);
-		
 		JMenuItem mntmPersona = new JMenuItem("Agregar Persona");
 		mntmPersona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -64,25 +53,16 @@ public class PrincipalEscritorio extends JFrame {
 		});
 		mnPersona.add(mntmPersona);
 		
-		JMenuItem mntmModificarPersona = new JMenuItem("Modificar Persona");
-		mntmModificarPersona.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ModificarPersona ventanaMP = new ModificarPersona();
-				ventanaMP.setVisible(true);
-				desktopPane.add(ventanaMP);
+		JMenuItem mntmConsultarPersona = new JMenuItem("Listado de Personas");
+		mntmConsultarPersona.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoPersona ventanaCP = new ListadoPersona();
+				ventanaCP.setVisible(true);
+				desktopPane.add(ventanaCP);
+				
 			}
 		});
-		mnPersona.add(mntmModificarPersona);
-		
-		JMenuItem mntmBorrarPersona = new JMenuItem("Borrar Persona");
-		mntmBorrarPersona.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				EliminarPersona ventanaEP = new EliminarPersona();
-				ventanaEP.setVisible(true);
-				desktopPane.add(ventanaEP);
-			}
-		});
-		mnPersona.add(mntmBorrarPersona);
+		mnPersona.add(mntmConsultarPersona);
 
 ///////////////Tipo de Elemento//////////////////////
 		JMenu mnTipoDeElemento = new JMenu("Tipo de Elemento");
@@ -99,21 +79,10 @@ public class PrincipalEscritorio extends JFrame {
 		});
 		mnTipoDeElemento.add(mntmTipoDeElemento);
 		
-		JMenuItem mntmModificarTipoDe = new JMenuItem("Modificar Tipo de Elemento");
-		mntmModificarTipoDe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ModificarTipoElemento ventanaTE = new ModificarTipoElemento();
-				ventanaTE.setVisible(true);
-				desktopPane.add(ventanaTE);
-				
-			}
-		});
-		mnTipoDeElemento.add(mntmModificarTipoDe);
-		
-		JMenuItem mntmConsultarTipoDe = new JMenuItem("Consultar Tipo de Elento");
+		JMenuItem mntmConsultarTipoDe = new JMenuItem("Listado Tipo de Elemento");
 		mntmConsultarTipoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarTipoElemento ventanaTE = new ConsultarTipoElemento();
+				ListadoTipoElemento ventanaTE = new ListadoTipoElemento();
 				ventanaTE.setVisible(true);
 				desktopPane.add(ventanaTE);
 				
@@ -121,16 +90,6 @@ public class PrincipalEscritorio extends JFrame {
 		});
 		mnTipoDeElemento.add(mntmConsultarTipoDe);
 		
-		JMenuItem mntmEliminarTipoDe = new JMenuItem("Borrar Tipo de Elemento");
-		mntmEliminarTipoDe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EliminarTipoElemento ventanaTE = new EliminarTipoElemento();
-				ventanaTE.setVisible(true);
-				desktopPane.add(ventanaTE);
-				
-			}
-		});
-		mnTipoDeElemento.add(mntmEliminarTipoDe);
 		
 ///////////////Elemento//////////////////////
 		JMenu mnElemento = new JMenu("Elemento");
@@ -147,38 +106,16 @@ public class PrincipalEscritorio extends JFrame {
 		});
 		mnElemento.add(mntmElemento);
 		
-		JMenuItem mntmConsultarElemento = new JMenuItem("Consultar Elemento");
+		JMenuItem mntmConsultarElemento = new JMenuItem("Listado de Elemento");
 		mntmConsultarElemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarElemento ventanaE = new ConsultarElemento();
+				ListadoElemento ventanaE = new ListadoElemento();
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
 				
 			}
 		});
 		mnElemento.add(mntmConsultarElemento);
-		
-		JMenuItem mntmModificarElemento = new JMenuItem("Modificar Elemento");
-		mntmModificarElemento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ModificarElemento ventanaE = new ModificarElemento();
-				ventanaE.setVisible(true);
-				desktopPane.add(ventanaE);
-				
-			}
-		});
-		mnElemento.add(mntmModificarElemento);
-		
-		JMenuItem mntmEliminarElemento = new JMenuItem("Borrar Elemento");
-		mntmEliminarElemento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EliminarElemento ventanaE = new EliminarElemento();
-				ventanaE.setVisible(true);
-				desktopPane.add(ventanaE);
-				
-			}
-		});
-		mnElemento.add(mntmEliminarElemento);
 		
 ///////////////Reserva Administracion//////////////////////
 		JMenu mnNewMenu = new JMenu("Reserva");

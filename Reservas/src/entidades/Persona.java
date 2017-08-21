@@ -60,6 +60,4 @@ public class Persona {
 		this.categoria = categoria;
 	}
 	
-	
-
 }

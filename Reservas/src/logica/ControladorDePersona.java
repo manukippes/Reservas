@@ -23,19 +23,6 @@ public class ControladorDePersona {
 	};
 	
 
-	public Persona consultaPorDni(Persona p) throws Exception{
-		return this.consultaPorDni(p.getDni());
-	}
-	
-	public Persona consultaPorDni(String dni) throws Exception{
-		return basePersona.buscarPorDni(dni);
-	}
-	
-	public ArrayList<Persona> consultaPorNombreApellido(Persona p) throws Exception{
-		return basePersona.buscarPorNYA(p);
-		
-	}
-	
 	public ArrayList<Persona> consultarTodo() throws Exception{
 		return basePersona.buscarTodo();
 	}
