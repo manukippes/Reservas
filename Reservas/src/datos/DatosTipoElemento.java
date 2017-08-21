@@ -45,38 +45,7 @@ public class DatosTipoElemento
 		
 	}
 	
-	public TipoElemento buscarPorNombre(TipoElemento tipoele) throws Exception { 
-		PreparedStatement stm= null;
-		ResultSet rs= null;
-		TipoElemento tipoelemento = null;
-		
-		
-		try {
-			stm = FactoryConnection.getinstancia().getConn().prepareStatement
-					("SELECT * FROM tipoelemento WHERE nombre=?");
-			stm.setString(1,tipoele.getNombre());
-			rs=stm.executeQuery();
-			if(rs!=null && rs.next()){
-				tipoelemento=new TipoElemento();
-				tipoelemento.setId(rs.getInt("id"));
-				tipoelemento.setNombre(rs.getString("nombre"));
-				tipoelemento.setCant_max_reservas(rs.getInt("cant_max_reservas"));
-				}
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		try {
-			if(rs!=null)rs.close();
-			if(stm!=null)stm.close();
-			FactoryConnection.getinstancia().releaseConn();
-		} catch (Exception e) {
-			throw e;
-		}
-		
-		
-		return tipoelemento;
-	}
+	
 	
 	public void agregarTipoElemento (TipoElemento tipoele) throws Exception
 	{
@@ -138,9 +107,9 @@ public class DatosTipoElemento
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"UPDATE tipoelemento SET nombre=?,cant_max_reservas=? WHERE id=?");
-			pstm.setInt(1, tipoele.getId());
-			pstm.setString(2, tipoele.getNombre());
-			pstm.setInt(3, tipoele.getCant_max_reservas());
+			pstm.setString(1, tipoele.getNombre());
+			pstm.setInt(2, tipoele.getCant_max_reservas());
+			pstm.setInt(3, tipoele.getId());
 			pstm.executeUpdate();
 		} catch (Exception e) {
 			throw e;

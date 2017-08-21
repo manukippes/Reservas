@@ -34,6 +34,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class ListadoTipoElemento extends JInternalFrame {
@@ -42,8 +43,8 @@ public class ListadoTipoElemento extends JInternalFrame {
 	private ControladorDeTipoElemento ctrlTipoElemento = new ControladorDeTipoElemento();
 	private ArrayList<TipoElemento> tipoElementos = new ArrayList<TipoElemento>();
 
-	public ListadoTipoElemento() {
-		setTitle("Listado de Tipo de Elemento");
+	public ListadoTipoElemento() 
+	{
 		setClosable(true);
 		setBounds(100, 100, 507, 312);
 		
@@ -65,17 +66,28 @@ public class ListadoTipoElemento extends JInternalFrame {
 
 		});
 		
-		setBounds(100, 100, 619, 440);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 603, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(120, Short.MAX_VALUE)
+					.addComponent(btnEliminar)
+					.addGap(38)
+					.addComponent(btnEditar)
+					.addGap(145))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 399, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnEliminar)
+						.addComponent(btnEditar))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		getContentPane().setLayout(groupLayout);
+	
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -95,7 +107,8 @@ public class ListadoTipoElemento extends JInternalFrame {
 	}
 
 	
-	public void initDataBindings() {
+	public void initDataBindings() 
+	{
 		JTableBinding<TipoElemento, List<TipoElemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, tipoElementos, table);
 		//
 		BeanProperty<TipoElemento, String> personaBeanProperty_0 = BeanProperty.create("id");
@@ -112,7 +125,8 @@ public class ListadoTipoElemento extends JInternalFrame {
 	}
 	
 
-	public void modificar() {
+	public void modificar() 
+	{
 		int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
 		AgregarTipoElemento menuTipoEle = new AgregarTipoElemento();
 		menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); //LLAMADA METODO NO DEFINIDO (CAMBIO MANU)
@@ -121,21 +135,23 @@ public class ListadoTipoElemento extends JInternalFrame {
 		
 	}
 	
-	private void eliminar() {
+	private void eliminar()
+	{
 		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar el Tipo de Elemento?");
-		if (Confirmar == JOptionPane.YES_OPTION){
+		if (Confirmar == JOptionPane.YES_OPTION)
+		{
 			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			try {
+			try 
+			{
 				ctrlTipoElemento.borrarTipoElemento(this.tipoElementos.get(indexTipoElemento));
 				tipoElementos = ctrlTipoElemento.consultarTodo();
 				initDataBindings();
 				
-			} catch (Exception e) {
+			} catch (Exception e) 
+			{
 				JOptionPane.showMessageDialog(this, "No se pudo eliminar el Tipo de Elemento");;
 			}
 			
 		}
-		
 	}
-
 }

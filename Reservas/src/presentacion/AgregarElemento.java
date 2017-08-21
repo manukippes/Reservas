@@ -151,7 +151,7 @@ public class AgregarElemento extends JInternalFrame {
 	public void gestionDeelemento() 
 	{
 		
-		if(txtId.getText()==""){altaElemento();}
+		if(txtId.getText().isEmpty()){altaElemento();}
 		else{modificarElemento();}
 	}
 		

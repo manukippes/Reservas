@@ -145,7 +145,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
 	public void gestionDeTipoElemento() 
 	{
-		if(txtId.getText()==""){altaTipoElemento();}
+		if(txtId.getText().isEmpty()){altaTipoElemento();}
 		else{modificarTipoElemento();}
 	}
 

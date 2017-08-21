@@ -183,7 +183,7 @@ public class AgregarPersona extends JInternalFrame {
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
 	public void gestionDepersona() 
 	{
-		if(txtId.getText()==""){altaPersona();}
+		if(txtId.getText().isEmpty()){altaPersona();}
 		else{modificarPersona();}
 	}
 

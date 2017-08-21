@@ -21,11 +21,6 @@ private DatosTipoElemento baseTipoElemento = new DatosTipoElemento();
 		baseTipoElemento.modificarTipoElemento(tipoele);
 	};
 	
-
-	public TipoElemento consultaPorNombre(TipoElemento tipoele) throws Exception{
-		return baseTipoElemento.buscarPorNombre(tipoele);
-	}
-	
 	public ArrayList<TipoElemento> consultarTodo() throws Exception{
 		return baseTipoElemento.buscarTodo();
 	}
