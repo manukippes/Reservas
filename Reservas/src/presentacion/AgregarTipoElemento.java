@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -14,7 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import entidades.Elemento;
 import entidades.TipoElemento;
+import logica.ControladorDeElemento;
 import logica.ControladorDeTipoElemento;
 
 public class AgregarTipoElemento extends JInternalFrame {
@@ -30,7 +34,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Menu Tipo de Elemento");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 472, 298);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -46,10 +50,11 @@ public class AgregarTipoElemento extends JInternalFrame {
 
 ///////////////ID/////////////////////////////
 		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(10, 41, 154, 20);
+		lblId.setBounds(10, 41, 64, 20);
 		desktopPane.add(lblId);
 		
 		txtId = new JTextField();
+		txtId.setEditable(false);
 		txtId.setBounds(83, 41, 302, 20);
 		desktopPane.add(txtId);
 		txtId.setColumns(10);
@@ -76,7 +81,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				altaTipoelemento();
+				gestionDeTipoElemento();
 			}
 		});
 		btnAceptar.setBounds(282, 189, 113, 29);
@@ -84,27 +89,101 @@ public class AgregarTipoElemento extends JInternalFrame {
 		
 ///////////////BOTON DE CANCELAR/////////////////////////////
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(142, 189, 115, 29);
 		desktopPane.add(btnCancelar);
 		
 ///////////////BOTON DE LIMPIAR/////////////////////////////
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarCampos();
+			}
+		});
 		btnLimpiar.setBounds(12, 189, 115, 29);
 		desktopPane.add(btnLimpiar);
 		
 }
 	
-///////////////METODO PARA DAR DE ALTA/////////////////////////////
-	private void altaTipoelemento() {
-		TipoElemento tipoele = new TipoElemento();
-		ctrlTipoElemento = new ControladorDeTipoElemento();
-		tipoele.setNombre(txtNombre.getText());
-		tipoele.setCant_max_reservas(Integer.parseInt(textCantMaxReservas.getText()));
-		try {
-			ctrlTipoElemento.crearTipoElemento(tipoele);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,e.getMessage());
-		}
+///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
+	public void gestionDeTipoElemento() 
+	{
+		if(txtId.getText()==""){altaTipoElemento();}
+		else{modificarTipoElemento();}
 	}
 
+
+////////////////METODO PARA ALTA DE ELEMENTO///////////////////
+	private void altaTipoElemento() 
+	{ 
+		TipoElemento tipoEle = mapearDeFormulario();
+		try
+		{
+			ctrlTipoElemento.crearTipoElemento(tipoEle);
+			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se agregó correctamente.");
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"Error al crear el Tipo de Elemento");
+		}
+	
+	}
+
+
+////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
+	private void modificarTipoElemento() 
+	{
+		TipoElemento tipoEle = mapearDeFormulario();
+		try
+		{
+			ctrlTipoElemento.modificarTipoElemento(tipoEle);
+			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se modificó correctamente.");
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"Error al modificar el Tipo de Elemento");
+		}
+	
+	}
+
+////////////////METODO PARA MOSTRAR EL ELEMENTO QUE VIENE DEL LISTADO///////////////////
+	public void showTipoElemento(TipoElemento tipoEle)
+	{
+		this.mapearAFormulario(tipoEle);
+	}
+
+////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO///////////////////
+	public void mapearAFormulario(TipoElemento tipoEle)
+	{
+		txtId.setText(String.valueOf(tipoEle.getId()));
+		txtNombre.setText(tipoEle.getNombre());
+		textCantMaxReservas.setText(String.valueOf(tipoEle.getCant_max_reservas()));
+		
+	}
+
+////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
+	public TipoElemento mapearDeFormulario()
+	{
+		TipoElemento tipoEle = new TipoElemento();
+		if(!this.txtId.getText().isEmpty())
+		{
+			tipoEle.setId(Integer.parseInt(this.txtId.getText()));
+		}
+		tipoEle.setNombre(txtNombre.getText());
+		tipoEle.setCant_max_reservas(Integer.parseInt(textCantMaxReservas.getText()));
+				
+		return tipoEle;
+	}
+
+////////////////METODO PARA LIMPIAR LOS CAMPOS DEL FORMULARIO///////////////////
+	private void limpiarCampos() 
+		{
+		txtId.setText("");
+		txtNombre.setText("");
+		textCantMaxReservas.setText("");
+		
+		}
+	
 }
