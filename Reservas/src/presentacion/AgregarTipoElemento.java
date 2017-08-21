@@ -20,6 +20,9 @@ import entidades.Elemento;
 import entidades.TipoElemento;
 import logica.ControladorDeElemento;
 import logica.ControladorDeTipoElemento;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AgregarTipoElemento extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -35,77 +38,107 @@ public class AgregarTipoElemento extends JInternalFrame {
 		setClosable(true);
 		setTitle("Menu Tipo de Elemento");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 472, 298);
+		setBounds(100, 100, 499, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.WHITE);
-		contentPane.add(desktopPane, "name_525680675616");
 		
 		JLabel lblAltaTipoDe = new JLabel("Ingrese datos del Tipo de Elemento");
-		lblAltaTipoDe.setBounds(10, 11, 307, 14);
-		desktopPane.add(lblAltaTipoDe);
-
-///////////////ID/////////////////////////////
-		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(10, 41, 64, 20);
-		desktopPane.add(lblId);
 		
-		txtId = new JTextField();
-		txtId.setEditable(false);
-		txtId.setBounds(83, 41, 302, 20);
-		desktopPane.add(txtId);
-		txtId.setColumns(10);
-		
+		///////////////ID/////////////////////////////
+				JLabel lblId = new JLabel("Id");
+				
+				txtId = new JTextField();
+				txtId.setEditable(false);
+				txtId.setColumns(10);
+				
 ///////////////NOMBRE/////////////////////////////
-		JLabel lblNewLabel = new JLabel("Nombre");
-		lblNewLabel.setBounds(10, 80, 81, 14);
-		desktopPane.add(lblNewLabel);
-		txtNombre = new JTextField();
-		txtNombre.setBounds(83, 77, 302, 20);
-		desktopPane.add(txtNombre);
-		txtNombre.setColumns(10);
-		
+				JLabel lblNewLabel = new JLabel("Nombre");
+				txtNombre = new JTextField();
+				txtNombre.setColumns(10);
+				
 ///////////////CANTIDAD MAXIMA DE RESERVAS/////////////////////////////
-		JLabel lblCantidadMaximaDe = new JLabel("Cantidad maxima de reservas pendientes");
-		lblCantidadMaximaDe.setBounds(10, 117, 330, 14);
-		desktopPane.add(lblCantidadMaximaDe);
-		textCantMaxReservas = new JTextField();
-		textCantMaxReservas.setColumns(10);
-		textCantMaxReservas.setBounds(321, 111, 64, 20);
-		desktopPane.add(textCantMaxReservas);
-		
+				JLabel lblCantidadMaximaDe = new JLabel("Cantidad maxima de reservas pendientes");
+				textCantMaxReservas = new JTextField();
+				textCantMaxReservas.setColumns(10);
+				
 ///////////////BOTON DE ACEPTAR/////////////////////////////
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				gestionDeTipoElemento();
-			}
-		});
-		btnAceptar.setBounds(282, 189, 113, 29);
-		desktopPane.add(btnAceptar);
-		
+				JButton btnAceptar = new JButton("Aceptar");
+				
 ///////////////BOTON DE CANCELAR/////////////////////////////
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		btnCancelar.setBounds(142, 189, 115, 29);
-		desktopPane.add(btnCancelar);
-		
+				JButton btnCancelar = new JButton("Cancelar");
+				
 ///////////////BOTON DE LIMPIAR/////////////////////////////
-		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiarCampos();
-			}
-		});
-		btnLimpiar.setBounds(12, 189, 115, 29);
-		desktopPane.add(btnLimpiar);
+				JButton btnLimpiar = new JButton("Limpiar");
+				GroupLayout gl_contentPane = new GroupLayout(contentPane);
+				gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblAltaTipoDe, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtId)
+										.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblCantidadMaximaDe, GroupLayout.PREFERRED_SIZE, 325, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(23)
+											.addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+											.addGap(44)
+											.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textCantMaxReservas, 0, 0, Short.MAX_VALUE))))
+							.addGap(2147483186)
+							.addContainerGap())
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblAltaTipoDe, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblId)
+								.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblCantidadMaximaDe, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textCantMaxReservas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAceptar))
+							.addGap(141))
+				);
+				contentPane.setLayout(gl_contentPane);
+				btnLimpiar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						limpiarCampos();
+					}
+				});
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				btnAceptar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						gestionDeTipoElemento();
+					}
+				});
 		
 }
 	
