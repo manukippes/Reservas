@@ -115,7 +115,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 	public void modificar() {
 		int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
 		AgregarTipoElemento menuTipoEle = new AgregarTipoElemento();
-		//menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); //LLAMADA METODO NO DEFINIDOS HOY
+		//menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); //LLAMADA METODO NO DEFINIDOS HOY Lunes
 		this.getDesktopPane().add(menuTipoEle);
 		menuTipoEle.setVisible(true);
 		
