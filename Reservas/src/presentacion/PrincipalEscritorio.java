@@ -23,7 +23,7 @@ public class PrincipalEscritorio extends JFrame {
 //		setExtendedState(Frame.);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 1000);
+		setBounds(100, 100, 1000, 650);
 		
 		
 		contentPane = new JPanel();
@@ -49,6 +49,7 @@ public class PrincipalEscritorio extends JFrame {
 				AgregarPersona ventanaPA = new AgregarPersona();
 				desktopPane.add(ventanaPA);
 				ventanaPA.setVisible(true);
+				ventanaPA.toFront();
 			}
 		});
 		mnPersona.add(mntmPersona);
@@ -57,9 +58,8 @@ public class PrincipalEscritorio extends JFrame {
 		mntmConsultarPersona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListadoPersona ventanaCP = new ListadoPersona();
-				ventanaCP.setVisible(true);
 				desktopPane.add(ventanaCP);
-				
+				ventanaCP.toFront();				
 			}
 		});
 		mnPersona.add(mntmConsultarPersona);
@@ -74,6 +74,7 @@ public class PrincipalEscritorio extends JFrame {
 				AgregarTipoElemento ventanaTE = new AgregarTipoElemento();
 				ventanaTE.setVisible(true);
 				desktopPane.add(ventanaTE);
+				ventanaTE.toFront();
 				
 			}
 		});
@@ -85,7 +86,7 @@ public class PrincipalEscritorio extends JFrame {
 				ListadoTipoElemento ventanaTE = new ListadoTipoElemento();
 				ventanaTE.setVisible(true);
 				desktopPane.add(ventanaTE);
-				
+				ventanaTE.toFront();
 			}
 		});
 		mnTipoDeElemento.add(mntmConsultarTipoDe);
@@ -101,7 +102,7 @@ public class PrincipalEscritorio extends JFrame {
 				AgregarElemento ventanaE = new AgregarElemento();
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
-				
+				ventanaE.toFront();
 			}
 		});
 		mnElemento.add(mntmElemento);
@@ -112,7 +113,7 @@ public class PrincipalEscritorio extends JFrame {
 				ListadoElemento ventanaE = new ListadoElemento();
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
-				
+				ventanaE.toFront();
 			}
 		});
 		mnElemento.add(mntmConsultarElemento);
@@ -127,7 +128,7 @@ public class PrincipalEscritorio extends JFrame {
 				AnularReserva ventanaRE = new AnularReserva();
 				ventanaRE.setVisible(true);
 				desktopPane.add(ventanaRE);
-				
+				ventanaRE.toFront();
 			}
 		});
 		mnNewMenu.add(mntmBorrarReserva);
@@ -142,6 +143,7 @@ public class PrincipalEscritorio extends JFrame {
 				ReservarElemento ventanaRE = new ReservarElemento();
 				ventanaRE.setVisible(true);
 				desktopPane.add(ventanaRE);
+				ventanaRE.toFront();
 			}
 		});
 		mnReserva.add(mntmAlta);
@@ -152,6 +154,7 @@ public class PrincipalEscritorio extends JFrame {
 					MisReservas ventanaMISRE = new MisReservas();
 					ventanaMISRE.setVisible(true);
 					desktopPane.add(ventanaMISRE);
+					ventanaMISRE.toFront();
 				}
 			});
 		mnReserva.add(mntmBaja);

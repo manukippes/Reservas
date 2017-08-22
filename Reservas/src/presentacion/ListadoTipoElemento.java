@@ -58,7 +58,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 			}
 		});
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		JButton btnEliminar = new JButton("Eliminar");//Hola
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eliminar();

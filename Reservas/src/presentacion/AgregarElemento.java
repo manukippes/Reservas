@@ -1,15 +1,15 @@
 package presentacion;
 
-import java.awt.CardLayout;
+//import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
+//import javax.swing.JDesktopPane;
+//import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,15 +17,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
-import javax.swing.ComboBoxModel;
+//import javax.swing.ComboBoxModel;
 
 import entidades.Elemento;
 import entidades.TipoElemento;
 import logica.ControladorDeElemento;
-import logica.ControladorDeTipoElemento;
+//import logica.ControladorDeTipoElemento;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+//import javax.swing.UIManager;
+//import java.awt.SystemColor;
 
 public class AgregarElemento extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -34,27 +36,21 @@ public class AgregarElemento extends JInternalFrame {
 	private ControladorDeElemento ctrlElemento = new ControladorDeElemento();
 //	private ControladorDeTipoElemento ctrlTipoElemento;
 	private JComboBox comboBoxTipoElemento;
-	private JTextField txtId;
 
 	
 	public AgregarElemento() {
+		setIconifiable(true);
 		setClosable(true);
-		setTitle("Menu de Elemento");
+		setTitle("Agregar nuevo elemento");
 		setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 560, 412);
+		setBounds(100, 100, 410, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		
 
-		JLabel lblAltaTipoDe = new JLabel("Ingrese datos del Elemento");
-		
-////////////////ID////////////////////////////////
-		JLabel lblId = new JLabel("Id");
-		txtId = new JTextField();
-		txtId.setEditable(false);
-		txtId.setColumns(10);
+		JLabel lblAltaTipoDe = new JLabel("Ingrese los datos del  nuevo elemento");
 		
 ////////////////NOMBRE////////////////////////////////
 		JLabel lblNewLabel = new JLabel("Nombre");
@@ -64,14 +60,14 @@ public class AgregarElemento extends JInternalFrame {
 ////////////////TIPO DE ELEMENTO////////////////////////////////		
 		JLabel lblCantidadMaximaDe = new JLabel("Tipo de Elemento");
 		comboBoxTipoElemento = new JComboBox();
+		comboBoxTipoElemento.setBackground(Color.WHITE);
 		
 		
 ////////////////BOTON DE ACEPTAR////////////////////////////////
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBackground(Color.WHITE);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gestionDeelemento();
+				gestionDeelemento(1);
 			}
 		});
 		
@@ -96,51 +92,42 @@ public class AgregarElemento extends JInternalFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblAltaTipoDe, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(333, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblCantidadMaximaDe))
-						.addComponent(lblId))
-					.addGap(29)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(txtNombre)
-						.addComponent(comboBoxTipoElemento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(txtId, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(138, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(62, Short.MAX_VALUE)
-					.addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(28)
-					.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-					.addGap(67))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblCantidadMaximaDe)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(comboBoxTipoElemento, 0, 282, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(btnLimpiar, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblAltaTipoDe, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblAltaTipoDe, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblId)
-						.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(32)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-					.addGap(27)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCantidadMaximaDe)
 						.addComponent(comboBoxTipoElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAceptar)
-						.addComponent(btnCancelar)
-						.addComponent(btnLimpiar))
-					.addContainerGap())
+						.addComponent(btnLimpiar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(230, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 
@@ -148,10 +135,10 @@ public class AgregarElemento extends JInternalFrame {
 	}
 
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeelemento() 
+	public void gestionDeelemento(int esAlta) 
 	{
 		
-		if(txtId.getText().isEmpty()){altaElemento();}
+		if(esAlta == 1){altaElemento();}
 		else{modificarElemento();}
 	}
 		
@@ -163,10 +150,10 @@ public class AgregarElemento extends JInternalFrame {
 		try
 		{
 			ctrlElemento.crearElemento(ele);
-			JOptionPane.showMessageDialog(this, "El elemento se agregó correctamente.");
+			JOptionPane.showMessageDialog(this, "El elemento se agregó correctamente");
 			limpiarCampos();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al crear el Elemento");
+			JOptionPane.showMessageDialog(this,"Por favor complete todos los campos");
 		}
 	
 	}
@@ -179,7 +166,7 @@ public class AgregarElemento extends JInternalFrame {
 		try
 		{
 			ctrlElemento.modificarElemento(ele);
-			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente.");
+			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente");
 			limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"Error al modificar el Elemento");
@@ -212,7 +199,6 @@ public class AgregarElemento extends JInternalFrame {
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO///////////////////
 	public void mapearAFormulario(Elemento ele)
 	{
-		txtId.setText(String.valueOf(ele.getId()));
 		txtNombre.setText(ele.getNombre());
 		if (ele.getTipo()!=null)
 		{
@@ -224,10 +210,6 @@ public class AgregarElemento extends JInternalFrame {
 	public Elemento mapearDeFormulario()
 	{
 		Elemento ele = new Elemento();
-		if(!this.txtId.getText().isEmpty())
-		{
-			ele.setId(Integer.parseInt(this.txtId.getText()));
-		}
 		ele.setNombre(txtNombre.getText());
 		if (comboBoxTipoElemento.getSelectedIndex()!= -1)
 		{
@@ -240,7 +222,6 @@ public class AgregarElemento extends JInternalFrame {
 ////////////////METODO PARA LIMPIAR LOS CAMPOS DEL FORMULARIO///////////////////
 	private void limpiarCampos() 
 	{
-		txtId.setText("");
 		txtNombre.setText("");
 		comboBoxTipoElemento.setSelectedIndex(-1);
 	}

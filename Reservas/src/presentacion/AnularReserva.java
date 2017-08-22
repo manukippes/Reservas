@@ -31,11 +31,10 @@ public class AnularReserva extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public AnularReserva() {
-		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Anular Reservas");
-		setBounds(100, 100, 785, 601);
+		setBounds(20, 20, 785, 545);
 		getContentPane().setLayout(new CardLayout(0, 0));
 		
 		JDesktopPane desktopPane = new JDesktopPane();

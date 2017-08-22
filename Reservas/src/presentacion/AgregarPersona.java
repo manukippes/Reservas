@@ -38,16 +38,14 @@ public class AgregarPersona extends JInternalFrame {
 	private JPasswordField passContrasena;
 	private ControladorDePersona ctrlPersona = new ControladorDePersona();
 	private JComboBox comboBoxCategoria;
-	private JTextField txtId;
 
 	public AgregarPersona() 
 	{
-		setTitle("Agregar Persona");
+		setTitle("Agregar nueva persona");
 		setResizable(true);
-		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 761, 441);
+		setBounds(100, 100, 619, 270);
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
@@ -56,84 +54,82 @@ public class AgregarPersona extends JInternalFrame {
 		getContentPane().add(desktopPane, "name_18158845987003");
 
 //////////TITULO////////////
-		JLabel lblAltaDeUna = new JLabel("Alta de una Persona");
-		lblAltaDeUna.setFont(new Font("Arial Black", Font.BOLD, 18));
-		lblAltaDeUna.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltaDeUna.setBounds(0, 16, 238, 20);
+		JLabel lblAltaDeUna = new JLabel("Ingrese los datos de la nueva persona");
+		lblAltaDeUna.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblAltaDeUna.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAltaDeUna.setBounds(10, 16, 468, 20);
 		desktopPane.add(lblAltaDeUna);
-		
-//////////ID////////////	
-		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(10, 52, 69, 20);
-		desktopPane.add(lblId);
-		
-		txtId = new JTextField();
-		txtId.setEditable(false);
-		txtId.setBounds(103, 52, 208, 26);
-		desktopPane.add(txtId);
-		txtId.setColumns(10);
 		
 //////////DNI////////////
 		JLabel lblDni = new JLabel("Dni");
-		lblDni.setBounds(365, 58, 24, 20);
+		lblDni.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDni.setBounds(44, 50, 24, 20);
 		desktopPane.add(lblDni);
 		
 		txtDni = new JTextField();
-		txtDni.setBounds(458, 58, 208, 26);
+		txtDni.setBounds(78, 47, 208, 26);
 		desktopPane.add(txtDni);
 		txtDni.setColumns(10);
 		
 //////////NOMBRE////////////
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(8, 97, 57, 20);
+		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNombre.setBounds(20, 87, 48, 20);
 		desktopPane.add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(103, 94, 208, 26);
+		txtNombre.setBounds(78, 84, 208, 26);
 		desktopPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 //////////APELLIDO////////////		
 		JLabel lblApellido_1 = new JLabel("Apellido");
-		lblApellido_1.setBounds(365, 97, 58, 20);
+		lblApellido_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblApellido_1.setBounds(296, 87, 58, 20);
 		desktopPane.add(lblApellido_1);
 		
 		txtApellido = new JTextField();
-		txtApellido.setBounds(458, 104, 210, 26);
+		txtApellido.setBounds(364, 84, 210, 26);
 		desktopPane.add(txtApellido);
 		txtApellido.setColumns(10);
 		
 //////////CATEGORIA////////////
 		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(365, 206, 67, 20);
+		lblCategoria.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCategoria.setBounds(287, 50, 67, 20);
 		desktopPane.add(lblCategoria);
 		
 		comboBoxCategoria = new JComboBox();
-		comboBoxCategoria.setBounds(456, 203, 208, 26);
+		comboBoxCategoria.setBackground(Color.WHITE);
+		comboBoxCategoria.setBounds(364, 47, 210, 26);
 		desktopPane.add(comboBoxCategoria);
 		llenarCombo();
 		
 		
 //////////HABILITADO////////////		
 		checkHabilitado = new JCheckBox("Habilitado");
-		checkHabilitado.setBounds(8, 203, 139, 29);
+		checkHabilitado.setSelected(true);
+		checkHabilitado.setBackground(Color.WHITE);
+		checkHabilitado.setBounds(78, 154, 139, 29);
 		desktopPane.add(checkHabilitado);
 
 //////////USUARIO////////////
 		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(10, 149, 69, 20);
+		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUsuario.setBounds(20, 124, 48, 20);
 		desktopPane.add(lblUsuario);
 		txtUsuario = new JTextField();
 		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(101, 146, 210, 26);
+		txtUsuario.setBounds(78, 121, 208, 26);
 		desktopPane.add(txtUsuario);
 		
 //////////CONTRASEÑA////////////
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setBounds(365, 146, 113, 20);
+		lblContrasea.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblContrasea.setBounds(287, 124, 67, 20);
 		desktopPane.add(lblContrasea);
 		passContrasena = new JPasswordField();
-		passContrasena.setBounds(456, 143, 208, 26);
+		passContrasena.setBounds(364, 121, 210, 26);
 		desktopPane.add(passContrasena);
 		
 /////////BOTON Aceptar////////////		
@@ -142,10 +138,10 @@ public class AgregarPersona extends JInternalFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				gestionDepersona();
+				gestionDepersona(1);
 			}
 		});
-		btnAceptar.setBounds(440, 308, 113, 29);
+		btnAceptar.setBounds(391, 190, 113, 29);
 		desktopPane.add(btnAceptar);
 		
 /////////BOTON Cancelar////////////
@@ -155,7 +151,7 @@ public class AgregarPersona extends JInternalFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(288, 308, 115, 29);
+		btnCancelar.setBounds(239, 190, 115, 29);
 		desktopPane.add(btnCancelar);
 		
 /////////BOTON Limpiar////////////
@@ -165,7 +161,7 @@ public class AgregarPersona extends JInternalFrame {
 				limpiarCampos();
 			}
 		});
-		btnLimpiar.setBounds(133, 308, 115, 29);
+		btnLimpiar.setBounds(88, 190, 115, 29);
 		desktopPane.add(btnLimpiar);
 		
 
@@ -181,9 +177,9 @@ public class AgregarPersona extends JInternalFrame {
 	}
 
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDepersona() 
+	public void gestionDepersona(int alta) 
 	{
-		if(txtId.getText().isEmpty()){altaPersona();}
+		if(alta == 1){altaPersona();}
 		else{modificarPersona();}
 	}
 
@@ -191,7 +187,7 @@ public class AgregarPersona extends JInternalFrame {
 ////////////////METODO PARA ALTA DE PERSONA///////////////////
 	private void altaPersona() 
 		{ 
-		Persona pers = mapearDeFormulario();
+		Persona pers = mapearDeFormulario(1);
 		try
 		{
 			ctrlPersona.crearPersona(pers);
@@ -207,7 +203,7 @@ public class AgregarPersona extends JInternalFrame {
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
 	private void modificarPersona() 
 	{
-		Persona pers = mapearDeFormulario();
+		Persona pers = mapearDeFormulario(0);
 		try
 		{
 			ctrlPersona.modificarPersona(pers);
@@ -238,7 +234,6 @@ public class AgregarPersona extends JInternalFrame {
 	
 	public void mapearAFormulario(Persona pers)
 	{
-		txtId.setText(String.valueOf(pers.getId()));
 		txtDni.setText(pers.getDni());
 		txtNombre.setText(pers.getNombre());
 		txtApellido.setText(pers.getApellido());
@@ -253,7 +248,7 @@ public class AgregarPersona extends JInternalFrame {
 
 ////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
 	
-	public Persona mapearDeFormulario()
+	public Persona mapearDeFormulario(int alta)
 	{
 		Persona pers = new Persona();
 		pers.setDni(txtDni.getText());
@@ -266,17 +261,12 @@ public class AgregarPersona extends JInternalFrame {
 			pers.setCategoria((String)comboBoxCategoria.getSelectedItem());
 		}
 		pers.setHabilitado(checkHabilitado.isSelected());
-		if(!this.txtId.getText().isEmpty())
-		{
-			pers.setId(Integer.parseInt(this.txtId.getText()));
-		}
 		return pers;
 	}
 
 ////////////////METODO PARA LIMPIAR LOS CAMPOS DEL FORMULARIO///////////////////
 	private void limpiarCampos() 
 	{
-		txtId.setText("");
 		txtDni.setText("");
 		txtNombre.setText("");
 		txtApellido.setText("");
