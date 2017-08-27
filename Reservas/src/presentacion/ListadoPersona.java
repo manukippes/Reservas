@@ -29,12 +29,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import entidades.Persona;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SelectionModel;
 import entidades.Persona;
 import logica.ControladorDeElemento;
 import logica.ControladorDePersona;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 
 
 public class ListadoPersona extends JInternalFrame {
@@ -44,37 +47,44 @@ public class ListadoPersona extends JInternalFrame {
 	private ArrayList<Persona> personas = new ArrayList<Persona>();
 
 	public ListadoPersona() {
+		setTitle("Personas");
 		setClosable(true);
-		setBounds(100, 100, 507, 312);
+		setBounds(25, 25, 650, 312);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				modificar();
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					modificar();
+					}
+				catch (Exception exc){}
 			}
 		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			try{
 				eliminar();
-			}
+				}
+			catch (Exception exc){}
+			};
 
 		});
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(120, Short.MAX_VALUE)
+					.addGap(171)
 					.addComponent(btnEliminar)
-					.addGap(38)
+					.addGap(128)
 					.addComponent(btnEditar)
-					.addGap(145))
+					.addContainerGap(205, Short.MAX_VALUE))
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -84,12 +94,13 @@ public class ListadoPersona extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEliminar)
 						.addComponent(btnEditar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setBackground(Color.LIGHT_GRAY);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getContentPane().setLayout(groupLayout);
 		
 		try{
@@ -145,7 +156,8 @@ public class ListadoPersona extends JInternalFrame {
 	}
 	
 	private void eliminar() {
-		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar la Persona");
+		//table.getSelectedRow();		
+		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar a " + table.getValueAt(table.getSelectedRow(), 3) +", "+ (table.getValueAt(table.getSelectedRow(), 2)+" ?"),"Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
