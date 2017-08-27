@@ -4,15 +4,31 @@ import java.util.ArrayList;
 
 import datos.DatosPersona;
 import entidades.Persona;
+import utilidades.ExcepcionEspecial;
 
 
 public class ControladorDePersona {
 	private DatosPersona basePersona = new DatosPersona();
 	
-	public void crearPersona(Persona pers) throws Exception{
-		basePersona.agregarPersona(pers);
-				
-	};
+	public void crearPersona(Persona pers) throws Exception, ExcepcionEspecial{
+		
+		if (pers.getDni().length() != 0){
+			if (pers.getNombre().length() != 0){
+				if (pers.getApellido().length() != 0){
+					basePersona.agregarPersona(pers);
+				}
+				else{
+					throw new ExcepcionEspecial("Apellido");
+				}
+			}
+			else{
+				throw new ExcepcionEspecial("Nombre");
+			}
+		}
+		else{
+			throw new ExcepcionEspecial("DNI");
+		}	
+		};
 	
 	public void borrarPersona (Persona pers) throws Exception{
 		basePersona.eliminarPersona(pers);

@@ -59,6 +59,7 @@ public class PrincipalEscritorio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ListadoPersona ventanaCP = new ListadoPersona();
 				desktopPane.add(ventanaCP);
+				ventanaCP.setVisible(true);
 				ventanaCP.toFront();				
 			}
 		});

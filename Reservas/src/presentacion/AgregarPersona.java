@@ -194,7 +194,7 @@ public class AgregarPersona extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "La persona se agregó correctamente.");
 			limpiarCampos();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al crear la persona");
+			JOptionPane.showMessageDialog(this,"Falta completar el campo "+e.getMessage(),"Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}

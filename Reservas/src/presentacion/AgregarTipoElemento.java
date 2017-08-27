@@ -121,7 +121,6 @@ public class AgregarTipoElemento extends JInternalFrame {
 				});
 				btnAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						
 						gestionDeTipoElemento(1);
 					}
 				});
@@ -153,6 +152,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 			ctrlTipoElemento.crearTipoElemento(tipoEle);
 			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se agregó correctamente.");
 			limpiarCampos();
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"Error al crear el Tipo de Elemento");
 		}
@@ -169,6 +169,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 			ctrlTipoElemento.modificarTipoElemento(tipoEle);
 			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se modificó correctamente.");
 			limpiarCampos();
+			dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"Error al modificar el Tipo de Elemento");
 		}

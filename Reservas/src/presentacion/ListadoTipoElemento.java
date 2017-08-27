@@ -58,7 +58,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 			}
 		});
 		
-		JButton btnEliminar = new JButton("Eliminar");//Hola
+		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				eliminar();
@@ -127,11 +127,16 @@ public class ListadoTipoElemento extends JInternalFrame {
 
 	public void modificar() 
 	{
-		int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
-		AgregarTipoElemento menuTipoEle = new AgregarTipoElemento();
-		menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); //LLAMADA METODO NO DEFINIDO (CAMBIO MANU)
-		this.getDesktopPane().add(menuTipoEle);
-		menuTipoEle.setVisible(true);
+		try{
+			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
+			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento();
+			menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); 
+			this.getDesktopPane().add(menuTipoEle);
+			menuTipoEle.setVisible(true);}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(this,"Por favor seleccione una fila");
+		}
+		
 		
 	}
 	
@@ -149,7 +154,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 				
 			} catch (Exception e) 
 			{
-				JOptionPane.showMessageDialog(this, "No se pudo eliminar el Tipo de Elemento");;
+				JOptionPane.showMessageDialog(this, "No se puede eliminar el Tipo de Elemento");;
 			}
 			
 		}
