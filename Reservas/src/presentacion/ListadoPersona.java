@@ -60,7 +60,9 @@ public class ListadoPersona extends JInternalFrame {
 				try{
 					modificar();
 					}
-				catch (Exception exc){}
+				catch (Exception e){
+					JOptionPane.showMessageDialog(ListadoPersona.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		
@@ -70,7 +72,9 @@ public class ListadoPersona extends JInternalFrame {
 			try{
 				eliminar();
 				}
-			catch (Exception exc){}
+			catch (Exception exc){
+				JOptionPane.showMessageDialog(ListadoPersona.this,"Para eliminar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+			}
 			};
 
 		});
@@ -148,15 +152,14 @@ public class ListadoPersona extends JInternalFrame {
 
 	public void modificar() {
 		int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-		AgregarPersona menuPers = new AgregarPersona();
+		AgregarPersona menuPers = new AgregarPersona(0);
 		menuPers.showPersona(this.personas.get(indexElemento));
 		this.getDesktopPane().add(menuPers);
 		menuPers.setVisible(true);
 		
 	}
 	
-	private void eliminar() {
-		//table.getSelectedRow();		
+	private void eliminar() {		
 		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar a " + table.getValueAt(table.getSelectedRow(), 3) +", "+ (table.getValueAt(table.getSelectedRow(), 2)+" ?"),"Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());

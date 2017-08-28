@@ -46,7 +46,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmPersona = new JMenuItem("Agregar Persona");
 		mntmPersona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AgregarPersona ventanaPA = new AgregarPersona();
+				AgregarPersona ventanaPA = new AgregarPersona(1);
 				desktopPane.add(ventanaPA);
 				ventanaPA.setVisible(true);
 				ventanaPA.toFront();

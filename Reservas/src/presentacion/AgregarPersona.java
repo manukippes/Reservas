@@ -39,7 +39,7 @@ public class AgregarPersona extends JInternalFrame {
 	private ControladorDePersona ctrlPersona = new ControladorDePersona();
 	private JComboBox comboBoxCategoria;
 
-	public AgregarPersona() 
+	public AgregarPersona(int esAlta) 
 	{
 		setTitle("Agregar nueva persona");
 		setResizable(true);
@@ -138,7 +138,7 @@ public class AgregarPersona extends JInternalFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				gestionDepersona(1);
+				gestionDepersona(esAlta);
 			}
 		});
 		btnAceptar.setBounds(391, 190, 113, 29);
@@ -187,7 +187,7 @@ public class AgregarPersona extends JInternalFrame {
 ////////////////METODO PARA ALTA DE PERSONA///////////////////
 	private void altaPersona() 
 		{ 
-		Persona pers = mapearDeFormulario(1);
+		Persona pers = mapearDeFormulario();
 		try
 		{
 			ctrlPersona.crearPersona(pers);
@@ -203,7 +203,7 @@ public class AgregarPersona extends JInternalFrame {
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
 	private void modificarPersona() 
 	{
-		Persona pers = mapearDeFormulario(0);
+		Persona pers = mapearDeFormulario();
 		try
 		{
 			ctrlPersona.modificarPersona(pers);
@@ -248,7 +248,7 @@ public class AgregarPersona extends JInternalFrame {
 
 ////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
 	
-	public Persona mapearDeFormulario(int alta)
+	public Persona mapearDeFormulario()
 	{
 		Persona pers = new Persona();
 		pers.setDni(txtDni.getText());
