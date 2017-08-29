@@ -35,7 +35,23 @@ public class ControladorDePersona {
 	};
 	
 	public void modificarPersona(Persona pers) throws Exception{
-		basePersona.modificarPersona(pers);
+		if (pers.getDni().length() != 0){
+			if (pers.getNombre().length() != 0){
+				if (pers.getApellido().length() != 0){
+					basePersona.modificarPersona(pers);
+				}
+				else{
+					throw new ExcepcionEspecial("apellido");
+				}
+			}
+			else{
+				throw new ExcepcionEspecial("nombre");
+			}
+		}
+		else{
+			throw new ExcepcionEspecial("DNI");
+		}	
+		
 	};
 	
 

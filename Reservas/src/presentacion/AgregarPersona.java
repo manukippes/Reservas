@@ -39,9 +39,9 @@ public class AgregarPersona extends JInternalFrame {
 	private ControladorDePersona ctrlPersona = new ControladorDePersona();
 	private JComboBox comboBoxCategoria;
 
-	public AgregarPersona(int esAlta) 
+	public AgregarPersona(int idActual) 
 	{
-		setTitle("Agregar nueva persona");
+		setTitle("Completar los datos de la persona");
 		setResizable(true);
 		setIconifiable(true);
 		setClosable(true);
@@ -54,7 +54,7 @@ public class AgregarPersona extends JInternalFrame {
 		getContentPane().add(desktopPane, "name_18158845987003");
 
 //////////TITULO////////////
-		JLabel lblAltaDeUna = new JLabel("Ingrese los datos de la nueva persona");
+		JLabel lblAltaDeUna = new JLabel("Ingrese los datos de la persona");
 		lblAltaDeUna.setFont(new Font("Arial", Font.PLAIN, 11));
 		lblAltaDeUna.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAltaDeUna.setBounds(10, 16, 468, 20);
@@ -124,21 +124,21 @@ public class AgregarPersona extends JInternalFrame {
 		desktopPane.add(txtUsuario);
 		
 //////////CONTRASEÑA////////////
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblContrasea.setBounds(287, 124, 67, 20);
-		desktopPane.add(lblContrasea);
+		JLabel lblContrasena = new JLabel("Contrase\u00F1a");
+		lblContrasena.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblContrasena.setBounds(287, 124, 67, 20);
+		desktopPane.add(lblContrasena);
 		passContrasena = new JPasswordField();
 		passContrasena.setBounds(364, 121, 210, 26);
 		desktopPane.add(passContrasena);
 		
-/////////BOTON Aceptar////////////		
+/////////BOTON Aceptar ////////////		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				gestionDepersona(esAlta);
+				gestionDepersona(idActual);
 			}
 		});
 		btnAceptar.setBounds(391, 190, 113, 29);
@@ -177,17 +177,17 @@ public class AgregarPersona extends JInternalFrame {
 	}
 
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDepersona(int alta) 
+	public void gestionDepersona(int id) 
 	{
-		if(alta == 1){altaPersona();}
-		else{modificarPersona();}
+		if(id == -1){altaPersona();}    ///EL VALOR -1 ES UN ID IMPOSIBLE, POR ESO ES UN ALTA
+		else{modificarPersona(id);}
 	}
 
 
 ////////////////METODO PARA ALTA DE PERSONA///////////////////
 	private void altaPersona() 
 		{ 
-		Persona pers = mapearDeFormulario();
+		Persona pers = mapearDeFormulario(-1);
 		try
 		{
 			ctrlPersona.crearPersona(pers);
@@ -201,16 +201,17 @@ public class AgregarPersona extends JInternalFrame {
 
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
-	private void modificarPersona() 
+	private void modificarPersona(int id) 
 	{
-		Persona pers = mapearDeFormulario();
+		Persona pers = mapearDeFormulario(id);
 		try
 		{
 			ctrlPersona.modificarPersona(pers);
 			JOptionPane.showMessageDialog(this, "La persona se modificó correctamente.","Modificar persona",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
+			dispose();			
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al modificar la persona");
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}
@@ -248,9 +249,11 @@ public class AgregarPersona extends JInternalFrame {
 
 ////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
 	
-	public Persona mapearDeFormulario()
+	public Persona mapearDeFormulario(int id)
 	{
 		Persona pers = new Persona();
+		
+		if (id!=-1){pers.setId(id);}           ///////////////////SI ES -1 ES UN ALTA Y EL ID ES AUTOINCREMENTAL
 		pers.setDni(txtDni.getText());
 		pers.setNombre(txtNombre.getText());
 		pers.setApellido(txtApellido.getText());

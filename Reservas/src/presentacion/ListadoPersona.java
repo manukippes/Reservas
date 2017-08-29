@@ -58,7 +58,7 @@ public class ListadoPersona extends JInternalFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					modificar();
+					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
 					}
 				catch (Exception e){
 					JOptionPane.showMessageDialog(ListadoPersona.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
@@ -150,13 +150,13 @@ public class ListadoPersona extends JInternalFrame {
 	}
 	
 
-	public void modificar() {
+	public void modificar(int id) {
 		int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-		AgregarPersona menuPers = new AgregarPersona(0);
+		AgregarPersona menuPers = new AgregarPersona(id);
 		menuPers.showPersona(this.personas.get(indexElemento));
 		this.getDesktopPane().add(menuPers);
-		menuPers.setVisible(true);
-		
+		menuPers.setVisible(true);  
+		dispose();			////////////LA TABLA NO SE ACTUALIZA UNA VEZ AGREGADA LA PERSONA, LA ELIMINAMOS Y LA CREAMOS LUEGO DE NUEVO		
 	}
 	
 	private void eliminar() {		

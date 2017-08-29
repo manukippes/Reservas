@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import org.jdesktop.beansbinding.BeanProperty;
@@ -45,6 +46,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 
 	public ListadoTipoElemento() 
 	{
+		setTitle("Tipos de Elemento");
 		setClosable(true);
 		setBounds(25, 25, 507, 312);
 		
@@ -96,6 +98,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setBackground(Color.LIGHT_GRAY);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getContentPane().setLayout(groupLayout);
 		
 		try{
@@ -138,7 +141,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 			this.getDesktopPane().add(menuTipoEle);
 			menuTipoEle.setVisible(true);}
 		catch (Exception e){
-			//JOptionPane.showMessageDialog(this,"Para modificar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this,"Para modificar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
 		}
 		
 		
@@ -158,7 +161,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 				
 			} catch (Exception e) 
 			{
-				//JOptionPane.showMessageDialog(this,"Para eliminar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this,"Para eliminar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
 				
 			}
 			
