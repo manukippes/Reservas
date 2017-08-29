@@ -18,11 +18,11 @@ public class ControladorDePersona {
 					basePersona.agregarPersona(pers);
 				}
 				else{
-					throw new ExcepcionEspecial("Apellido");
+					throw new ExcepcionEspecial("apellido");
 				}
 			}
 			else{
-				throw new ExcepcionEspecial("Nombre");
+				throw new ExcepcionEspecial("nombre");
 			}
 		}
 		else{

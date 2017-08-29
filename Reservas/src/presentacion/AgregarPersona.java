@@ -194,7 +194,7 @@ public class AgregarPersona extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "La persona se agregó correctamente.","Agregar persona",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Falta completar el campo "+e.getMessage(),"Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}
@@ -207,7 +207,7 @@ public class AgregarPersona extends JInternalFrame {
 		try
 		{
 			ctrlPersona.modificarPersona(pers);
-			JOptionPane.showMessageDialog(this, "La persona se modificó correctamente.");
+			JOptionPane.showMessageDialog(this, "La persona se modificó correctamente.","Modificar persona",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"Error al modificar la persona");

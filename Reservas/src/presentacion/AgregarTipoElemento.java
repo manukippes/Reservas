@@ -20,6 +20,8 @@ import javax.swing.border.EmptyBorder;
 import entidades.TipoElemento;
 //import logica.ControladorDeElemento;
 import logica.ControladorDeTipoElemento;
+import utilidades.ExcepcionEspecial;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -32,7 +34,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 	private JTextField textCantMaxReservas;
 	private ControladorDeTipoElemento ctrlTipoElemento = new ControladorDeTipoElemento();
 
-	public AgregarTipoElemento() {
+	public AgregarTipoElemento(int esAlta) {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Agregar nuevo tipo de elemento");
@@ -120,26 +122,26 @@ public class AgregarTipoElemento extends JInternalFrame {
 					}
 				});
 				btnAceptar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						gestionDeTipoElemento(1);
-					}
+					public void actionPerformed(ActionEvent e) {
+							try{
+								gestionDeTipoElemento(esAlta);}
+							catch (Exception exc){
+								JOptionPane.showMessageDialog(AgregarTipoElemento.this,"La cantidad máxima de reservas debe ser un número entero positivo","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
+							}
+							}
 				});
 		
 }
 	
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeTipoElemento(int esAlta) 
+	public void gestionDeTipoElemento(int alta) 
 	{
-		
-		try
-		{
-			if(esAlta==1){altaTipoElemento();}
-			else{modificarTipoElemento();}
-			limpiarCampos();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Por favor complete todos los campos");
-		}
-	
+			if(alta==1){
+				altaTipoElemento();
+				}
+			else{
+				modificarTipoElemento();
+				}
 	}
 
 
@@ -148,13 +150,13 @@ public class AgregarTipoElemento extends JInternalFrame {
 	{ 
 		TipoElemento tipoEle = mapearDeFormulario();
 		try
-		{
+		{	
 			ctrlTipoElemento.crearTipoElemento(tipoEle);
-			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se agregó correctamente.");
+			JOptionPane.showMessageDialog(this,"El nuevo Tipo de Elemento se agregó correctamente."," Agregar Tipo de Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
 			
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al crear el Tipo de Elemento");
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}
@@ -167,7 +169,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 		try
 		{
 			ctrlTipoElemento.modificarTipoElemento(tipoEle);
-			JOptionPane.showMessageDialog(this, "El Tipo de Elemento se modificó correctamente.");
+			JOptionPane.showMessageDialog(this,"El Tipo de Elemento se modificó correctamente."," Modificar Tipo de Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
 			dispose();
 		} catch (Exception e) {
@@ -187,7 +189,6 @@ public class AgregarTipoElemento extends JInternalFrame {
 	{
 		txtNombre.setText(tipoEle.getNombre());
 		textCantMaxReservas.setText(String.valueOf(tipoEle.getCant_max_reservas()));
-		
 	}
 
 ////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
@@ -195,8 +196,12 @@ public class AgregarTipoElemento extends JInternalFrame {
 	{
 		TipoElemento tipoEle = new TipoElemento();
 		tipoEle.setNombre(txtNombre.getText());
-		tipoEle.setCant_max_reservas(Integer.parseInt(textCantMaxReservas.getText()));
-				
+		
+		if (textCantMaxReservas.getText().isEmpty()){
+			tipoEle.setCant_max_reservas(-1);}
+		else{ 
+			tipoEle.setCant_max_reservas(Integer.parseInt(textCantMaxReservas.getText()));
+		}				
 		return tipoEle;
 	}
 

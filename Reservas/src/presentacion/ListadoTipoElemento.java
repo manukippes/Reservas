@@ -46,15 +46,19 @@ public class ListadoTipoElemento extends JInternalFrame {
 	public ListadoTipoElemento() 
 	{
 		setClosable(true);
-		setBounds(100, 100, 507, 312);
+		setBounds(25, 25, 507, 312);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				modificar();
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					modificar();
+					}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(ListadoTipoElemento.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				};
 			}
 		});
 		
@@ -129,12 +133,12 @@ public class ListadoTipoElemento extends JInternalFrame {
 	{
 		try{
 			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento();
+			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento(0);
 			menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); 
 			this.getDesktopPane().add(menuTipoEle);
 			menuTipoEle.setVisible(true);}
 		catch (Exception e){
-			JOptionPane.showMessageDialog(this,"Por favor seleccione una fila");
+			//JOptionPane.showMessageDialog(this,"Para modificar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
 		}
 		
 		
@@ -142,7 +146,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 	
 	private void eliminar()
 	{
-		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar el Tipo de Elemento?");
+		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar el elemento " + table.getValueAt(table.getSelectedRow(), 1)+" ?","Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION)
 		{
 			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
@@ -154,7 +158,8 @@ public class ListadoTipoElemento extends JInternalFrame {
 				
 			} catch (Exception e) 
 			{
-				JOptionPane.showMessageDialog(this, "No se puede eliminar el Tipo de Elemento");;
+				//JOptionPane.showMessageDialog(this,"Para eliminar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				
 			}
 			
 		}
