@@ -29,8 +29,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 import entidades.Persona;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.SelectionModel;
 import entidades.Persona;
 import logica.ControladorDeElemento;
 import logica.ControladorDePersona;

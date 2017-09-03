@@ -31,25 +31,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AnularReserva extends JInternalFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private ArrayList<Reserva> listadoReserva = new ArrayList<Reserva>();
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
+	private JScrollPane scrollPane;
 
 	public AnularReserva() {
-		setIconifiable(true);
 		setClosable(true);
 		setTitle("Anular Reservas");
 		setBounds(100, 100, 785, 601);
-		getContentPane().setLayout(new CardLayout(0, 0));
-		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.WHITE);
-		getContentPane().add(desktopPane, "name_40930650395461");
-		
+				
 		JLabel lblSeleccionarLasReservas = new JLabel("Seleccionar las reservas a anular");
 		
 		JButton btnAnular = new JButton("Anular");
@@ -59,7 +52,7 @@ public class AnularReserva extends JInternalFrame {
 			}
 		});
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -100,7 +93,6 @@ public class AnularReserva extends JInternalFrame {
 
 	}
 	
-
 	private void consultar() {
 		try {
 			listadoReserva = ctrlReserva.consultarTodo();
@@ -146,9 +138,10 @@ public class AnularReserva extends JInternalFrame {
 			int indexReserva=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
 				ctrlReserva.borrarReserva(this.listadoReserva.get(indexReserva));
+				listadoReserva.clear();
 				consultar();
 				initDataBindings();
-								
+												
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "No se pudo eliminar la Reserva");
 			}
