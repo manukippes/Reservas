@@ -77,11 +77,11 @@ public class ListadoTipoElemento extends JInternalFrame {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(120, Short.MAX_VALUE)
+					.addContainerGap(125, Short.MAX_VALUE)
 					.addComponent(btnEliminar)
-					.addGap(38)
+					.addGap(133)
 					.addComponent(btnEditar)
-					.addGap(145))
+					.addGap(103))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -91,7 +91,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEliminar)
 						.addComponent(btnEditar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
 	
 		
@@ -102,7 +102,6 @@ public class ListadoTipoElemento extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		
 		try{
-			
 			tipoElementos = ctrlTipoElemento.consultarTodo();
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

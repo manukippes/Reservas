@@ -10,10 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDesktopPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JPasswordField;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -46,6 +48,7 @@ public class AgregarPersona extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setBounds(100, 100, 619, 270);
+		
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
@@ -132,7 +135,7 @@ public class AgregarPersona extends JInternalFrame {
 		passContrasena.setBounds(364, 121, 210, 26);
 		desktopPane.add(passContrasena);
 		
-/////////BOTON Aceptar ////////////		
+/////////BOTON ACEPTAR ////////////		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() 
 		{
@@ -144,7 +147,7 @@ public class AgregarPersona extends JInternalFrame {
 		btnAceptar.setBounds(391, 190, 113, 29);
 		desktopPane.add(btnAceptar);
 		
-/////////BOTON Cancelar////////////
+/////////BOTON CANCELAR ////////////
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,7 +157,7 @@ public class AgregarPersona extends JInternalFrame {
 		btnCancelar.setBounds(239, 190, 115, 29);
 		desktopPane.add(btnCancelar);
 		
-/////////BOTON Limpiar////////////
+/////////BOTON LIMPIAR ////////////
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,10 +165,7 @@ public class AgregarPersona extends JInternalFrame {
 			}
 		});
 		btnLimpiar.setBounds(88, 190, 115, 29);
-		desktopPane.add(btnLimpiar);
-		
-
-		
+		desktopPane.add(btnLimpiar);		
 	}
 	
 //////////METODO CAMBIAR PASS POR STRING////////////
@@ -196,9 +196,7 @@ public class AgregarPersona extends JInternalFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
-	
 	}
-
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
 	private void modificarPersona(int id) 

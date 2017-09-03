@@ -37,14 +37,14 @@ public class AgregarTipoElemento extends JInternalFrame {
 	public AgregarTipoElemento(int esAlta) {
 		setIconifiable(true);
 		setClosable(true);
-		setTitle("Agregar nuevo tipo de elemento");
+		setTitle("Completar datos del tipo de elemento");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 410, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JLabel lblAltaTipoDe = new JLabel("Ingrese datos del nuevo tipo de elemento");
+		JLabel lblAltaTipoDe = new JLabel("Ingrese datos del tipo de elemento");
 				
 ///////////////NOMBRE/////////////////////////////
 				JLabel lblNewLabel = new JLabel("Nombre");
@@ -173,7 +173,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 			limpiarCampos();
 			dispose();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al modificar el Tipo de Elemento");
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar modificar el elemento",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}

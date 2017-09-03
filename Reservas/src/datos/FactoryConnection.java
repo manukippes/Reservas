@@ -42,7 +42,7 @@ public class FactoryConnection {
 		try 
 		{
 			if(conn==null || conn.isClosed()){
-			conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password);}
+			conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password+"&useSSL=false");}
 		} 
 		catch (SQLException e) 
 		{
