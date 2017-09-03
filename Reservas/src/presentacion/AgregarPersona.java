@@ -206,12 +206,17 @@ public class AgregarPersona extends JInternalFrame {
 		{
 			ctrlPersona.modificarPersona(pers);
 			JOptionPane.showMessageDialog(this, "La persona se modificó correctamente.","Modificar persona",JOptionPane.PLAIN_MESSAGE);
-			limpiarCampos();
-			dispose();			
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
-	
+		
+		limpiarCampos();
+		ListadoPersona menuLis = new ListadoPersona();
+		this.getDesktopPane().add(menuLis);
+		menuLis.setVisible(true);
+		dispose();
+		
 	}
 
 ////////////////METODO PARA LLENAR CON DATOS DE LA BASE DE DATOS EL COMBO DE TIPO DE ELEMENTO///////////////////

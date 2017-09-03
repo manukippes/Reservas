@@ -155,7 +155,7 @@ public class ListadoPersona extends JInternalFrame {
 		menuPers.showPersona(this.personas.get(indexElemento));
 		this.getDesktopPane().add(menuPers);
 		menuPers.setVisible(true);  
-		//dispose();			////////////LA TABLA NO SE ACTUALIZA UNA VEZ AGREGADA LA PERSONA, LA ELIMINAMOS Y LA CREAMOS LUEGO DE NUEVO		
+		dispose();			////////////LA TABLA NO SE ACTUALIZA UNA VEZ AGREGADA LA PERSONA, LA ELIMINAMOS Y LA CREAMOS LUEGO DE NUEVO		
 	}
 	
 	private void eliminar() {		
