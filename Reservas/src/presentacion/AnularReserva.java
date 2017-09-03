@@ -40,10 +40,15 @@ public class AnularReserva extends JInternalFrame {
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 
 	public AnularReserva() {
-		
+		setIconifiable(true);
 		setClosable(true);
 		setTitle("Anular Reservas");
 		setBounds(100, 100, 785, 601);
+		getContentPane().setLayout(new CardLayout(0, 0));
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.WHITE);
+		getContentPane().add(desktopPane, "name_40930650395461");
 		
 		JLabel lblSeleccionarLasReservas = new JLabel("Seleccionar las reservas a anular");
 		

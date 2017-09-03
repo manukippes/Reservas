@@ -4,13 +4,23 @@ import java.util.ArrayList;
 
 import datos.DatosTipoElemento;
 import entidades.TipoElemento;
+import utilidades.ExcepcionEspecial;
 
 public class ControladorDeTipoElemento {
 private DatosTipoElemento baseTipoElemento = new DatosTipoElemento();
 	
-	public void crearTipoElemento(TipoElemento tipoele) throws Exception{
-		baseTipoElemento.agregarTipoElemento(tipoele);
-				
+	public void crearTipoElemento(TipoElemento tipoele) throws Exception, ExcepcionEspecial{
+		if (tipoele.getNombre().length() != 0){
+			if (tipoele.getCant_max_reservas() >= 0){			
+				baseTipoElemento.agregarTipoElemento(tipoele);
+				}
+			else{
+				throw new ExcepcionEspecial("cantidad máxima de reservas");
+				}
+			}
+		else{
+			throw new ExcepcionEspecial("nombre");
+			}		
 	};
 	
 	public void borrarTipoElemento (TipoElemento tipoele) throws Exception{

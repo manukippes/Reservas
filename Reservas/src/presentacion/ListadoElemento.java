@@ -119,11 +119,16 @@ public class ListadoElemento extends JInternalFrame {
 	
 
 	public void modificar() {
-		int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-		AgregarElemento menuEle = new AgregarElemento();
-		menuEle.showElemento(this.elementos.get(indexElemento));
-		this.getDesktopPane().add(menuEle);
-		menuEle.setVisible(true);
+		try
+			{
+			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
+			AgregarElemento menuEle = new AgregarElemento();
+			menuEle.showElemento(this.elementos.get(indexElemento));
+			this.getDesktopPane().add(menuEle);
+			menuEle.setVisible(true);}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(this,"Por favor seleccione una fila");
+		}
 		
 	}
 	
