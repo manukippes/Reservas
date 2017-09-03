@@ -27,8 +27,18 @@ private DatosTipoElemento baseTipoElemento = new DatosTipoElemento();
 		baseTipoElemento.eliminarTipoElemento(tipoele);
 	};
 	
-	public void modificarTipoElemento(TipoElemento tipoele) throws Exception{
-		baseTipoElemento.modificarTipoElemento(tipoele);
+	public void modificarTipoElemento(TipoElemento tipoele) throws Exception, ExcepcionEspecial{
+		if (tipoele.getNombre().length() != 0){
+			if (tipoele.getCant_max_reservas() >= 0){			
+				baseTipoElemento.modificarTipoElemento(tipoele);
+				}
+			else{
+				throw new ExcepcionEspecial("cantidad máxima de reservas");
+				}
+			}
+		else{
+			throw new ExcepcionEspecial("nombre");
+			}		
 	};
 	
 	public ArrayList<TipoElemento> consultarTodo() throws Exception{
