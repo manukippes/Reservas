@@ -6,6 +6,7 @@ import datos.DatosElemento;
 import datos.DatosTipoElemento;
 import entidades.Elemento;
 import entidades.TipoElemento;
+import utilidades.ExcepcionEspecial;
 
 public class ControladorDeElemento {
 			private DatosElemento baseElemento;
@@ -17,8 +18,19 @@ public class ControladorDeElemento {
 				baseTipoElemento = new DatosTipoElemento();
 			}
 			
-			public void crearElemento(Elemento ele) throws Exception{
-				baseElemento.agregarElemento(ele);
+			public void crearElemento(Elemento ele) throws Exception, ExcepcionEspecial{
+	
+				if (ele.getNombre().length() != 0){
+						try{
+							baseElemento.agregarElemento(ele);
+						}
+						catch (Exception a){
+							throw new ExcepcionEspecial("tipo de elemento");
+						}
+					}
+				else{
+					throw new ExcepcionEspecial("nombre");
+					}		
 						
 			};
 			

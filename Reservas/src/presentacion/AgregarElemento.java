@@ -38,19 +38,19 @@ public class AgregarElemento extends JInternalFrame {
 	private JComboBox comboBoxTipoElemento;
 
 	
-	public AgregarElemento() {
+	public AgregarElemento(int idElemento) {
 		setIconifiable(true);
 		setClosable(true);
-		setTitle("Agregar nuevo elemento");
+		setTitle("Agregar elemento");
 		setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 410, 200);
+		setBounds(25, 25, 410, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		
 
-		JLabel lblAltaTipoDe = new JLabel("Ingrese los datos del  nuevo elemento");
+		JLabel lblAltaTipoDe = new JLabel("Ingrese los datos del elemento");
 		
 ////////////////NOMBRE////////////////////////////////
 		JLabel lblNewLabel = new JLabel("Nombre");
@@ -67,7 +67,7 @@ public class AgregarElemento extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gestionDeelemento(1);
+				gestionDeElemento(idElemento);
 			}
 		});
 		
@@ -135,11 +135,11 @@ public class AgregarElemento extends JInternalFrame {
 	}
 
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeelemento(int esAlta) 
+	public void gestionDeElemento(int idElemento) 
 	{
 		
-		if(esAlta == 1){altaElemento();}
-		else{modificarElemento();}
+		if(idElemento == -1){altaElemento();}
+		else{modificarElemento(idElemento);}
 	}
 		
 
@@ -150,19 +150,20 @@ public class AgregarElemento extends JInternalFrame {
 		try
 		{
 			ctrlElemento.crearElemento(ele);
-			JOptionPane.showMessageDialog(this, "El elemento se agregó correctamente");
+			JOptionPane.showMessageDialog(this,"El Elemento se agregó correctamente."," Agregar Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Por favor complete todos los campos");
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
 		}
 	
 	}
 
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
-	private void modificarElemento() 
+	private void modificarElemento(int idElemento) 
 	{
 		Elemento ele = mapearDeFormulario();
+		ele.setId(idElemento);
 		try
 		{
 			ctrlElemento.modificarElemento(ele);

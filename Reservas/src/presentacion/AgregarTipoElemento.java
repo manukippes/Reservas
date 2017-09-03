@@ -34,7 +34,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 	private JTextField textCantMaxReservas;
 	private ControladorDeTipoElemento ctrlTipoElemento = new ControladorDeTipoElemento();
 
-	public AgregarTipoElemento(int esAlta) {
+	public AgregarTipoElemento(int idTipoElemento) {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Completar datos del tipo de elemento");
@@ -124,7 +124,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 				btnAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 							try{
-								gestionDeTipoElemento(esAlta);}
+								gestionDeTipoElemento(idTipoElemento);}
 							catch (Exception exc){
 								JOptionPane.showMessageDialog(AgregarTipoElemento.this,"La cantidad máxima de reservas debe ser un número entero positivo","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
 							}
@@ -134,13 +134,13 @@ public class AgregarTipoElemento extends JInternalFrame {
 }
 	
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeTipoElemento(int alta) 
+	public void gestionDeTipoElemento(int idTipoElemento) 
 	{
-			if(alta==1){
+			if(idTipoElemento==-1){
 				altaTipoElemento();
 				}
 			else{
-				modificarTipoElemento();
+				modificarTipoElemento(idTipoElemento);
 				}
 	}
 
@@ -163,9 +163,10 @@ public class AgregarTipoElemento extends JInternalFrame {
 
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
-	private void modificarTipoElemento() 
+	private void modificarTipoElemento(int idTipoElemento) 
 	{
 		TipoElemento tipoEle = mapearDeFormulario();
+		tipoEle.setId(idTipoElemento);
 		try
 		{
 			ctrlTipoElemento.modificarTipoElemento(tipoEle);

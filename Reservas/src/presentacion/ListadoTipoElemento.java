@@ -56,7 +56,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
-					modificar();
+					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
 					}
 				catch (Exception exc){
 					JOptionPane.showMessageDialog(ListadoTipoElemento.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
@@ -67,7 +67,12 @@ public class ListadoTipoElemento extends JInternalFrame {
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eliminar();
+				try{
+					eliminar();
+					}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(ListadoTipoElemento.this,"Para eliminar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				};
 			}
 
 		});
@@ -131,11 +136,11 @@ public class ListadoTipoElemento extends JInternalFrame {
 	}
 	
 
-	public void modificar() 
+	public void modificar(int idTipoElemento) 
 	{
 		try{
 			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento(0);
+			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento(idTipoElemento);
 			menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); 
 			this.getDesktopPane().add(menuTipoEle);
 			menuTipoEle.setVisible(true);}
