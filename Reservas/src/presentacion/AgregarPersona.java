@@ -211,7 +211,6 @@ public class AgregarPersona extends JInternalFrame {
 			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear la persona",JOptionPane.WARNING_MESSAGE);
 		}
 		
-		limpiarCampos();
 		ListadoPersona menuLis = new ListadoPersona();
 		this.getDesktopPane().add(menuLis);
 		menuLis.setVisible(true);
