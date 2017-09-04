@@ -41,6 +41,7 @@ public class ListadoElemento extends JInternalFrame {
 	private ArrayList<Elemento> elementos = new ArrayList<Elemento>();
 
 	public ListadoElemento() {
+		setTitle("Elementos");
 		
 		setClosable(true);
 		setBounds(100, 100, 507, 312);
@@ -122,7 +123,7 @@ public class ListadoElemento extends JInternalFrame {
 		try
 			{
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarElemento menuEle = new AgregarElemento();
+			AgregarElemento menuEle = new AgregarElemento(-1);
 			menuEle.showElemento(this.elementos.get(indexElemento));
 			this.getDesktopPane().add(menuEle);
 			menuEle.setVisible(true);}

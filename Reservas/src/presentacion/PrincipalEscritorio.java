@@ -100,7 +100,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmElemento = new JMenuItem("Agregar Elemento");
 		mntmElemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgregarElemento ventanaE = new AgregarElemento();
+				AgregarElemento ventanaE = new AgregarElemento(-1);
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
 				ventanaE.toFront();
