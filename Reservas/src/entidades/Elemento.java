@@ -32,5 +32,13 @@ public class Elemento {
 		return (e instanceof Elemento) && ((((Elemento) e).getNombre().equals(this.getNombre())));
 	}
 	
+	@Override
+	public String toString()
+	{
+//		return	this.getNombre();
+		return (this.id + " - " + this.getNombre());
+	}
+	
+	
 	
 }

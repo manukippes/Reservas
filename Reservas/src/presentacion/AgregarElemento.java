@@ -185,7 +185,7 @@ public class AgregarElemento extends JInternalFrame {
 		} 
 		catch (Exception e) 
 		{
-			JOptionPane.showMessageDialog(this,"No hay categorias para mostrar"); //ESTE CARTEL SALE NO VISIBLE
+			JOptionPane.showMessageDialog(this,"No hay tipos de elementos para mostrar"); //ESTE CARTEL SALE NO VISIBLE
 		}
 		
 	}

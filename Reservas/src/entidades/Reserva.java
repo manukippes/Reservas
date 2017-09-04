@@ -1,7 +1,7 @@
 package entidades;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
@@ -56,5 +56,5 @@ public class Reserva {
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-		
+	
 }

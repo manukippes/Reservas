@@ -7,18 +7,35 @@ import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import entidades.Elemento;
+import entidades.Persona;
+import entidades.Reserva;
+import entidades.TipoElemento;
+import logica.ControladorDeElemento;
+import logica.ControladorDeReserva;
+import logica.ControladorDeTipoElemento;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class ReservarElemento extends JInternalFrame {
 	private JTextField txtFechaHoraDesde;
 	private JTextField txtFechaHoraHasta;
 	private JTextField txtObservacion;
-	private JLabel lblSeleccioneTipoDe;
 	private JComboBox comboBoxElemento;
+	private JComboBox comboBoxTipoElemento;
+	private SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
+	private ControladorDeTipoElemento ctrlTipoElemento;
 
 	public ReservarElemento() {
 		setTitle("Reservar Elemento");
@@ -33,10 +50,10 @@ public class ReservarElemento extends JInternalFrame {
 		getContentPane().add(desktopPane, "name_40315080594877");
 		
 ///////////// Combo Tipo de Elemento///////////////////
-		lblSeleccioneTipoDe = new JLabel("Tipo de Elemento a reservar:");
+		JLabel lblSeleccioneTipoDe = new JLabel("Tipo de Elemento a reservar:");
 		lblSeleccioneTipoDe.setBounds(15, 36, 296, 20);
 		desktopPane.add(lblSeleccioneTipoDe);
-		JComboBox comboBoxTipoElemento = new JComboBox();
+		comboBoxTipoElemento = new JComboBox();
 		comboBoxTipoElemento.setBounds(255, 33, 398, 26);
 		desktopPane.add(comboBoxTipoElemento);
 		
@@ -87,11 +104,81 @@ public class ReservarElemento extends JInternalFrame {
 		btnReservar.setBounds(298, 447, 115, 29);
 		desktopPane.add(btnReservar);
 		
+		llenarCombos();
+		
 	}
 	
 
-	private void reservar() {
+////////////////LLENA LOS COMBOS//////////////////
+	private void llenarCombos() 
+	{
+		try 
+		{
+			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray()));
+			this.comboBoxTipoElemento.setSelectedIndex(-1);
+			this.comboBoxElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getElemento().toArray()));
+			this.comboBoxElemento.setSelectedIndex(-1);
+		} 
+		catch (Exception e) 
+		{
+			JOptionPane.showMessageDialog(this,"No hay tipos de elementos para mostrar");
+		}
 		
+	}
+	
+////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO//////////////////
+	private void reservar() 
+	{
+		Reserva res = new Reserva();
+		res = mapearDeFormulario();
+		try {
+			ctrlReserva.crearReserva(res);
+			JOptionPane.showMessageDialog(this, "El elemento se agregó correctamente");
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "La Reserva no se pudo realizar");
+		}
+		
+	}
+	
+
+////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO///////////////////
+	public void mapearAFormulario(Reserva res)
+	{
+		if (res.getElemento()!=null){comboBoxElemento.setSelectedItem(res.getElemento());}
+		if (res.getTipo()!=null){comboBoxTipoElemento.setSelectedItem(res.getTipo());}
+		txtFechaHoraDesde.setText(String.valueOf(res.getFechaHoraDesde()));
+		txtFechaHoraHasta.setText(String.valueOf(res.getFechaHoraHasta()));
+		txtObservacion.setText(res.getObservacion());
+	}
+
+////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
+	public Reserva mapearDeFormulario()
+	{
+		Reserva res = new Reserva();
+		if (comboBoxElemento.getSelectedIndex()!= -1) {res.setElemento((Elemento)comboBoxElemento.getSelectedItem());}
+		if (comboBoxTipoElemento.getSelectedIndex()!= -1) {res.setTipo((TipoElemento)comboBoxTipoElemento.getSelectedItem());}
+		try {
+			res.setFechaHoraDesde(formato.parse(txtFechaHoraDesde.getText()));
+			res.setFechaHoraHasta(formato.parse(txtFechaHoraHasta.getText()));
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(this, "Formato fecha y hora invalido");
+		}
+		res.setObservacion(txtObservacion.getText());
+		Persona pers = new Persona();
+		pers.setId(7);
+		res.setPersona(pers);
+		return res;
+	}
+	
+////////////////BORRA DATOS INGRESADOS EN LOS CAMPOS DEL FORMULARIO///////////////////
+	private void limpiarCampos() 
+	{
+		comboBoxElemento.setSelectedIndex(-1);
+		comboBoxTipoElemento.setSelectedIndex(-1);
+		txtFechaHoraDesde.setText("");
+		txtFechaHoraHasta.setText("");
+		txtObservacion.setText("");
 		
 	}
 }

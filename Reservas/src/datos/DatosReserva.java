@@ -1,6 +1,7 @@
 package datos;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import entidades.*;
 import utilidades.ExcepcionesEscritorio;
@@ -67,8 +68,8 @@ public class DatosReserva
 			pstm.setInt(1, res.getElemento().getId());
 			pstm.setInt(2, res.getTipo().getId());
 			pstm.setInt(3, res.getPersona().getId());
-			pstm.setDate(4, res.getFechaHoraDesde());
-			pstm.setDate(5, res.getFechaHoraHasta());
+			pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
+			pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
 			pstm.setString(6, res.getObservacion());
 			pstm.executeUpdate();
 			rs = pstm.getGeneratedKeys();
@@ -125,8 +126,8 @@ public class DatosReserva
 			pstm.setInt(1, res.getElemento().getId());
 			pstm.setInt(2, res.getTipo().getId());
 			pstm.setInt(3, res.getPersona().getId());
-			pstm.setDate(4, res.getFechaHoraDesde());
-			pstm.setDate(5, res.getFechaHoraHasta());
+			pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
+			pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
 			pstm.setString(6, res.getObservacion());
 			pstm.setInt(7, res.getId());
 			pstm.executeUpdate();
