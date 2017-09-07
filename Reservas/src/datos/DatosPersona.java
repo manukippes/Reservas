@@ -149,6 +149,45 @@ public class DatosPersona
 		}
 		
 	}
+
+
+
+	public Boolean validarUsuarioYClave(Persona pers) throws Exception
+	{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Boolean respuesta = false;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM personas WHERE usuario=? AND contrasena=?");
+			pstm.setString(1, pers.getUsuario());
+			pstm.setString(2, pers.getContrasena());
+			rs=pstm.executeQuery();
+			if(rs!=null)
+			{	rs.next();
+				{	String usu = rs.getString("usuario");
+					if(usu.equals(pers.getUsuario())){respuesta = true;}
+					
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			throw e;
+		} catch (ExcepcionesEscritorio e) {
+			throw e;
+		}
+				
+		try {
+			if(pstm!=null)pstm.close();
+			if(rs!=null)rs.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return respuesta;
+	}
 	
 	
 }

@@ -59,4 +59,15 @@ public class ControladorDePersona {
 		return basePersona.buscarTodo();
 	}
 
+	public Boolean validarUsuarioYClave(Persona pers) throws Exception
+	{
+		Boolean datosCorrectos = false;
+		try {
+			datosCorrectos= basePersona.validarUsuarioYClave(pers);
+		} catch (Exception e) {
+			throw e;
+		}
+		return datosCorrectos;
+	}
+
 }

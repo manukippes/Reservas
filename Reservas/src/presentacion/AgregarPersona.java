@@ -48,7 +48,7 @@ public class AgregarPersona extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		setBounds(100, 100, 619, 270);
-		
+		this.
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
