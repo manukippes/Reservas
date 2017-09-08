@@ -3,6 +3,9 @@ package presentacion;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import entidades.Persona;
+
 import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
@@ -18,7 +21,7 @@ public class PrincipalEscritorio extends JFrame {
 	private JPanel contentPane;
 	public JDesktopPane desktopPane;
 
-	public PrincipalEscritorio() {
+	public PrincipalEscritorio(Persona pers) {
 		setTitle("Sistema de Reservas");
 //		setExtendedState(Frame.);
 		setAlwaysOnTop(true);
@@ -36,9 +39,12 @@ public class PrincipalEscritorio extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		JMenu mnAdministracin = new JMenu("Administraci\u00F3n");
-		menuBar.add(mnAdministracin);
 		
+		if(pers.getCategoria().equals("Administrador"))
+		{
+			
+			JMenu mnAdministracin = new JMenu("Administraci\u00F3n");
+			menuBar.add(mnAdministracin);
 ///////////////Persona//////////////////////
 		JMenu mnPersona = new JMenu("Persona");
 		mnAdministracin.add(mnPersona);
@@ -133,11 +139,14 @@ public class PrincipalEscritorio extends JFrame {
 			}
 		});
 		mnNewMenu.add(mntmBorrarReserva);
-
+		}
+		else
+		{
+			JMenu mnReserva = new JMenu("Reserva");
+			menuBar.add(mnReserva);
 ///////////////Reserva Usuario//////////////////////
-		JMenu mnReserva = new JMenu("Reserva");
-		menuBar.add(mnReserva);
-		
+			
+			
 		JMenuItem mntmAlta = new JMenuItem("Reservar Elemento");
 		mntmAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -161,7 +170,29 @@ public class PrincipalEscritorio extends JFrame {
 		mnReserva.add(mntmBaja);
 		
 /////////////////////////////////////////////////////
+		}
 		
+		JMenu mnSalir = new JMenu("Salir");
+		menuBar.add(mnSalir);
+		
+		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesión");
+		mntmCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login ventanaLogin = new Login();
+				ventanaLogin.setVisible(true);
+				dispose();
+			}
+		});
+		mnSalir.add(mntmCerrarSesion);
+		
+		JMenuItem mntmSalirAplicacion = new JMenuItem("Salir de la Aplicación");
+		mntmSalirAplicacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		mnSalir.add(mntmSalirAplicacion);
+				
 
 	}
 }

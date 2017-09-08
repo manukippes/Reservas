@@ -163,17 +163,18 @@ public class Login extends JFrame {
 			Persona pers = new Persona();
 			pers.setUsuario(txtUsuario.getText());
 			pers.setContrasena(dameClave());
-			Boolean resp = false;
+			Persona persBaseDatos = new Persona();
 			try {
-				resp = ctrlPersona.validarUsuarioYClave(pers);
+				persBaseDatos = ctrlPersona.buscarPersonaPorUsuyClave(pers);
 				
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "No es posible ingresar al sistema en estos momentos");
 			}
-			if (resp)
+			if (persBaseDatos !=null)
 			{
-				PrincipalEscritorio menu = new PrincipalEscritorio();
+				PrincipalEscritorio menu = new PrincipalEscritorio(persBaseDatos);
 				menu.setVisible(true);
+				dispose();
 			}
 			else
 			{

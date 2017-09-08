@@ -152,11 +152,11 @@ public class DatosPersona
 
 
 
-	public Boolean validarUsuarioYClave(Persona pers) throws Exception
+	public Persona buscarPersonaPorUsuyClave(Persona pers) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		Boolean respuesta = false;
+		Persona persona=null;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM personas WHERE usuario=? AND contrasena=?");
@@ -164,10 +164,17 @@ public class DatosPersona
 			pstm.setString(2, pers.getContrasena());
 			rs=pstm.executeQuery();
 			if(rs!=null)
-			{	rs.next();
-				{	String usu = rs.getString("usuario");
-					if(usu.equals(pers.getUsuario())){respuesta = true;}
-					
+			{	while(rs.next());
+				{	
+					persona=new Persona();
+					persona.setId(rs.getInt("id"));
+					persona.setDni(rs.getString("dni"));
+					persona.setNombre(rs.getString("nombre"));
+					persona.setApellido(rs.getString("apellido"));
+					persona.setUsuario(rs.getString("usuario"));
+					persona.setContrasena(rs.getString("contrasena"));
+					persona.setHabilitado(rs.getBoolean("habilitado"));
+					persona.setCategoria(rs.getString("categoria"));
 				}
 				
 			}
@@ -186,7 +193,7 @@ public class DatosPersona
 			throw e;
 		}
 		
-		return respuesta;
+		return persona;
 	}
 	
 	
