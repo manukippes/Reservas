@@ -39,7 +39,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 		setClosable(true);
 		setTitle("Completar datos del tipo de elemento");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 410, 200);
+		setBounds(25, 25, 410, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

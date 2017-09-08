@@ -29,19 +29,20 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 //import javax.swing.UIManager;
 //import java.awt.SystemColor;
 
+import presentacion.ListadoElemento;
+
 public class AgregarElemento extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private ControladorDeElemento ctrlElemento = new ControladorDeElemento();
-//	private ControladorDeTipoElemento ctrlTipoElemento;
 	private JComboBox comboBoxTipoElemento;
 
 	
 	public AgregarElemento(int idElemento) {
 		setIconifiable(true);
 		setClosable(true);
-		setTitle("Agregar elemento");
+		setTitle("Completar los datos del elemento");
 		setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
 		setBounds(25, 25, 410, 200);
 		contentPane = new JPanel();
@@ -137,7 +138,6 @@ public class AgregarElemento extends JInternalFrame {
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
 	public void gestionDeElemento(int idElemento) 
 	{
-		
 		if(idElemento == -1){altaElemento();}
 		else{modificarElemento(idElemento);}
 	}
@@ -152,6 +152,7 @@ public class AgregarElemento extends JInternalFrame {
 			ctrlElemento.crearElemento(ele);
 			JOptionPane.showMessageDialog(this,"El Elemento se agregó correctamente."," Agregar Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
+			dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
 		}
@@ -167,12 +168,22 @@ public class AgregarElemento extends JInternalFrame {
 		try
 		{
 			ctrlElemento.modificarElemento(ele);
-			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente");
+			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente.","Modificar elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
+			ListadoElemento menuEle = new ListadoElemento();
+			this.getDesktopPane().add(menuEle);
+			menuEle.setVisible(true);
+			dispose();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,"Error al modificar el Elemento");
+			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar modificar el elemento",JOptionPane.WARNING_MESSAGE);
 		}
-	
+		
+		
+		//ListadoElemento menuLisEl = new ListadoElemento();
+		//this.getDesktopPane().remove(getLayer());
+		//this.getDesktopPane().add(menuLisEl);
+		//menuLisEl.setVisible(true);
+		//dispose();
 	}
 
 ////////////////METODO PARA LLENAR CON DATOS DE LA BASE DE DATOS EL COMBO DE TIPO DE ELEMENTO///////////////////
