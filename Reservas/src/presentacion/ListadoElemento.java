@@ -23,8 +23,6 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
-import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
-
 import entidades.Elemento;
 import logica.ControladorDeElemento;
 import entidades.TipoElemento;
@@ -118,22 +116,6 @@ public class ListadoElemento extends JInternalFrame {
 		initDataBindings();
 	}
 	
-	public void initDataBindings() {
-		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, elementos, table);
-		//
-		BeanProperty<Elemento, String> personaBeanProperty_0 = BeanProperty.create("id");
-		jTableBinding.addColumnBinding(personaBeanProperty_0).setColumnName("Id").setEditable(false);
-		//
-		BeanProperty<Elemento, String> personaBeanProperty = BeanProperty.create("nombre");
-		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Nombre").setEditable(false);
-		//
-		BeanProperty<Elemento, String> personaBeanProperty_1 = BeanProperty.create("tipo.id");
-		jTableBinding.addColumnBinding(personaBeanProperty_1).setColumnName("Tipo").setEditable(false);
-
-		jTableBinding.setEditable(false);
-		jTableBinding.bind();
-	}
-	
 
 	public void modificar(int idElemento) {
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
@@ -160,8 +142,19 @@ public class ListadoElemento extends JInternalFrame {
 		}
 		
 	}
-	
-	
-
-	
+	protected void initDataBindings() {
+		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, elementos, table);
+		//
+		BeanProperty<Elemento, String> personaBeanProperty_0 = BeanProperty.create("id");
+		jTableBinding.addColumnBinding(personaBeanProperty_0).setColumnName("Id").setEditable(false);
+		//
+		BeanProperty<Elemento, String> personaBeanProperty = BeanProperty.create("nombre");
+		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Nombre").setEditable(false);
+		//
+		BeanProperty<Elemento, String> elementoBeanProperty = BeanProperty.create("tipo.id");
+		jTableBinding.addColumnBinding(elementoBeanProperty).setColumnName("Tipo").setEditable(false);
+		//
+		jTableBinding.setEditable(false);
+		jTableBinding.bind();
+	}
 }

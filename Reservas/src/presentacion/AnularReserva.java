@@ -133,8 +133,11 @@ public class AnularReserva extends JInternalFrame {
 
 
 	private void anularReserva() {
-		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar la Reserva?");
+		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar la Reserva id: " + table.getValueAt(table.getSelectedRow(), 0)+" de fecha: "+table.getValueAt(table.getSelectedRow(), 4)+" ?","Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION){
+		
+		//int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar la Reserva?");
+		//if (Confirmar == JOptionPane.YES_OPTION){
 			int indexReserva=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
 				ctrlReserva.borrarReserva(this.listadoReserva.get(indexReserva));

@@ -58,7 +58,6 @@ public class Login extends JFrame {
 		txtPass = new JPasswordField();
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setText("1");
 		txtUsuario.setColumns(10);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -166,6 +165,7 @@ public class Login extends JFrame {
 			pers.setUsuario(txtUsuario.getText());
 			pers.setContrasena(dameClave());
 			Persona persBaseDatos = new Persona();
+			
 			try {
 				persBaseDatos = ctrlPersona.buscarPersonaPorUsuyClave(pers);
 				

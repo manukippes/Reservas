@@ -164,8 +164,7 @@ public class DatosPersona
 			pstm.setString(2, pers.getContrasena());
 			rs=pstm.executeQuery();
 			if(rs!=null)
-			{	while(rs.next());
-				{	
+			{	rs.next();
 					persona=new Persona();
 					persona.setId(rs.getInt("id"));
 					persona.setDni(rs.getString("dni"));
@@ -175,7 +174,7 @@ public class DatosPersona
 					persona.setContrasena(rs.getString("contrasena"));
 					persona.setHabilitado(rs.getBoolean("habilitado"));
 					persona.setCategoria(rs.getString("categoria"));
-				}
+				
 				
 			}
 			

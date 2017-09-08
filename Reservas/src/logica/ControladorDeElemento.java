@@ -35,7 +35,11 @@ public class ControladorDeElemento {
 			};
 			
 			public void borrarElemento (Elemento ele) throws Exception{
-				baseElemento.eliminarElemento(ele);
+				try {
+					baseElemento.eliminarElemento(ele);
+				} catch (Exception e) {
+					throw e;
+				}
 			};
 			
 			public void modificarElemento(Elemento ele) throws Exception{

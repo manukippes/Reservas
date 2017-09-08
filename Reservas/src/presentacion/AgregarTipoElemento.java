@@ -172,6 +172,9 @@ public class AgregarTipoElemento extends JInternalFrame {
 			ctrlTipoElemento.modificarTipoElemento(tipoEle);
 			JOptionPane.showMessageDialog(this,"El Tipo de Elemento se modificó correctamente."," Modificar Tipo de Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
+			ListadoTipoElemento menuEle = new ListadoTipoElemento();
+			this.getDesktopPane().add(menuEle);
+			menuEle.setVisible(true);
 			dispose();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"El valor ingresado en "+e.getMessage()+" no es válido","Error al intentar modificar el elemento",JOptionPane.WARNING_MESSAGE);

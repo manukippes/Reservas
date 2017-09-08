@@ -133,7 +133,7 @@ public class ReservarElemento extends JInternalFrame {
 		res = mapearDeFormulario();
 		try {
 			ctrlReserva.crearReserva(res);
-			JOptionPane.showMessageDialog(this, "El elemento se agregó correctamente");
+			JOptionPane.showMessageDialog(this, "Se realizó la reserva correctamente");
 			limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "La Reserva no se pudo realizar");
