@@ -57,7 +57,6 @@ public class ListadoPersona extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
-					
 					}
 				catch (Exception e){
 					JOptionPane.showMessageDialog(ListadoPersona.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
@@ -171,7 +170,7 @@ public class ListadoPersona extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "No se pudo eliminar la Persona");;
 			}
 			
-	}
+		}
 
 	}
 	 

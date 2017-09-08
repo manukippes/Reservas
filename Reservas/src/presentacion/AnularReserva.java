@@ -41,7 +41,7 @@ public class AnularReserva extends JInternalFrame {
 	public AnularReserva() {
 		setClosable(true);
 		setTitle("Anular Reservas");
-		setBounds(100, 100, 785, 601);
+		setBounds(25, 25, 785, 601);
 				
 		JLabel lblSeleccionarLasReservas = new JLabel("Seleccionar las reservas a anular");
 		

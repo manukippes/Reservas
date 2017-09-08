@@ -39,8 +39,21 @@ public class ControladorDeElemento {
 			};
 			
 			public void modificarElemento(Elemento ele) throws Exception{
-				baseElemento.modificarElemento(ele);
-			};
+					
+					if (ele.getNombre().length() != 0){
+							try{
+								baseElemento.modificarElemento(ele);
+							}
+							catch (Exception a){
+								throw new ExcepcionEspecial("tipo de elemento");
+							}
+						}
+					else{
+						throw new ExcepcionEspecial("nombre");
+						}		
+							
+				};
+			
 			
 
 			public Elemento consultaPorNombre(Elemento ele) throws Exception{

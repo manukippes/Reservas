@@ -39,7 +39,6 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.WHITE);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -59,6 +58,7 @@ public class Login extends JFrame {
 		txtPass = new JPasswordField();
 		
 		txtUsuario = new JTextField();
+		txtUsuario.setText("1");
 		txtUsuario.setColumns(10);
 		
 		JButton btnSalir = new JButton("Salir");
@@ -153,7 +153,9 @@ public class Login extends JFrame {
 	{
 		AgregarPersona menuAlta = new AgregarPersona(-1);
 		menuAlta.setVisible(true);
+		
 		desktopPane.add(menuAlta);
+		menuAlta.toFront();
 		
 		
 	}

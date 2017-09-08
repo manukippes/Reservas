@@ -166,7 +166,6 @@ public class ListadoTipoElemento extends JInternalFrame {
 			} catch (Exception e) 
 			{
 				JOptionPane.showMessageDialog(this,"Para eliminar, primero debe seleccionar una fila    "," Error de selección",JOptionPane.WARNING_MESSAGE);
-				
 			}
 			
 		}

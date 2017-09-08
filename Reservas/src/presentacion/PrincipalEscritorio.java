@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Frame;
+import java.awt.SystemColor;
 
 public class PrincipalEscritorio extends JFrame {
 
@@ -32,6 +33,7 @@ public class PrincipalEscritorio extends JFrame {
 		contentPane.setLayout(new CardLayout(0, 0));
 		
 		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(SystemColor.activeCaption);
 		contentPane.add(desktopPane, "name_2544348427397");
 		
 		JMenuBar menuBar = new JMenuBar();

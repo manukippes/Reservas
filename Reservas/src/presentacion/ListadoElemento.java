@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,8 +23,12 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
+import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
+
 import entidades.Elemento;
 import logica.ControladorDeElemento;
+import entidades.TipoElemento;
+import logica.ControladorDeTipoElemento;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -39,6 +44,7 @@ public class ListadoElemento extends JInternalFrame {
 	private JTable table;
 	private ControladorDeElemento ctrlElemento = new ControladorDeElemento();
 	private ArrayList<Elemento> elementos = new ArrayList<Elemento>();
+	
 
 	public ListadoElemento() {
 		setTitle("Elementos");
@@ -52,14 +58,24 @@ public class ListadoElemento extends JInternalFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				modificar();
+				try{
+					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
+					}
+				catch (Exception e){
+					JOptionPane.showMessageDialog(ListadoElemento.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eliminar();
+				try{
+					eliminar();
+					}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(ListadoElemento.this,"Para eliminar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 
 		});
@@ -89,11 +105,11 @@ public class ListadoElemento extends JInternalFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setBackground(Color.LIGHT_GRAY);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getContentPane().setLayout(groupLayout);
 		
 		try{
-			
-			elementos = ctrlElemento.consultarTodo();
+			elementos = ctrlElemento.consultarTodo();			
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	
@@ -112,29 +128,24 @@ public class ListadoElemento extends JInternalFrame {
 		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Nombre").setEditable(false);
 		//
 		BeanProperty<Elemento, String> personaBeanProperty_1 = BeanProperty.create("tipo.id");
-		jTableBinding.addColumnBinding(personaBeanProperty_1).setColumnName("tipo").setEditable(false);
+		jTableBinding.addColumnBinding(personaBeanProperty_1).setColumnName("Tipo").setEditable(false);
 
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();
 	}
 	
 
-	public void modificar() {
-		try
-			{
+	public void modificar(int idElemento) {
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarElemento menuEle = new AgregarElemento(-1);
+			AgregarElemento menuEle = new AgregarElemento(idElemento);
 			menuEle.showElemento(this.elementos.get(indexElemento));
 			this.getDesktopPane().add(menuEle);
-			menuEle.setVisible(true);}
-		catch (Exception e){
-			JOptionPane.showMessageDialog(this,"Por favor seleccione una fila");
-		}
-		
+			menuEle.setVisible(true);
+			dispose();
 	}
 	
 	private void eliminar() {
-		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar al Elemento?");
+		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar al elemento " + table.getValueAt(table.getSelectedRow(), 1)+ " ?","Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
