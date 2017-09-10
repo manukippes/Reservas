@@ -39,7 +39,7 @@ public class ReservarElemento extends JInternalFrame {
 	private ControladorDeTipoElemento ctrlTipoElemento;
 	
 
-	public ReservarElemento() {
+	public ReservarElemento(Persona pers) {
 		setTitle("Reservar Elemento");
 		setClosable(true);
 		setMaximizable(true);
@@ -56,12 +56,23 @@ public class ReservarElemento extends JInternalFrame {
 		lblSeleccioneTipoDe.setBounds(15, 36, 296, 20);
 		desktopPane.add(lblSeleccioneTipoDe);
 		comboBoxTipoElemento = new JComboBox();
+		
+//		comboBoxTipoElemento.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				TipoElemento tipoElegido = new TipoElemento();
+//				if (comboBoxTipoElemento.getSelectedIndex()!= -1) {tipoElegido =(TipoElemento)comboBoxTipoElemento.getSelectedItem();}
+//				llenarComboElemento(tipoElegido);
+//			}
+//		});
+		
+		
 		comboBoxTipoElemento.setBounds(255, 33, 398, 26);
 		desktopPane.add(comboBoxTipoElemento);
 		
+		
 ///////////// txt Fecha Hora Desde///////////////////
 		txtFechaHoraDesde = new JTextField();
-		txtFechaHoraDesde.setText("AAAA-MM-DD HH:MM:SS");
+		txtFechaHoraDesde.setText("2010-01-01 00:00:00");
 		txtFechaHoraDesde.setBounds(255, 105, 393, 26);
 		desktopPane.add(txtFechaHoraDesde);
 		txtFechaHoraDesde.setColumns(10);
@@ -71,7 +82,7 @@ public class ReservarElemento extends JInternalFrame {
 		
 ///////////// txt Fecha Hora Hasta///////////////////
 		txtFechaHoraHasta = new JTextField();
-		txtFechaHoraHasta.setText("AAAA-MM-DD HH:MM:SS");
+		txtFechaHoraHasta.setText("2010-01-01 00:00:00");
 		txtFechaHoraHasta.setBounds(255, 165, 393, 26);
 		desktopPane.add(txtFechaHoraHasta);
 		txtFechaHoraHasta.setColumns(10);
@@ -87,6 +98,8 @@ public class ReservarElemento extends JInternalFrame {
 		comboBoxElemento.setBounds(255, 228, 398, 26);
 		desktopPane.add(comboBoxElemento);
 		
+	
+		
 ///////////// txt Observacion///////////////////		
 		txtObservacion = new JTextField();
 		txtObservacion.setBounds(15, 333, 638, 79);
@@ -100,26 +113,35 @@ public class ReservarElemento extends JInternalFrame {
 		JButton btnReservar = new JButton("Reservar");
 		btnReservar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				reservar();
+				reservar(pers);
 			}
 		});
 		btnReservar.setBounds(298, 447, 115, 29);
 		desktopPane.add(btnReservar);
 		
-		llenarCombos();
+		llenarComboTipo();
 		
 	}
 	
 
-////////////////LLENA LOS COMBOS//////////////////
-	private void llenarCombos() 
+////////////////LLENA EL COMBO DE ELEMENTOS/////////////////
+//	private void llenarComboElemento(TipoElemento tipoElegido){
+//		try {
+//			this.comboBoxElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getElementosDelTipo(tipoElegido).toArray()));
+//			this.comboBoxElemento.setSelectedIndex(-1);
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(this,"No hay elementos del tipo seleccionado para mostrar");
+//		}
+//	}
+	
+////////////////LLENA EL COMBO DE TIPO DE ELEMENTO///////////
+	private void llenarComboTipo() 
 	{
 		try 
-		{
+		{	
 			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray()));
+			System.out.println(ctrlReserva.getTipoElemento().toArray()[0]);
 			this.comboBoxTipoElemento.setSelectedIndex(-1);
-			this.comboBoxElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getElemento().toArray()));
-			this.comboBoxElemento.setSelectedIndex(-1);
 		} 
 		catch (Exception e) 
 		{
@@ -128,11 +150,12 @@ public class ReservarElemento extends JInternalFrame {
 		
 	}
 	
-	private ArrayList<Integer> llenarElemento()
+	
+	private ArrayList<Elemento> llenarElemento()
 	{
-		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
+		ArrayList<Elemento> listadoElementos = new ArrayList<Elemento>();
 		try {
-			listadoElementos = ctrlReserva.obtenerElemento((Integer)comboBoxElemento.getSelectedItem(), formato.parse(txtFechaHoraDesde.getText()), formato.parse(txtFechaHoraHasta.getText()));
+			listadoElementos = ctrlReserva.obtenerElemento((Integer)comboBoxElemento.getSelectedItem(), txtFechaHoraDesde.getText(), txtFechaHoraHasta.getText());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "No se pueden obtener los elementos disponibles");
 		}
@@ -141,16 +164,16 @@ public class ReservarElemento extends JInternalFrame {
 	}
 	
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO//////////////////
-	private void reservar() 
+	private void reservar(Persona pers) 
 	{
 		Reserva res = new Reserva();
-		res = mapearDeFormulario();
+		res = mapearDeFormulario(pers);
 		try {
 			ctrlReserva.crearReserva(res);
 			JOptionPane.showMessageDialog(this, "Se realizó la reserva correctamente");
 			limpiarCampos();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "La Reserva no se pudo realizar");
+			JOptionPane.showMessageDialog(this, "La Reserva no se pudo realizar CONTROLADOR");
 		}
 		
 	}
@@ -167,20 +190,21 @@ public class ReservarElemento extends JInternalFrame {
 	}
 
 ////////////////METODO PARA TOMAR LOS DATOS DEL FORMULARIO Y AGREGARLO EN LA BASE DE DATOS///////////////////
-	public Reserva mapearDeFormulario()
+	public Reserva mapearDeFormulario(Persona pers)
 	{
 		Reserva res = new Reserva();
 		if (comboBoxElemento.getSelectedIndex()!= -1) {res.setElemento((Elemento)comboBoxElemento.getSelectedItem());}
 		if (comboBoxTipoElemento.getSelectedIndex()!= -1) {res.setTipo((TipoElemento)comboBoxTipoElemento.getSelectedItem());}
 		try {
-			res.setFechaHoraDesde(formato.parse(txtFechaHoraDesde.getText()));
-			res.setFechaHoraHasta(formato.parse(txtFechaHoraHasta.getText()));
-		} catch (ParseException e) {
+			//res.setFechaHoraDesde(formato.parse(txtFechaHoraDesde.getText()));
+			//res.setFechaHoraHasta(formato.parse(txtFechaHoraHasta.getText()));
+			res.setFechaHoraDesde(txtFechaHoraDesde.getText());
+			res.setFechaHoraHasta(txtFechaHoraHasta.getText());
+			
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Formato fecha y hora invalido");
 		}
 		res.setObservacion(txtObservacion.getText());
-		Persona pers = new Persona();
-		pers.setId(7);
 		res.setPersona(pers);
 		return res;
 	}

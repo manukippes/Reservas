@@ -42,9 +42,29 @@ private DatosElemento baseElemento = new DatosElemento();
 		return baseElemento.buscarTodo();
 	}
 
-	public ArrayList<Integer> obtenerElemento(int tipo, Date fechaHoraDesde, Date fechaHoraHasta) {
-		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
-		listadoElementos = baseElemento.obtenerElementos(tipo,fechaHoraDesde,fechaHoraHasta);
+/*	public ArrayList<Elemento> obtenerElementoDelTipo(TipoElemento tipoElegido) {
+		ArrayList<Elemento> listadoElementos = new ArrayList<Elemento>();
+		
+		try {
+			listadoElementos = baseReserva.obtenerElementosDelTipo(tipoElegido.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listadoElementos;
+	}
+	*/
+	public ArrayList<Elemento> obtenerElemento(int tipo, String fechaHoraDesde, String fechaHoraHasta) {
+		ArrayList<Elemento> listadoElementos = new ArrayList<Elemento>();
+		
+		try {
+			listadoElementos = baseReserva.obtenerElementos(tipo,fechaHoraDesde,fechaHoraHasta);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return listadoElementos;
 	}
 

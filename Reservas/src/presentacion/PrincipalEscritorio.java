@@ -23,6 +23,7 @@ public class PrincipalEscritorio extends JFrame {
 	public JDesktopPane desktopPane;
 
 	public PrincipalEscritorio(Persona pers) {
+		
 		setTitle("Sistema de Reservas");
 //		setExtendedState(Frame.);
 		setAlwaysOnTop(true);
@@ -152,7 +153,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmAlta = new JMenuItem("Reservar Elemento");
 		mntmAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ReservarElemento ventanaRE = new ReservarElemento();
+				ReservarElemento ventanaRE = new ReservarElemento(pers);
 				ventanaRE.setVisible(true);
 				desktopPane.add(ventanaRE);
 				ventanaRE.toFront();
