@@ -3,6 +3,7 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import entidades.*;
+import utilidades.ExcepcionesEscritorio;
 
 
 public class DatosElemento 
@@ -158,6 +159,33 @@ public class DatosElemento
 			throw e;
 		}	
 		
+	}
+
+	public ArrayList<Integer> obtenerElementos(int tipo, Date fechaHoraDesde, Date fechaHoraHasta) throws Exception
+	{
+		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT elemento FROM reserva WHERE tipo=? AND fechaHoraDesde>=? AND fechaHoraHasta<=?");
+			pstm.setInt(1, tipo);
+			pstm.setDate(2, fechaHoraDesde);
+			pstm.setDate(3, fechaHoraHasta);
+			rs = pstm.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					listadoElementos = rs.getInt("elemento");
+				}
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (ExcepcionesEscritorio e) {
+			throw e;
+		}
+		
+		return listadoElementos;
 	}
 	
 }

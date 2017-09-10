@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -36,6 +37,7 @@ public class ReservarElemento extends JInternalFrame {
 	private SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ControladorDeTipoElemento ctrlTipoElemento;
+	
 
 	public ReservarElemento() {
 		setTitle("Reservar Elemento");
@@ -124,6 +126,18 @@ public class ReservarElemento extends JInternalFrame {
 			JOptionPane.showMessageDialog(this,"No hay tipos de elementos para mostrar");
 		}
 		
+	}
+	
+	private ArrayList<Integer> llenarElemento()
+	{
+		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
+		try {
+			listadoElementos = ctrlReserva.obtenerElemento((Integer)comboBoxElemento.getSelectedItem(), formato.parse(txtFechaHoraDesde.getText()), formato.parse(txtFechaHoraHasta.getText()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "No se pueden obtener los elementos disponibles");
+		}
+		
+		return listadoElementos;
 	}
 	
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO//////////////////

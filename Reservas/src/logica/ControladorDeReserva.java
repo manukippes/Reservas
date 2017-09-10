@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import datos.DatosElemento;
 import datos.DatosReserva;
@@ -39,6 +40,12 @@ private DatosElemento baseElemento = new DatosElemento();
 	public ArrayList<Elemento> getElemento() throws Exception
 	{
 		return baseElemento.buscarTodo();
+	}
+
+	public ArrayList<Integer> obtenerElemento(int tipo, Date fechaHoraDesde, Date fechaHoraHasta) {
+		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
+		listadoElementos = baseElemento.obtenerElementos(tipo,fechaHoraDesde,fechaHoraHasta);
+		return listadoElementos;
 	}
 
 }
