@@ -31,8 +31,10 @@ public class DatosReserva
 					res.getTipo().setId(rs.getInt("tipo"));
 					res.setPersona(new Persona());
 					res.getPersona().setId(rs.getInt("persona"));
-					res.setFechaHoraDesde(rs.getDate("fechaHoraDesde"));
-					res.setFechaHoraHasta(rs.getDate("fechaHoraHasta"));
+					//res.setFechaHoraDesde(rs.getDate("fechaHoraDesde"));
+					//res.setFechaHoraHasta(rs.getDate("fechaHoraHasta"));
+					res.setFechaHoraDesde(rs.getString("fechaHoraDesde"));
+					res.setFechaHoraHasta(rs.getString("fechaHoraHasta"));
 					res.setObservacion(rs.getString("observacion"));
 					listadoRes.add(res);
 				}
@@ -68,8 +70,10 @@ public class DatosReserva
 			pstm.setInt(1, res.getElemento().getId());
 			pstm.setInt(2, res.getTipo().getId());
 			pstm.setInt(3, res.getPersona().getId());
-			pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
-			pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
+			//pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
+			//pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
+			pstm.setString(4, res.getFechaHoraDesde());
+			pstm.setString(5, res.getFechaHoraHasta());
 			pstm.setString(6, res.getObservacion());
 			pstm.executeUpdate();
 			rs = pstm.getGeneratedKeys();
@@ -79,7 +83,8 @@ public class DatosReserva
 			}
 			
 		} catch (SQLException e) {
-			throw e;
+			System.out.println(e);
+			//throw e;
 		} catch (ExcepcionesEscritorio e) {
 			throw e;
 		}
@@ -126,8 +131,8 @@ public class DatosReserva
 			pstm.setInt(1, res.getElemento().getId());
 			pstm.setInt(2, res.getTipo().getId());
 			pstm.setInt(3, res.getPersona().getId());
-			pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
-			pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
+			pstm.setString(4, res.getFechaHoraDesde());
+			pstm.setString(5, res.getFechaHoraHasta());
 			pstm.setString(6, res.getObservacion());
 			pstm.setInt(7, res.getId());
 			pstm.executeUpdate();
@@ -146,6 +151,34 @@ public class DatosReserva
 	}
 	
 
-			
+public ArrayList<Elemento> obtenerElementos(int tipo, String fechaHoraDesde, String fechaHoraHasta) throws Exception
+	{
+		ArrayList<Elemento> listadoElementos = new ArrayList<Elemento>();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT elemento FROM reserva WHERE tipo=? AND fechaHoraDesde>=? AND fechaHoraHasta<=?");
+			pstm.setInt(1, tipo);
+			pstm.setString(2, fechaHoraDesde);
+			pstm.setString(3, fechaHoraHasta);
+			rs = pstm.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Elemento elemento=new Elemento();
+					elemento.setId(rs.getInt("id"));			
+					listadoElementos.add(elemento);
+				}
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (ExcepcionesEscritorio e) {
+			throw e;
+		}
+		
+		return listadoElementos;
+	}
+
 }
 

@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JSeparator;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Login extends JFrame {
 
@@ -36,6 +38,8 @@ public class Login extends JFrame {
 		setTitle("Pantalla de login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 919, 567);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -57,8 +61,18 @@ public class Login extends JFrame {
 		
 		txtPass = new JPasswordField();
 		
+		txtPass.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					ingresar();
+				}
+			
+		});
+		
 		txtUsuario = new JTextField();
+		
+		 
 		txtUsuario.setColumns(10);
+		
 		
 		JButton btnSalir = new JButton("Salir");
 		
@@ -69,6 +83,7 @@ public class Login extends JFrame {
 		JLabel lblIngreseSuUsuario = new JLabel("Ingrese su Usuario y Contrase\u00F1a");
 		
 		JSeparator separator = new JSeparator();
+		
 		GroupLayout gl_desktopPane = new GroupLayout(desktopPane);
 		gl_desktopPane.setHorizontalGroup(
 			gl_desktopPane.createParallelGroup(Alignment.TRAILING)
@@ -130,6 +145,7 @@ public class Login extends JFrame {
 					.addContainerGap(173, Short.MAX_VALUE))
 		);
 		desktopPane.setLayout(gl_desktopPane);
+				
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				registrar();
@@ -145,7 +161,10 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
+		
 		contentPane.setLayout(gl_contentPane);
+		txtUsuario.requestFocusInWindow();
+		
 	}
 
 	protected void registrar() 
@@ -170,7 +189,7 @@ public class Login extends JFrame {
 				persBaseDatos = ctrlPersona.buscarPersonaPorUsuyClave(pers);
 				
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No es posible ingresar al sistema en estos momentos");
+				JOptionPane.showMessageDialog(this, "No se encontraron los datos de la persona");
 			}
 			if (persBaseDatos !=null)
 			{

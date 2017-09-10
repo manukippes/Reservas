@@ -5,11 +5,11 @@ import java.util.Date;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
-public class Reserva {
+public class Reserva{
 	private int id;
 	private TipoElemento tipo;
-	private Date fechaHoraDesde;
-	private Date fechaHoraHasta;
+	private String fechaHoraDesde;
+	private String fechaHoraHasta;
 	private Elemento elemento;
 	private String observacion;
 	private Persona persona;
@@ -26,16 +26,16 @@ public class Reserva {
 	public void setTipo(TipoElemento tipo) {
 		this.tipo = tipo;
 	}
-	public Date getFechaHoraDesde() {
+	public String getFechaHoraDesde() {
 		return fechaHoraDesde;
 	}
-	public void setFechaHoraDesde(Date fechaHoraDesde) {
+	public void setFechaHoraDesde(String fechaHoraDesde) {
 		this.fechaHoraDesde = fechaHoraDesde;
 	}
-	public Date getFechaHoraHasta() {
+	public String getFechaHoraHasta() {
 		return fechaHoraHasta;
 	}
-	public void setFechaHoraHasta(Date fechaHoraHasta) {
+	public void setFechaHoraHasta(String fechaHoraHasta) {
 		this.fechaHoraHasta = fechaHoraHasta;
 	}
 	public Elemento getElemento() {
