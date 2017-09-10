@@ -42,10 +42,5 @@ private DatosElemento baseElemento = new DatosElemento();
 		return baseElemento.buscarTodo();
 	}
 
-	public ArrayList<Integer> obtenerElemento(int tipo, Date fechaHoraDesde, Date fechaHoraHasta) {
-		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
-		listadoElementos = baseElemento.obtenerElementos(tipo,fechaHoraDesde,fechaHoraHasta);
-		return listadoElementos;
-	}
-
+	
 }

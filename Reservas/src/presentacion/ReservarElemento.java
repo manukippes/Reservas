@@ -128,17 +128,7 @@ public class ReservarElemento extends JInternalFrame {
 		
 	}
 	
-	private ArrayList<Integer> llenarElemento()
-	{
-		ArrayList<Integer> listadoElementos = new ArrayList<Integer>();
-		try {
-			listadoElementos = ctrlReserva.obtenerElemento((Integer)comboBoxElemento.getSelectedItem(), formato.parse(txtFechaHoraDesde.getText()), formato.parse(txtFechaHoraHasta.getText()));
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "No se pueden obtener los elementos disponibles");
-		}
-		
-		return listadoElementos;
-	}
+	
 	
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO//////////////////
 	private void reservar() 
