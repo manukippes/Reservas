@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
+import javax.swing.JDialog;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,7 +39,7 @@ public class ReservarElemento extends JInternalFrame {
 	private SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ControladorDeTipoElemento ctrlTipoElemento;
-	
+	private ControladorDeElemento ctrlElemento;
 
 	public ReservarElemento(Persona pers) {
 		setTitle("Reservar Elemento");
@@ -95,7 +97,7 @@ public class ReservarElemento extends JInternalFrame {
 		lblSeleccioneElementoA.setBounds(15, 231, 263, 20);
 		desktopPane.add(lblSeleccioneElementoA);
 		comboBoxElemento = new JComboBox();
-		comboBoxElemento.setBounds(255, 228, 398, 26);
+		comboBoxElemento.setBounds(255, 271, 398, 26);
 		desktopPane.add(comboBoxElemento);
 		
 	
@@ -119,6 +121,21 @@ public class ReservarElemento extends JInternalFrame {
 		btnReservar.setBounds(298, 447, 115, 29);
 		desktopPane.add(btnReservar);
 		
+/////////////////Boton buscar elementos disponibles/////////////////////////		
+		JButton btnBuscarElementosDisponibles = new JButton("BUSCAR ELEMENTOS DISPONIBLES");
+		btnBuscarElementosDisponibles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					seleccionarElemento();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnBuscarElementosDisponibles.setBounds(255, 230, 393, 23);
+		desktopPane.add(btnBuscarElementosDisponibles);
+		
 		llenarComboTipo();
 		
 	}
@@ -140,8 +157,10 @@ public class ReservarElemento extends JInternalFrame {
 		try 
 		{	
 			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray()));
-			System.out.println(ctrlReserva.getTipoElemento().toArray()[0]);
 			this.comboBoxTipoElemento.setSelectedIndex(-1);
+			this.comboBoxElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getElemento().toArray()));
+			this.comboBoxElemento.setSelectedIndex(-1);
+
 		} 
 		catch (Exception e) 
 		{
@@ -219,4 +238,20 @@ public class ReservarElemento extends JInternalFrame {
 		txtObservacion.setText("");
 		
 	}
+	
+	public void seleccionarElemento() throws Exception {
+		
+		 JComboBox comboBoxElementos = new JComboBox();
+		 comboBoxElementos.setModel(new DefaultComboBoxModel(ctrlReserva.getElemento().toArray()));
+		
+		 Object[] options = new Object[] {};
+		 JOptionPane jop = new JOptionPane("Por favor seleccione el elemento", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
+		 jop.add(comboBoxElementos);
+		 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccion el elemento", EXIT_ON_CLOSE, frameIcon);
+
+    }
+		
+ 		  
+
+		
 }
