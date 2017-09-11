@@ -161,6 +161,7 @@ public class PrincipalEscritorio extends JFrame {
 		});
 		mnReserva.add(mntmAlta);
 		
+		if(pers.getCategoria().equals("Online")){
 		JMenuItem mntmBaja = new JMenuItem("Mis Reservas");
 			mntmBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -171,7 +172,7 @@ public class PrincipalEscritorio extends JFrame {
 				}
 			});
 		mnReserva.add(mntmBaja);
-		
+		}
 /////////////////////////////////////////////////////
 		}
 		
