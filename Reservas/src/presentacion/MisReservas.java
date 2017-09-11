@@ -24,6 +24,7 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
+import entidades.Persona;
 import entidades.Reserva;
 import logica.ControladorDeReserva;
 
@@ -36,7 +37,7 @@ public class MisReservas extends JInternalFrame {
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
-	public MisReservas() {
+	public MisReservas(Persona pers) {
 		setTitle("Mis Reserva");
 		
 		setClosable(true);

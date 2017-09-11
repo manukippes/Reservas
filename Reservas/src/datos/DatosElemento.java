@@ -170,12 +170,12 @@ public class DatosElemento
 		try 
 		{
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM elemento WHERE id NOT IN (SELECT res.elemento FROM reserva res WHERE res.fechaHoraDesde BETWEEN '?' AND '?' OR res.fechaHoraDesde BETWEEN '?' AND '?') having tipo = ?;");
+					"SELECT * FROM elemento WHERE id NOT IN (SELECT res.elemento FROM reserva res WHERE res.fechaHoraDesde BETWEEN ? AND ? OR res.fechaHoraDesde BETWEEN ? AND ?) having tipo = ?");
 			pstm.setString(1, fechaDesde);
 			pstm.setString(2, fechaHasta);
 			pstm.setString(3, fechaDesde);
 			pstm.setString(4, fechaHasta);
-			pstm.setInt(5, 1);
+			pstm.setInt(5, tipoElemento.getId());
 			rs = pstm.executeQuery();
 			
 			if(rs!=null){

@@ -164,7 +164,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmBaja = new JMenuItem("Mis Reservas");
 			mntmBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					MisReservas ventanaMISRE = new MisReservas();
+					MisReservas ventanaMISRE = new MisReservas(pers);
 					ventanaMISRE.setVisible(true);
 					desktopPane.add(ventanaMISRE);
 					ventanaMISRE.toFront();
