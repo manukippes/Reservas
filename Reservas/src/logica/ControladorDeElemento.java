@@ -72,6 +72,11 @@ public class ControladorDeElemento {
 			{
 				return baseTipoElemento.buscarTodo();
 			}
+
+			public ArrayList<Elemento> getElementosDisponibles(TipoElemento tipoElemento, String fechaDesde, String fechaHasta) throws Exception{
+				
+				return baseElemento.devolverDisponibles(tipoElemento,fechaDesde,fechaHasta);
+			}
 			
 
 }

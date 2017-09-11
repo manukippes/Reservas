@@ -161,6 +161,51 @@ public class DatosElemento
 		
 	}
 
+	public ArrayList<Elemento> devolverDisponibles(TipoElemento tipoElemento,String fechaDesde, String fechaHasta) throws Exception {
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Elemento> elemento= new ArrayList<Elemento>();
+		
+		try 
+		{
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM elemento WHERE id NOT IN (SELECT res.elemento FROM reserva res WHERE res.fechaHoraDesde BETWEEN '?' AND '?' OR res.fechaHoraDesde BETWEEN '?' AND '?') having tipo = ?;");
+			pstm.setString(1, fechaDesde);
+			pstm.setString(2, fechaHasta);
+			pstm.setString(3, fechaDesde);
+			pstm.setString(4, fechaHasta);
+			pstm.setInt(5, 1);
+			rs = pstm.executeQuery();
+			
+			if(rs!=null){
+				while(rs.next()){
+					Elemento ele=new Elemento();
+					ele.setId(rs.getInt("id"));
+					ele.setNombre(rs.getString("nombre"));
+					ele.setTipo(new TipoElemento());
+					ele.getTipo().setId(rs.getInt("tipo"));
+					elemento.add(ele);
+				}
+			}
+		} 
+		catch (Exception e) 
+		{
+			
+			throw e;
+		}
+		
+		try {
+			if(rs!=null) rs.close();
+			if(pstm!=null) pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e ;
+		}
+		
+		return elemento;
+	}
+
 		
 }
 
