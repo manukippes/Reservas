@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import java.awt.CardLayout;
 import javax.swing.JDesktopPane;
+import javax.swing.JDialog;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,24 +29,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class ReservarElemento extends JInternalFrame {
 	private JTextField txtFechaHoraDesde;
 	private JTextField txtFechaHoraHasta;
 	private JTextField txtObservacion;
-	private JComboBox comboBoxElemento;
 	private JComboBox comboBoxTipoElemento;
 	private SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ControladorDeTipoElemento ctrlTipoElemento;
-	
+	private ControladorDeElemento ctrlElemento;
+	private JTextField txtSeleccioneUnElemento;
 
 	public ReservarElemento(Persona pers) {
 		setTitle("Reservar Elemento");
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
-		setBounds(100, 100, 686, 561);
+		setBounds(25, 25, 686, 561);
 		getContentPane().setLayout(new CardLayout(0, 0));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
@@ -94,9 +97,6 @@ public class ReservarElemento extends JInternalFrame {
 		JLabel lblSeleccioneElementoA = new JLabel("Elemento a Reservar:");
 		lblSeleccioneElementoA.setBounds(15, 231, 263, 20);
 		desktopPane.add(lblSeleccioneElementoA);
-		comboBoxElemento = new JComboBox();
-		comboBoxElemento.setBounds(255, 228, 398, 26);
-		desktopPane.add(comboBoxElemento);
 		
 	
 		
@@ -119,6 +119,29 @@ public class ReservarElemento extends JInternalFrame {
 		btnReservar.setBounds(298, 447, 115, 29);
 		desktopPane.add(btnReservar);
 		
+/////////////////Boton buscar elementos disponibles/////////////////////////		
+		JButton btnBuscarElementosDisponibles = new JButton("BUSCAR ELEMENTOS DISPONIBLES");
+		btnBuscarElementosDisponibles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					seleccionarElemento();
+				} catch (Exception e1) {
+					// 
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnBuscarElementosDisponibles.setBounds(255, 253, 393, 23);
+		desktopPane.add(btnBuscarElementosDisponibles);
+		
+		txtSeleccioneUnElemento = new JTextField();
+		txtSeleccioneUnElemento.setText("Seleccione un elemento");
+		txtSeleccioneUnElemento.setEnabled(false);
+		txtSeleccioneUnElemento.setEditable(false);
+		txtSeleccioneUnElemento.setBounds(255, 231, 398, 20);
+		desktopPane.add(txtSeleccioneUnElemento);
+		txtSeleccioneUnElemento.setColumns(10);
+		
 		llenarComboTipo();
 		
 	}
@@ -140,8 +163,8 @@ public class ReservarElemento extends JInternalFrame {
 		try 
 		{	
 			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray()));
-			System.out.println(ctrlReserva.getTipoElemento().toArray()[0]);
 			this.comboBoxTipoElemento.setSelectedIndex(-1);
+
 		} 
 		catch (Exception e) 
 		{
@@ -151,17 +174,6 @@ public class ReservarElemento extends JInternalFrame {
 	}
 	
 	
-	private ArrayList<Elemento> llenarElemento()
-	{
-		ArrayList<Elemento> listadoElementos = new ArrayList<Elemento>();
-		try {
-			listadoElementos = ctrlReserva.obtenerElemento((Integer)comboBoxElemento.getSelectedItem(), txtFechaHoraDesde.getText(), txtFechaHoraHasta.getText());
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "No se pueden obtener los elementos disponibles");
-		}
-		
-		return listadoElementos;
-	}
 	
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO//////////////////
 	private void reservar(Persona pers) 
@@ -182,7 +194,6 @@ public class ReservarElemento extends JInternalFrame {
 ////////////////METODO PARA MOSTRAR LOS DATOS DE LA BASE DE DATOS EN EL FORMULARIO///////////////////
 	public void mapearAFormulario(Reserva res)
 	{
-		if (res.getElemento()!=null){comboBoxElemento.setSelectedItem(res.getElemento());}
 		if (res.getTipo()!=null){comboBoxTipoElemento.setSelectedItem(res.getTipo());}
 		txtFechaHoraDesde.setText(String.valueOf(res.getFechaHoraDesde()));
 		txtFechaHoraHasta.setText(String.valueOf(res.getFechaHoraHasta()));
@@ -193,7 +204,7 @@ public class ReservarElemento extends JInternalFrame {
 	public Reserva mapearDeFormulario(Persona pers)
 	{
 		Reserva res = new Reserva();
-		if (comboBoxElemento.getSelectedIndex()!= -1) {res.setElemento((Elemento)comboBoxElemento.getSelectedItem());}
+		//if (comboBoxElemento.getSelectedIndex()!= -1) {res.setElemento((Elemento)comboBoxElemento.getSelectedItem());}
 		if (comboBoxTipoElemento.getSelectedIndex()!= -1) {res.setTipo((TipoElemento)comboBoxTipoElemento.getSelectedItem());}
 		try {
 			//res.setFechaHoraDesde(formato.parse(txtFechaHoraDesde.getText()));
@@ -212,11 +223,35 @@ public class ReservarElemento extends JInternalFrame {
 ////////////////BORRA DATOS INGRESADOS EN LOS CAMPOS DEL FORMULARIO///////////////////
 	private void limpiarCampos() 
 	{
-		comboBoxElemento.setSelectedIndex(-1);
 		comboBoxTipoElemento.setSelectedIndex(-1);
 		txtFechaHoraDesde.setText("");
 		txtFechaHoraHasta.setText("");
 		txtObservacion.setText("");
 		
 	}
+	
+	public void seleccionarElemento() throws Exception {
+		
+		 JComboBox comboBoxElementos = new JComboBox();
+		 TipoElemento coso = new TipoElemento();
+		 coso.setId(1);
+		 try {
+			 comboBoxElementos.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray())); /////////////CONSULTA INCORRECTA PARA MOSTRAR QUE FUNCIONA///////////////// 
+			 //comboBoxElementos.setModel(new DefaultComboBoxModel(ctrlElemento.getElementosDisponibles((TipoElemento)comboBoxTipoElemento.getSelectedItem(),txtFechaHoraDesde.getText(),txtFechaHoraHasta.getText()).toArray()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e);
+		}
+		
+		 Object[] options = new Object[] {};
+		 JOptionPane jop = new JOptionPane("Por favor seleccione el elemento", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
+		 jop.add(comboBoxElementos);
+		 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccion el elemento", EXIT_ON_CLOSE, frameIcon);
+		  
+		 try {
+			this.txtSeleccioneUnElemento.setText(comboBoxElementos.getSelectedItem().toString());
+		} catch (Exception e) {
+			this.txtSeleccioneUnElemento.setText("Seleccione un elemento");
+		}
+		 
+    }
 }
