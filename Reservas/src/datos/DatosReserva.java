@@ -58,6 +58,49 @@ public class DatosReserva
 		return listadoRes;
 	}
 	
+	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception
+	{
+		PreparedStatement pstm=null;
+		ResultSet rs=null;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM reserva r where r.persona = ? and r.fechaHoraDesde >= NOW()");
+			pstm.setInt(1,pers.getId());
+			rs=pstm.executeQuery();
+			if(rs!=null){
+				while(rs.next()){
+					Reserva res = new Reserva();
+					res.setId(rs.getInt("id"));
+					res.setElemento(new Elemento());
+					res.getElemento().setId(rs.getInt("elemento"));
+					res.setTipo(new TipoElemento());
+					res.getTipo().setId(rs.getInt("tipo"));
+					res.setPersona(new Persona());
+					res.getPersona().setId(rs.getInt("persona"));
+					res.setFechaHoraDesde(rs.getString("fechaHoraDesde"));
+					res.setFechaHoraHasta(rs.getString("fechaHoraHasta"));
+					res.setObservacion(rs.getString("observacion"));
+					listadoRes.add(res);
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw e;
+		} catch (ExcepcionesEscritorio e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (SQLException e) {
+			throw e;
+		}
+		
+		return listadoRes;
+	}
 	public void agregarReserva(Reserva res) throws Exception
 	{
 		ResultSet rs = null;

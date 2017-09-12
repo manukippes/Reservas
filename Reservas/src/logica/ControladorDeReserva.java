@@ -7,6 +7,7 @@ import datos.DatosElemento;
 import datos.DatosReserva;
 import datos.DatosTipoElemento;
 import entidades.Elemento;
+import entidades.Persona;
 import entidades.Reserva;
 import entidades.TipoElemento;
 
@@ -53,5 +54,9 @@ private DatosElemento baseElemento = new DatosElemento();
 		
 		return listadoElementos;
 	}
-
+	
+	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception{
+		return baseReserva.reservasPendientesPersona(pers);
+	}
+	
 }

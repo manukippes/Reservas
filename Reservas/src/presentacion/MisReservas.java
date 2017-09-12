@@ -78,7 +78,7 @@ public class MisReservas extends JInternalFrame {
 		
 		try{
 			
-			reservas = ctrlReserva.consultarTodo();
+			reservas = ctrlReserva.reservasPendientesPersona(pers);
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	
