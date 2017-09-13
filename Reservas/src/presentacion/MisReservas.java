@@ -36,8 +36,10 @@ public class MisReservas extends JInternalFrame {
 	private JTable table;
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+	
 
 	public MisReservas(Persona pers) {
+				
 		setTitle("Mis Reserva");
 		
 		setClosable(true);
@@ -50,7 +52,9 @@ public class MisReservas extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				eliminar();
 			}
-
+		
+		
+			
 		});
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

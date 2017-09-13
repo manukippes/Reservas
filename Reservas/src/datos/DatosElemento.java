@@ -49,16 +49,16 @@ public class DatosElemento
 	}
 	
 	public Elemento buscarPorNombre(Elemento ele) throws Exception{ 
-		PreparedStatement pstm= null;
+		PreparedStatement stm= null;
 		ResultSet rs= null;
 		Elemento elemento = null;
 		
 		
 		try {
-			pstm = FactoryConnection.getinstancia().getConn().prepareStatement
+			stm = FactoryConnection.getinstancia().getConn().prepareStatement
 					("SELECT * FROM elemento WHERE nombre=?");
-			pstm.setString(1,ele.getNombre());
-			rs=pstm.executeQuery();
+			stm.setString(1,ele.getNombre());
+			rs=stm.executeQuery();
 			if(rs!=null && rs.next()){
 				elemento=new Elemento();
 				elemento.setId(rs.getInt("id"));
@@ -74,7 +74,7 @@ public class DatosElemento
 		
 		try {
 			if(rs!=null)rs.close();
-			if(pstm!=null)pstm.close();
+			if(stm!=null)stm.close();
 			FactoryConnection.getinstancia().releaseConn();
 		} catch (Exception e) {
 			throw e;
@@ -177,7 +177,6 @@ public class DatosElemento
 			pstm.setString(4, fechaHasta);
 			pstm.setInt(5, tipoElemento.getId());
 			rs = pstm.executeQuery();
-			
 			if(rs!=null){
 				while(rs.next()){
 					Elemento ele=new Elemento();
