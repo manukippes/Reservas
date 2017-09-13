@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entidades.Elemento;
 import entidades.Persona;
 import entidades.TipoElemento;
 import logica.ControladorDePersona;
@@ -173,19 +174,21 @@ public class PrincipalEscritorio extends JFrame {
 				}
 				else{
 					
-					try {
-						comboBoxPersonas.setModel(new DefaultComboBoxModel<Object>(ctrlPersona.consultarTodo().toArray()));
+					try {					
+						comboBoxPersonas.setModel(new DefaultComboBoxModel(ctrlPersona.consultarUsuariosExternos().toArray()));
 					} catch (Exception e1) {
 						System.out.println(e);
+						JOptionPane.showMessageDialog(contentPane, "Seleccione la persona","Persona", EXIT_ON_CLOSE);
 					}
 					
-					 Object[] options = new Object[] {};
-					 JOptionPane jop = new JOptionPane("Por favor seleccione la persona", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
-					 jop.add(comboBoxPersonas);
-					 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccione la persona", EXIT_ON_CLOSE);
-					
-					
-					ventanaRE = new ReservarElemento(pers);
+					Object[] options = new Object[] {};
+					JOptionPane jop = new JOptionPane("Por favor seleccione la persona", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
+					jop.add(comboBoxPersonas);
+					JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccione la persona", EXIT_ON_CLOSE);
+					 
+					Persona personaActual = personaActual=((Persona)comboBoxPersonas.getSelectedItem()); 					 
+										
+					ventanaRE = new ReservarElemento(personaActual);
 					ventanaRE.setVisible(true);
 					desktopPane.add(ventanaRE);
 					ventanaRE.toFront();

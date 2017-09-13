@@ -59,5 +59,12 @@ public class Persona {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+	@Override
+	public String toString()
+	{
+//		return	this.getNombre();
+		return (this.id + " - " + this.getNombre()+", "+this.getApellido());
+	}
+	
 	
 }

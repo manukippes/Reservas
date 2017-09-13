@@ -55,9 +55,17 @@ public class ReservarElemento extends JInternalFrame {
 		desktopPane.setBackground(Color.WHITE);
 		getContentPane().add(desktopPane, "name_40315080594877");
 		
+/////////////USUARIO ACTUAL SELECCIONADO///////////////////////
+		JLabel lblUsuario = new JLabel("Reserva para usuario: "+pers.getNombre()+", "+pers.getApellido());
+		lblUsuario.setFont (lblUsuario.getFont ().deriveFont (14.0f));
+		lblUsuario.setBounds(15, 11, 544, 14);
+		desktopPane.add(lblUsuario);
+		
+		
+		
 ///////////// Combo Tipo de Elemento///////////////////
 		JLabel lblSeleccioneTipoDe = new JLabel("Tipo de Elemento a reservar:");
-		lblSeleccioneTipoDe.setBounds(15, 36, 296, 20);
+		lblSeleccioneTipoDe.setBounds(15, 52, 208, 20);
 		desktopPane.add(lblSeleccioneTipoDe);
 		comboBoxTipoElemento = new JComboBox();
 		comboBoxTipoElemento.addActionListener(new ActionListener() {
@@ -76,7 +84,7 @@ public class ReservarElemento extends JInternalFrame {
 //		});
 		
 		
-		comboBoxTipoElemento.setBounds(255, 33, 398, 26);
+		comboBoxTipoElemento.setBounds(255, 49, 393, 26);
 		desktopPane.add(comboBoxTipoElemento);
 		
 		
@@ -87,7 +95,7 @@ public class ReservarElemento extends JInternalFrame {
 		desktopPane.add(txtFechaHoraDesde);
 		txtFechaHoraDesde.setColumns(10);
 		JLabel lblFecha = new JLabel("Fecha y Hora desde de la reserva");
-		lblFecha.setBounds(15, 108, 276, 20);
+		lblFecha.setBounds(15, 108, 214, 20);
 		desktopPane.add(lblFecha);
 		
 ///////////// txt Fecha Hora Hasta///////////////////
@@ -97,7 +105,7 @@ public class ReservarElemento extends JInternalFrame {
 		desktopPane.add(txtFechaHoraHasta);
 		txtFechaHoraHasta.setColumns(10);
 		JLabel lblHora = new JLabel("Fecha y hora hasta de la reserva");
-		lblHora.setBounds(15, 168, 282, 20);
+		lblHora.setBounds(15, 168, 221, 20);
 		desktopPane.add(lblHora);
 
 ///////////// Combo Elemento///////////////////		
@@ -142,12 +150,15 @@ public class ReservarElemento extends JInternalFrame {
 		desktopPane.add(btnBuscarElementosDisponibles);
 		
 		txtSeleccioneUnElemento = new JTextField();
+		txtSeleccioneUnElemento.setBackground(Color.WHITE);
 		txtSeleccioneUnElemento.setText("Seleccione un elemento");
 		txtSeleccioneUnElemento.setEnabled(false);
 		txtSeleccioneUnElemento.setEditable(false);
-		txtSeleccioneUnElemento.setBounds(255, 231, 398, 20);
+		txtSeleccioneUnElemento.setBounds(255, 231, 393, 20);
 		desktopPane.add(txtSeleccioneUnElemento);
 		txtSeleccioneUnElemento.setColumns(10);
+		
+
 		
 		llenarComboTipo();
 		
@@ -230,15 +241,16 @@ public class ReservarElemento extends JInternalFrame {
 		 
 		 try {
 			 comboBoxElementos.setModel(new DefaultComboBoxModel(ctrlElemento.getElementosDisponibles((TipoElemento)comboBoxTipoElemento.getSelectedItem(),txtFechaHoraDesde.getText(),txtFechaHoraHasta.getText()).toArray()));
+			 Object[] options = new Object[] {};
+			 JOptionPane jop = new JOptionPane("Por favor seleccione el elemento", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
+			 jop.add(comboBoxElementos);
+			 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccione el elemento", EXIT_ON_CLOSE, frameIcon);
+			 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e);
+			JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de elemento","Error de selección",JOptionPane.WARNING_MESSAGE);
+			
 		}
-		
-		 Object[] options = new Object[] {};
-		 JOptionPane jop = new JOptionPane("Por favor seleccione el elemento", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
-		 jop.add(comboBoxElementos);
-		 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccione el elemento", EXIT_ON_CLOSE, frameIcon);
-		  
+		   
 		 try {
 			this.txtSeleccioneUnElemento.setText(comboBoxElementos.getSelectedItem().toString());
 		} catch (Exception e) {

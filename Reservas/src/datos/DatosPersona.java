@@ -56,6 +56,45 @@ public class DatosPersona
 		
 	}
 	
+	public ArrayList<Persona> buscarUsuariosExternos() throws Exception
+	{
+		Statement stm=null;
+		ResultSet rs=null;
+		ArrayList<Persona> personas= new ArrayList<Persona>();
+		
+		try 
+		{
+			stm = FactoryConnection.getinstancia().getConn().createStatement();
+			rs = stm.executeQuery("select id,dni,nombre,apellido,usuario,contrasena,habilitado,categoria from personas where categoria = 'Online'");
+			if(rs!=null){
+				while(rs.next()){
+					Persona persona=new Persona();
+					persona.setId(rs.getInt("id"));
+					persona.setDni(rs.getString("dni"));
+					persona.setNombre(rs.getString("nombre"));
+					persona.setApellido(rs.getString("apellido"));
+					persona.setUsuario(rs.getString("usuario"));
+					persona.setContrasena(rs.getString("contrasena"));
+					persona.setHabilitado(rs.getBoolean("habilitado"));
+					persona.setCategoria(rs.getString("categoria"));
+					personas.add(persona);
+				}
+			}
+		} 
+		catch (SQLException e) 
+		{
+			throw e;
+		}
+	
+		try {
+			if(rs!=null) rs.close();
+			if(stm!=null) stm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (SQLException e) {
+			throw e;
+		}
+		return personas;
+	}
 	
 	
 	public void agregarPersona (Persona pers) throws Exception

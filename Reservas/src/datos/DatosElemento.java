@@ -190,7 +190,6 @@ public class DatosElemento
 		} 
 		catch (Exception e) 
 		{
-			
 			throw e;
 		}
 		

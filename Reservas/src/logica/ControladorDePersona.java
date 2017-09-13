@@ -71,4 +71,9 @@ public class ControladorDePersona {
 		return persona;
 	}
 
+	public ArrayList<Persona> consultarUsuariosExternos() throws Exception {
+				
+		return basePersona.buscarUsuariosExternos();
+	}
+
 }
