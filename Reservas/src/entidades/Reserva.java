@@ -13,6 +13,7 @@ public class Reserva{
 	private Elemento elemento;
 	private String observacion;
 	private Persona persona;
+	private String estado;
 	
 	public int getId() {
 		return id;
@@ -55,6 +56,12 @@ public class Reserva{
 	}
 	public void setPersona(Persona persona) {
 		this.persona = persona;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

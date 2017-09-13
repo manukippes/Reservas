@@ -126,6 +126,9 @@ public class AnularReserva extends JInternalFrame {
 		//
 		BeanProperty<Reserva, String> personaBeanProperty_5 = BeanProperty.create("observacion");
 		jTableBinding.addColumnBinding(personaBeanProperty_5).setColumnName("Observacion").setEditable(false);
+		//
+		BeanProperty<Reserva, String> personaBeanProperty_6 = BeanProperty.create("estado");
+		jTableBinding.addColumnBinding(personaBeanProperty_6).setColumnName("Estado").setEditable(false);
 
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();		

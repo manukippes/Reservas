@@ -32,6 +32,10 @@ private DatosElemento baseElemento = new DatosElemento();
 		return baseReserva.buscarTodo();
 	}
 	
+	public ArrayList<Reserva> consultarSoloActivas() throws Exception{
+		return baseReserva.buscarSoloActivas();
+	}
+	
 	public ArrayList<TipoElemento> getTipoElemento() throws Exception
 	{
 		return baseTipoElemento.buscarTodo();
@@ -53,5 +57,9 @@ private DatosElemento baseElemento = new DatosElemento();
 		
 		return listadoElementos;
 	}
+	
+	public void cancelarReserva(Reserva res) throws Exception{
+		baseReserva.cancelarReserva(res);
+	};
 
 }

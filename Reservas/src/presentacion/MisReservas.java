@@ -48,7 +48,7 @@ public class MisReservas extends JInternalFrame {
 		JButton btnEliminar = new JButton("Cancelar Reserva");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eliminar();
+				cancelar();
 			}
 
 		});
@@ -78,7 +78,7 @@ public class MisReservas extends JInternalFrame {
 		
 		try{
 			
-			reservas = ctrlReserva.consultarTodo();
+			reservas = ctrlReserva.consultarSoloActivas();
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	
@@ -116,14 +116,14 @@ public class MisReservas extends JInternalFrame {
 	}
 	
 
-	private void eliminar() {
+	private void cancelar() {
 		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cancelar la Reserva?");
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
-				ctrlReserva.borrarReserva(this.reservas.get(indexElemento));
+				ctrlReserva.cancelarReserva(this.reservas.get(indexElemento));
 				reservas.clear();
-				reservas = ctrlReserva.consultarTodo();
+				reservas = ctrlReserva.consultarSoloActivas();
 				initDataBindings();
 				
 			} catch (Exception e) {
