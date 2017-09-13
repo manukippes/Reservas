@@ -36,8 +36,10 @@ public class MisReservas extends JInternalFrame {
 	private JTable table;
 	private ControladorDeReserva ctrlReserva = new ControladorDeReserva();
 	private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+	
 
 	public MisReservas(Persona pers) {
+				
 		setTitle("Mis Reserva");
 		
 		setClosable(true);
@@ -48,9 +50,11 @@ public class MisReservas extends JInternalFrame {
 		JButton btnEliminar = new JButton("Cancelar Reserva");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelar();
+				cancelar(pers);
 			}
-
+		
+		
+			
 		});
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -78,7 +82,8 @@ public class MisReservas extends JInternalFrame {
 		
 		try{
 			
-			reservas = ctrlReserva.consultarSoloActivas();
+			reservas = ctrlReserva.reservasPendientesPersona(pers);
+
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	
@@ -116,14 +121,14 @@ public class MisReservas extends JInternalFrame {
 	}
 	
 
-	private void cancelar() {
+	private void cancelar(Persona pers) {
 		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cancelar la Reserva?");
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 			try {
 				ctrlReserva.cancelarReserva(this.reservas.get(indexElemento));
 				reservas.clear();
-				reservas = ctrlReserva.consultarSoloActivas();
+				reservas = ctrlReserva.reservasPendientesPersona(pers);
 				initDataBindings();
 				
 			} catch (Exception e) {

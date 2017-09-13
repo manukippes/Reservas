@@ -7,6 +7,7 @@ import datos.DatosElemento;
 import datos.DatosReserva;
 import datos.DatosTipoElemento;
 import entidades.Elemento;
+import entidades.Persona;
 import entidades.Reserva;
 import entidades.TipoElemento;
 
@@ -30,10 +31,6 @@ private DatosElemento baseElemento = new DatosElemento();
 	
 	public ArrayList<Reserva> consultarTodo() throws Exception{
 		return baseReserva.buscarTodo();
-	}
-	
-	public ArrayList<Reserva> consultarSoloActivas() throws Exception{
-		return baseReserva.buscarSoloActivas();
 	}
 	
 	public ArrayList<TipoElemento> getTipoElemento() throws Exception
@@ -60,6 +57,11 @@ private DatosElemento baseElemento = new DatosElemento();
 	
 	public void cancelarReserva(Reserva res) throws Exception{
 		baseReserva.cancelarReserva(res);
-	};
+	}
+
+
+	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception{
+		return baseReserva.reservasPendientesPersona(pers);
+	}
 
 }

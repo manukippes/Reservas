@@ -5,12 +5,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entidades.Persona;
+import entidades.TipoElemento;
+import logica.ControladorDePersona;
+import logica.ControladorDeReserva;
 
 import java.awt.CardLayout;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Frame;
@@ -20,7 +28,9 @@ public class PrincipalEscritorio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private ControladorDePersona ctrlPersona = new ControladorDePersona();
 	public JDesktopPane desktopPane;
+	private JComboBox comboBoxPersonas = new JComboBox();
 
 	public PrincipalEscritorio(Persona pers) {
 		
@@ -153,10 +163,34 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmAlta = new JMenuItem("Reservar Elemento");
 		mntmAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ReservarElemento ventanaRE = new ReservarElemento(pers);
-				ventanaRE.setVisible(true);
-				desktopPane.add(ventanaRE);
-				ventanaRE.toFront();
+				ReservarElemento ventanaRE;
+				if (!(pers.getCategoria().equals("Encargado"))){
+					ventanaRE = new ReservarElemento(pers);
+					ventanaRE.setVisible(true);
+					desktopPane.add(ventanaRE);
+					ventanaRE.toFront();
+					
+				}
+				else{
+					
+					try {
+						comboBoxPersonas.setModel(new DefaultComboBoxModel<Object>(ctrlPersona.consultarTodo().toArray()));
+					} catch (Exception e1) {
+						System.out.println(e);
+					}
+					
+					 Object[] options = new Object[] {};
+					 JOptionPane jop = new JOptionPane("Por favor seleccione la persona", JOptionPane.PLAIN_MESSAGE,JOptionPane.PLAIN_MESSAGE,null,options, null);
+					 jop.add(comboBoxPersonas);
+					 JOptionPane.showMessageDialog(getContentPane(),jop,"Seleccione la persona", EXIT_ON_CLOSE);
+					
+					
+					ventanaRE = new ReservarElemento(pers);
+					ventanaRE.setVisible(true);
+					desktopPane.add(ventanaRE);
+					ventanaRE.toFront();
+					
+				}
 			}
 		});
 		mnReserva.add(mntmAlta);

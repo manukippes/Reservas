@@ -57,15 +57,18 @@ public class DatosReserva
 		return listadoRes;
 	}
 	
-	public ArrayList<Reserva> buscarSoloActivas() throws Exception
+		
+	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception
 	{
 		PreparedStatement pstm=null;
 		ResultSet rs=null;
 		
 		try {
-			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM reserva WHERE estado = ?");
-			pstm.setString(1, "Activa");
-			rs = pstm.executeQuery();
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM reserva r where r.persona = ? and r.fechaHoraDesde >= NOW() and r.estado = ?");
+			pstm.setInt(1,pers.getId());
+			pstm.setString(2, "Activa");
+			rs=pstm.executeQuery();
 			if(rs!=null){
 				while(rs.next()){
 					Reserva res = new Reserva();
@@ -79,11 +82,9 @@ public class DatosReserva
 					res.setFechaHoraDesde(rs.getString("fechaHoraDesde"));
 					res.setFechaHoraHasta(rs.getString("fechaHoraHasta"));
 					res.setObservacion(rs.getString("observacion"));
-					res.setEstado(rs.getString("estado"));
 					listadoRes.add(res);
 				}
 			}
-			
 			
 		} catch (SQLException e) {
 			throw e;
@@ -101,7 +102,6 @@ public class DatosReserva
 		
 		return listadoRes;
 	}
-	
 	public void agregarReserva(Reserva res) throws Exception
 	{
 		ResultSet rs = null;
