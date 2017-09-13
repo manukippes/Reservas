@@ -15,12 +15,12 @@ public class DatosReserva
 	
 	public ArrayList<Reserva> buscarTodo() throws Exception
 	{
-		Statement stm=null;
+		PreparedStatement pstm=null;
 		ResultSet rs=null;
 		
 		try {
-			stm = FactoryConnection.getinstancia().getConn().createStatement();
-			rs = stm.executeQuery("SELECT * FROM reserva");
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM reserva");
+			rs = pstm.executeQuery();
 			if(rs!=null){
 				while(rs.next()){
 					Reserva res = new Reserva();
@@ -31,11 +31,10 @@ public class DatosReserva
 					res.getTipo().setId(rs.getInt("tipo"));
 					res.setPersona(new Persona());
 					res.getPersona().setId(rs.getInt("persona"));
-					//res.setFechaHoraDesde(rs.getDate("fechaHoraDesde"));
-					//res.setFechaHoraHasta(rs.getDate("fechaHoraHasta"));
 					res.setFechaHoraDesde(rs.getString("fechaHoraDesde"));
 					res.setFechaHoraHasta(rs.getString("fechaHoraHasta"));
 					res.setObservacion(rs.getString("observacion"));
+					res.setEstado(rs.getString("estado"));
 					listadoRes.add(res);
 				}
 			}
@@ -49,7 +48,7 @@ public class DatosReserva
 		
 		try {
 			if(rs!=null)rs.close();
-			if(stm!=null)stm.close();
+			if(pstm!=null)pstm.close();
 			FactoryConnection.getinstancia().releaseConn();
 		} catch (SQLException e) {
 			throw e;
@@ -58,6 +57,7 @@ public class DatosReserva
 		return listadoRes;
 	}
 	
+		
 	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception
 	{
 		PreparedStatement pstm=null;
@@ -65,8 +65,9 @@ public class DatosReserva
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM reserva r where r.persona = ? and r.fechaHoraDesde >= NOW()");
+					"SELECT * FROM reserva r where r.persona = ? and r.fechaHoraDesde >= NOW() and r.estado = ?");
 			pstm.setInt(1,pers.getId());
+			pstm.setString(2, "Activa");
 			rs=pstm.executeQuery();
 			if(rs!=null){
 				while(rs.next()){
@@ -108,16 +109,15 @@ public class DatosReserva
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO reserva(elemento,tipo,persona,fechaHoraDesde,fechaHoraHasta,observacion) VALUES (?,?,?,?,?,?)",
+					"INSERT INTO reserva(elemento,tipo,persona,fechaHoraDesde,fechaHoraHasta,observacion,estado) VALUES (?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			pstm.setInt(1, res.getElemento().getId());
 			pstm.setInt(2, res.getTipo().getId());
 			pstm.setInt(3, res.getPersona().getId());
-			//pstm.setTimestamp(4, new Timestamp(res.getFechaHoraDesde().getTime()));
-			//pstm.setTimestamp(5, new Timestamp(res.getFechaHoraHasta().getTime()));
 			pstm.setString(4, res.getFechaHoraDesde());
 			pstm.setString(5, res.getFechaHoraHasta());
 			pstm.setString(6, res.getObservacion());
+			pstm.setString(7, "Activa");
 			pstm.executeUpdate();
 			rs = pstm.getGeneratedKeys();
 			if(rs!=null & rs.next())
@@ -222,6 +222,29 @@ public ArrayList<Elemento> obtenerElementos(int tipo, String fechaHoraDesde, Str
 		
 		return listadoElementos;
 	}
+
+public void cancelarReserva(Reserva res) throws Exception
+{
+	PreparedStatement pstm = null;
+	
+	try {
+		pstm = FactoryConnection.getinstancia().getConn().prepareStatement("UPDATE reserva SET estado=? WHERE id=?");
+		pstm.setString(1, "Cancelada");
+		pstm.setInt(2, res.getId());
+		pstm.executeUpdate();
+	} catch (SQLException e) {
+		throw e;
+	} catch (ExcepcionesEscritorio e) {
+		throw e;
+	}
+	
+	try {
+		if(pstm!=null)pstm.close();
+		FactoryConnection.getinstancia().releaseConn();
+	} catch (Exception e) {
+		throw e;
+	}
+}
 
 }
 

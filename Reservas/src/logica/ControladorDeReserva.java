@@ -55,8 +55,13 @@ private DatosElemento baseElemento = new DatosElemento();
 		return listadoElementos;
 	}
 	
+	public void cancelarReserva(Reserva res) throws Exception{
+		baseReserva.cancelarReserva(res);
+	}
+
+
 	public ArrayList<Reserva> reservasPendientesPersona(Persona pers) throws Exception{
 		return baseReserva.reservasPendientesPersona(pers);
 	}
-	
+
 }
