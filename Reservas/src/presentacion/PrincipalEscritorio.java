@@ -92,7 +92,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmTipoDeElemento = new JMenuItem("Agregar Tipo de Elemento");
 		mntmTipoDeElemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgregarTipoElemento ventanaTE = new AgregarTipoElemento(-1);
+				AgregarTipoElemento ventanaTE = new AgregarTipoElemento(-1, pers);
 				ventanaTE.setVisible(true);
 				desktopPane.add(ventanaTE);
 				ventanaTE.toFront();
@@ -104,7 +104,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmConsultarTipoDe = new JMenuItem("Listado Tipo de Elemento");
 		mntmConsultarTipoDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoTipoElemento ventanaTE = new ListadoTipoElemento();
+				ListadoTipoElemento ventanaTE = new ListadoTipoElemento(pers);
 				ventanaTE.setVisible(true);
 				desktopPane.add(ventanaTE);
 				ventanaTE.toFront();
@@ -120,7 +120,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmElemento = new JMenuItem("Agregar Elemento");
 		mntmElemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AgregarElemento ventanaE = new AgregarElemento(-1);
+				AgregarElemento ventanaE = new AgregarElemento(-1,pers);
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
 				ventanaE.toFront();
@@ -131,7 +131,7 @@ public class PrincipalEscritorio extends JFrame {
 		JMenuItem mntmConsultarElemento = new JMenuItem("Listado de Elemento");
 		mntmConsultarElemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoElemento ventanaE = new ListadoElemento();
+				ListadoElemento ventanaE = new ListadoElemento(pers);
 				ventanaE.setVisible(true);
 				desktopPane.add(ventanaE);
 				ventanaE.toFront();

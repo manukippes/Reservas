@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 //import javax.swing.ComboBoxModel;
 
 import entidades.Elemento;
+import entidades.Persona;
 import entidades.TipoElemento;
 import logica.ControladorDeElemento;
 //import logica.ControladorDeTipoElemento;
@@ -39,7 +40,7 @@ public class AgregarElemento extends JInternalFrame {
 	private JComboBox comboBoxTipoElemento;
 
 	
-	public AgregarElemento(int idElemento) {
+	public AgregarElemento(int idElemento, Persona pers) {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Completar los datos del elemento");
@@ -68,7 +69,7 @@ public class AgregarElemento extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gestionDeElemento(idElemento);
+				gestionDeElemento(idElemento, pers);
 			}
 		});
 		
@@ -132,14 +133,14 @@ public class AgregarElemento extends JInternalFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 
-		llenarCombo();
+		llenarCombo(pers);
 	}
 
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeElemento(int idElemento) 
+	public void gestionDeElemento(int idElemento, Persona pers) 
 	{
 		if(idElemento == -1){altaElemento();}
-		else{modificarElemento(idElemento);}
+		else{modificarElemento(idElemento, pers);}
 	}
 		
 
@@ -161,7 +162,7 @@ public class AgregarElemento extends JInternalFrame {
 
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
-	private void modificarElemento(int idElemento) 
+	private void modificarElemento(int idElemento, Persona pers) 
 	{
 		Elemento ele = mapearDeFormulario();
 		ele.setId(idElemento);
@@ -170,7 +171,7 @@ public class AgregarElemento extends JInternalFrame {
 			ctrlElemento.modificarElemento(ele);
 			JOptionPane.showMessageDialog(this, "El elemento se modificó correctamente.","Modificar elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
-			ListadoElemento menuEle = new ListadoElemento();
+			ListadoElemento menuEle = new ListadoElemento(pers);
 			this.getDesktopPane().add(menuEle);
 			menuEle.setVisible(true);
 			dispose();
@@ -187,12 +188,12 @@ public class AgregarElemento extends JInternalFrame {
 	}
 
 ////////////////METODO PARA LLENAR CON DATOS DE LA BASE DE DATOS EL COMBO DE TIPO DE ELEMENTO///////////////////
-	public void llenarCombo() 
+	public void llenarCombo(Persona pers) 
 	{
 		ctrlElemento = new ControladorDeElemento();
 		try 
 		{
-			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlElemento.getTipoElemento().toArray()));
+			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlElemento.getTipoElemento(pers).toArray()));
 			this.comboBoxTipoElemento.setSelectedIndex(-1);
 		} 
 		catch (Exception e) 

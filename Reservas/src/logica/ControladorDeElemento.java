@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import datos.DatosElemento;
 import datos.DatosTipoElemento;
 import entidades.Elemento;
+import entidades.Persona;
 import entidades.TipoElemento;
 import utilidades.ExcepcionEspecial;
 
@@ -68,9 +69,9 @@ public class ControladorDeElemento {
 				return baseElemento.buscarTodo();
 			}
 			
-			public ArrayList<TipoElemento> getTipoElemento() throws Exception
+			public ArrayList<TipoElemento> getTipoElemento(Persona pers) throws Exception
 			{
-				return baseTipoElemento.buscarTodo();
+				return baseTipoElemento.buscarTodo(pers);
 			}
 
 			public ArrayList<Elemento> getElementosDisponibles(TipoElemento tipoElemento, String fechaDesde, String fechaHasta) throws Exception{

@@ -24,6 +24,7 @@ import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
 import entidades.Elemento;
+import entidades.Persona;
 import logica.ControladorDeElemento;
 import entidades.TipoElemento;
 import logica.ControladorDeTipoElemento;
@@ -44,7 +45,7 @@ public class ListadoElemento extends JInternalFrame {
 	private ArrayList<Elemento> elementos = new ArrayList<Elemento>();
 	
 
-	public ListadoElemento() {
+	public ListadoElemento(Persona pers) {
 		setTitle("Elementos");
 		
 		setClosable(true);
@@ -57,7 +58,7 @@ public class ListadoElemento extends JInternalFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try{
-					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
+					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()),pers);
 					}
 				catch (Exception e){
 					JOptionPane.showMessageDialog(ListadoElemento.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
@@ -117,9 +118,9 @@ public class ListadoElemento extends JInternalFrame {
 	}
 	
 
-	public void modificar(int idElemento) {
+	public void modificar(int idElemento, Persona pers) {
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarElemento menuEle = new AgregarElemento(idElemento);
+			AgregarElemento menuEle = new AgregarElemento(idElemento,pers);
 			menuEle.showElemento(this.elementos.get(indexElemento));
 			this.getDesktopPane().add(menuEle);
 			menuEle.setVisible(true);

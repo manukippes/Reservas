@@ -4,6 +4,9 @@ public class TipoElemento {
 	private int id;
 	private String nombre;
 	private int cant_max_reservas;
+	private Boolean reservaEncargado;
+	private int limiteMaxHorasReserva;
+	private int cantMaxDiasAnticipacion;
 	
 	public int getId() {
 		return id;
@@ -24,6 +27,24 @@ public class TipoElemento {
 		this.cant_max_reservas = cant_max_reservas;
 	}
 	
+	public Boolean getReservaEncargado() {
+		return reservaEncargado;
+	}
+	public void setReservaEncargado(Boolean reservaEncargado) {
+		this.reservaEncargado = reservaEncargado;
+	}
+	public int getLimiteMaxHorasReserva() {
+		return limiteMaxHorasReserva;
+	}
+	public void setLimiteMaxHorasReserva(int limiteMaxHorasReserva) {
+		this.limiteMaxHorasReserva = limiteMaxHorasReserva;
+	}
+	public int getCantMaxDiasAnticipacion() {
+		return cantMaxDiasAnticipacion;
+	}
+	public void setCantMaxDiasAnticipacion(int cantMaxDiasAnticipacion) {
+		this.cantMaxDiasAnticipacion = cantMaxDiasAnticipacion;
+	}
 	@Override
 	public String toString()
 	{

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import entidades.Persona;
 //import entidades.Elemento;
 import entidades.TipoElemento;
 //import logica.ControladorDeElemento;
@@ -34,7 +35,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 	private JTextField textCantMaxReservas;
 	private ControladorDeTipoElemento ctrlTipoElemento = new ControladorDeTipoElemento();
 
-	public AgregarTipoElemento(int idTipoElemento) {
+	public AgregarTipoElemento(int idTipoElemento, Persona pers) {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Completar datos del tipo de elemento");
@@ -124,7 +125,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 				btnAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 							try{
-								gestionDeTipoElemento(idTipoElemento);}
+								gestionDeTipoElemento(idTipoElemento, pers);}
 							catch (Exception exc){
 								JOptionPane.showMessageDialog(AgregarTipoElemento.this,"La cantidad máxima de reservas debe ser un número entero positivo","Error al intentar crear el elemento",JOptionPane.WARNING_MESSAGE);
 							}
@@ -134,13 +135,13 @@ public class AgregarTipoElemento extends JInternalFrame {
 }
 	
 ///////////////METODO PARA VERIFICAR SI ES UN ALTA O UNA MODIFICACION/////////////////////////////
-	public void gestionDeTipoElemento(int idTipoElemento) 
+	public void gestionDeTipoElemento(int idTipoElemento, Persona pers) 
 	{
 			if(idTipoElemento==-1){
 				altaTipoElemento();
 				}
 			else{
-				modificarTipoElemento(idTipoElemento);
+				modificarTipoElemento(idTipoElemento, pers);
 				}
 	}
 
@@ -163,7 +164,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 
 
 ////////////////METODO PARA MODIFICAR DE ELEMENTO///////////////////
-	private void modificarTipoElemento(int idTipoElemento) 
+	private void modificarTipoElemento(int idTipoElemento, Persona pers) 
 	{
 		TipoElemento tipoEle = mapearDeFormulario();
 		tipoEle.setId(idTipoElemento);
@@ -172,7 +173,7 @@ public class AgregarTipoElemento extends JInternalFrame {
 			ctrlTipoElemento.modificarTipoElemento(tipoEle);
 			JOptionPane.showMessageDialog(this,"El Tipo de Elemento se modificó correctamente."," Modificar Tipo de Elemento",JOptionPane.PLAIN_MESSAGE);
 			limpiarCampos();
-			ListadoTipoElemento menuEle = new ListadoTipoElemento();
+			ListadoTipoElemento menuEle = new ListadoTipoElemento(pers);
 			this.getDesktopPane().add(menuEle);
 			menuEle.setVisible(true);
 			dispose();

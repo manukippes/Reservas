@@ -3,6 +3,7 @@ package logica;
 import java.util.ArrayList;
 
 import datos.DatosTipoElemento;
+import entidades.Persona;
 import entidades.TipoElemento;
 import utilidades.ExcepcionEspecial;
 
@@ -41,7 +42,7 @@ private DatosTipoElemento baseTipoElemento = new DatosTipoElemento();
 			}		
 	};
 	
-	public ArrayList<TipoElemento> consultarTodo() throws Exception{
-		return baseTipoElemento.buscarTodo();
+	public ArrayList<TipoElemento> consultarTodo(Persona pers) throws Exception{
+		return baseTipoElemento.buscarTodo(pers);
 	}
 }

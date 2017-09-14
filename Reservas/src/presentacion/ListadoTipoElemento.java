@@ -19,6 +19,7 @@ import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
 import entidades.Elemento;
+import entidades.Persona;
 import entidades.TipoElemento;
 import logica.ControladorDeElemento;
 import logica.ControladorDeTipoElemento;
@@ -44,7 +45,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 	private ControladorDeTipoElemento ctrlTipoElemento = new ControladorDeTipoElemento();
 	private ArrayList<TipoElemento> tipoElementos = new ArrayList<TipoElemento>();
 
-	public ListadoTipoElemento() 
+	public ListadoTipoElemento(Persona pers) 
 	{
 		setTitle("Tipos de Elemento");
 		setClosable(true);
@@ -56,7 +57,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
-					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()));
+					modificar(Integer.parseInt(table.getValueAt(table.getSelectedRow(),0).toString()), pers);
 					}
 				catch (Exception exc){
 					JOptionPane.showMessageDialog(ListadoTipoElemento.this,"Para editar, debe seleccionar una fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
@@ -68,7 +69,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
-					eliminar();
+					eliminar(pers);
 					}
 				
 				catch (Exception exc){
@@ -108,7 +109,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		
 		try{
-			tipoElementos = ctrlTipoElemento.consultarTodo();
+			tipoElementos = ctrlTipoElemento.consultarTodo(pers);
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 	
@@ -137,11 +138,11 @@ public class ListadoTipoElemento extends JInternalFrame {
 	}
 	
 
-	public void modificar(int idTipoElemento) 
+	public void modificar(int idTipoElemento, Persona pers) 
 	{
 		try{
 			int indexTipoElemento=table.convertRowIndexToModel(table.getSelectedRow());
-			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento(idTipoElemento);
+			AgregarTipoElemento menuTipoEle = new AgregarTipoElemento(idTipoElemento, pers);
 			menuTipoEle.showTipoElemento(this.tipoElementos.get(indexTipoElemento)); 
 			this.getDesktopPane().add(menuTipoEle);
 			menuTipoEle.setVisible(true);
@@ -153,7 +154,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 		
 	}
 	
-	private void eliminar()
+	private void eliminar(Persona pers)
 	{
 		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar el elemento " + table.getValueAt(table.getSelectedRow(), 1)+" ?","Confirmar eliminacion",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION)
@@ -162,7 +163,7 @@ public class ListadoTipoElemento extends JInternalFrame {
 			try 
 			{
 				ctrlTipoElemento.borrarTipoElemento(this.tipoElementos.get(indexTipoElemento));
-				tipoElementos = ctrlTipoElemento.consultarTodo();
+				tipoElementos = ctrlTipoElemento.consultarTodo(pers);
 				initDataBindings();
 				
 			} catch (Exception e) 

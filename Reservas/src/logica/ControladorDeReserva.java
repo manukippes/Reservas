@@ -33,9 +33,9 @@ private DatosElemento baseElemento = new DatosElemento();
 		return baseReserva.buscarTodo();
 	}
 	
-	public ArrayList<TipoElemento> getTipoElemento() throws Exception
+	public ArrayList<TipoElemento> getTipoElemento(Persona pers) throws Exception
 	{
-		return baseTipoElemento.buscarTodo();
+		return baseTipoElemento.buscarTodo(pers);
 	}
 	
 	public ArrayList<Elemento> getElemento() throws Exception

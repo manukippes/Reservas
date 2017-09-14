@@ -160,17 +160,17 @@ public class ReservarElemento extends JInternalFrame {
 		
 
 		
-		llenarComboTipo();
+		llenarComboTipo(pers);
 		
 	}
 	
 
 ////////////////LLENA EL COMBO DE TIPO DE ELEMENTO///////////
-	private void llenarComboTipo() 
+	private void llenarComboTipo(Persona pers) 
 	{
 		try 
 		{	
-			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento().toArray()));
+			this.comboBoxTipoElemento.setModel(new DefaultComboBoxModel(ctrlReserva.getTipoElemento(pers).toArray()));
 			this.comboBoxTipoElemento.setSelectedIndex(-1);
 
 		} 
