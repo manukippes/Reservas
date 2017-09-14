@@ -61,7 +61,7 @@ CREATE TABLE `personas` (
   `habilitado` bit(1) DEFAULT NULL,
   `categoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'34414700','JUAN','PEREZ','JPEREZ','','','ADMIN'),(3,'37468090','Pedro','Picapiedra','a','a','','Admin'),(4,'678989','Pablo','Marmol','a','a','','Online'),(6,'9897','Sonia','Win','Swind','34567','','Admin'),(7,'897897','Manu','Kippes','manukip','908','','Online'),(9,'897897','Fabricio','gonzalo','max','452343','\0','Administrador'),(10,'11111','Administrador','Administrador','admin','admin','','Administrador');
+INSERT INTO `personas` VALUES (1,'34414700','JUAN','PEREZ','JPEREZ','','','ADMIN'),(3,'37468090','Pedro','Picapiedra','a','a','','Admin'),(4,'678989','Pablo','Marmol','a','a','','Online'),(6,'9897','Sonia','Win','Swind','34567','','Admin'),(7,'897897','Manu','Kippes','manukip','908','','Online'),(9,'897897','Fabricio','gonzalo','max','452343','\0','Administrador'),(10,'11111','Administrador','Administrador','admin','admin','','Administrador'),(11,'1','1','1','1','1','','Online'),(12,'2','2','2','2','2','','Encargado');
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,6 +89,7 @@ CREATE TABLE `reserva` (
   `elemento` int(11) DEFAULT NULL,
   `observacion` varchar(45) DEFAULT NULL,
   `persona` int(11) DEFAULT NULL,
+  `estado` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tipo_idx` (`tipo`),
   KEY `elemento_idx` (`elemento`),
@@ -96,7 +97,7 @@ CREATE TABLE `reserva` (
   CONSTRAINT `elemento` FOREIGN KEY (`elemento`) REFERENCES `elemento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `persona` FOREIGN KEY (`persona`) REFERENCES `personas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tipoDeRe` FOREIGN KEY (`tipo`) REFERENCES `tipoelemento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Tabla de Reservas';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Tabla de Reservas';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +106,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (4,1,'2017-01-10 11:00:00','2017-01-10 00:00:00',7,'nueva reserva',7);
+INSERT INTO `reserva` VALUES (4,1,'2017-01-10 11:00:00','2017-01-11 00:00:00',7,'nueva reserva',7,'Activa'),(5,1,'2017-09-11 10:00:00','2017-09-12 10:00:00',13,'rasfsaass',11,'Cancelada'),(7,1,'2018-01-01 00:00:00','2018-01-01 00:00:00',9,'',11,'Activa');
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `tipoelemento` (
   `nombre` varchar(45) DEFAULT NULL,
   `cant_max_reservas` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +131,7 @@ CREATE TABLE `tipoelemento` (
 
 LOCK TABLES `tipoelemento` WRITE;
 /*!40000 ALTER TABLE `tipoelemento` DISABLE KEYS */;
-INSERT INTO `tipoelemento` VALUES (1,'computadoras','12'),(2,'monitores','4');
+INSERT INTO `tipoelemento` VALUES (1,'computadoras','12'),(2,'monitores','4'),(3,'escritrio','2');
 /*!40000 ALTER TABLE `tipoelemento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -143,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-08 20:10:57
+-- Dump completed on 2017-09-13 21:16:01
