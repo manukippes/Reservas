@@ -123,14 +123,14 @@ public class ListadoTipoElemento extends JInternalFrame {
 	{
 		JTableBinding<TipoElemento, List<TipoElemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, tipoElementos, table);
 		//
-		BeanProperty<TipoElemento, String> personaBeanProperty_0 = BeanProperty.create("id");
-		jTableBinding.addColumnBinding(personaBeanProperty_0).setColumnName("Id").setEditable(false);
+		BeanProperty<TipoElemento, String> tipoElementoBeanProperty_0 = BeanProperty.create("id");
+		jTableBinding.addColumnBinding(tipoElementoBeanProperty_0).setColumnName("Id").setEditable(false);
 		//
-		BeanProperty<TipoElemento, String> personaBeanProperty = BeanProperty.create("nombre");
-		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Nombre").setEditable(false);
+		BeanProperty<TipoElemento, String> tipoElementoBeanProperty = BeanProperty.create("nombre");
+		jTableBinding.addColumnBinding(tipoElementoBeanProperty).setColumnName("Nombre").setEditable(false);
 		//
-		BeanProperty<TipoElemento, String> personaBeanProperty_1 = BeanProperty.create("cant_max_reservas");
-		jTableBinding.addColumnBinding(personaBeanProperty_1).setColumnName("Cantidad Maxima de Reservas").setEditable(false);
+		BeanProperty<TipoElemento, String> tipoElementoBeanProperty_1 = BeanProperty.create("cant_max_reservas");
+		jTableBinding.addColumnBinding(tipoElementoBeanProperty_1).setColumnName("Cantidad Maxima de Reservas").setEditable(false);
 
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();

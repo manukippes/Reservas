@@ -145,14 +145,14 @@ public class ListadoElemento extends JInternalFrame {
 	protected void initDataBindings() {
 		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, elementos, table);
 		//
-		BeanProperty<Elemento, String> personaBeanProperty_0 = BeanProperty.create("id");
-		jTableBinding.addColumnBinding(personaBeanProperty_0).setColumnName("Id").setEditable(false);
+		BeanProperty<Elemento, String> elementoBeanProperty_0 = BeanProperty.create("id");
+		jTableBinding.addColumnBinding(elementoBeanProperty_0).setColumnName("Id").setEditable(false);
 		//
-		BeanProperty<Elemento, String> personaBeanProperty = BeanProperty.create("nombre");
-		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Nombre").setEditable(false);
+		BeanProperty<Elemento, String> elementoBeanProperty_1 = BeanProperty.create("nombre");
+		jTableBinding.addColumnBinding(elementoBeanProperty_1).setColumnName("Nombre").setEditable(false);
 		//
-		BeanProperty<Elemento, String> elementoBeanProperty = BeanProperty.create("tipo.id");
-		jTableBinding.addColumnBinding(elementoBeanProperty).setColumnName("Tipo").setEditable(false);
+		BeanProperty<Elemento, String> elementoBeanProperty_2 = BeanProperty.create("tipo.id");
+		jTableBinding.addColumnBinding(elementoBeanProperty_2).setColumnName("Tipo").setEditable(false);
 		//
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();

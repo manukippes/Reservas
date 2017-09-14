@@ -100,26 +100,26 @@ public class MisReservas extends JInternalFrame {
 	public void initDataBindings() {
 		JTableBinding<Reserva, List<Reserva>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, reservas, table);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_0 = BeanProperty.create("id");
-		jTableBinding.addColumnBinding(personaBeanProperty_0).setColumnName("Id").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_0 = BeanProperty.create("id");
+		jTableBinding.addColumnBinding(reservaBeanProperty_0).setColumnName("Id").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty = BeanProperty.create("elemento.id");
-		jTableBinding.addColumnBinding(personaBeanProperty).setColumnName("Elemento").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty = BeanProperty.create("elemento.id");
+		jTableBinding.addColumnBinding(reservaBeanProperty).setColumnName("Elemento").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_1 = BeanProperty.create("tipo.id");
-		jTableBinding.addColumnBinding(personaBeanProperty_1).setColumnName("Tipo de Elemento").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_1 = BeanProperty.create("tipo.id");
+		jTableBinding.addColumnBinding(reservaBeanProperty_1).setColumnName("Tipo de Elemento").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_2 = BeanProperty.create("persona.id");
-		jTableBinding.addColumnBinding(personaBeanProperty_2).setColumnName("Persona").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_2 = BeanProperty.create("persona.id");
+		jTableBinding.addColumnBinding(reservaBeanProperty_2).setColumnName("Persona").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_3 = BeanProperty.create("fechaHoraDesde");
-		jTableBinding.addColumnBinding(personaBeanProperty_3).setColumnName("Fecha y Hora desde").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_3 = BeanProperty.create("fechaHoraDesde");
+		jTableBinding.addColumnBinding(reservaBeanProperty_3).setColumnName("Fecha y Hora desde").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_4 = BeanProperty.create("fechaHoraHasta");
-		jTableBinding.addColumnBinding(personaBeanProperty_4).setColumnName("Fecha y Hora hasta").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_4 = BeanProperty.create("fechaHoraHasta");
+		jTableBinding.addColumnBinding(reservaBeanProperty_4).setColumnName("Fecha y Hora hasta").setEditable(false);
 		//
-		BeanProperty<Reserva, String> personaBeanProperty_5 = BeanProperty.create("observacion");
-		jTableBinding.addColumnBinding(personaBeanProperty_5).setColumnName("Observaciones").setEditable(false);
+		BeanProperty<Reserva, String> reservaBeanProperty_5 = BeanProperty.create("observacion");
+		jTableBinding.addColumnBinding(reservaBeanProperty_5).setColumnName("Observaciones").setEditable(false);
 
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();
