@@ -90,7 +90,7 @@ public class ReservarElemento extends JInternalFrame {
 		
 ///////////// txt Fecha Hora Desde///////////////////
 		txtFechaHoraDesde = new JTextField();
-		txtFechaHoraDesde.setText("2010-01-01 00:00:00");
+		txtFechaHoraDesde.setText("AAAA-MM-DD HH:MM:SS");
 		txtFechaHoraDesde.setBounds(255, 105, 393, 26);
 		desktopPane.add(txtFechaHoraDesde);
 		txtFechaHoraDesde.setColumns(10);
@@ -100,7 +100,7 @@ public class ReservarElemento extends JInternalFrame {
 		
 ///////////// txt Fecha Hora Hasta///////////////////
 		txtFechaHoraHasta = new JTextField();
-		txtFechaHoraHasta.setText("2010-01-01 00:00:00");
+		txtFechaHoraHasta.setText("AAAA-MM-DD HH:MM:SS");
 		txtFechaHoraHasta.setBounds(255, 165, 393, 26);
 		desktopPane.add(txtFechaHoraHasta);
 		txtFechaHoraHasta.setColumns(10);
