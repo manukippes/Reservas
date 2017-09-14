@@ -40,7 +40,7 @@ public class MisReservas extends JInternalFrame {
 
 	public MisReservas(Persona pers) {
 				
-		setTitle("Mis Reserva");
+		setTitle("Mis Reservas Pendientes");
 		
 		setClosable(true);
 		setBounds(100, 100, 507, 312);
@@ -50,7 +50,12 @@ public class MisReservas extends JInternalFrame {
 		JButton btnEliminar = new JButton("Cancelar Reserva");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelar(pers);
+				try{
+					cancelar(pers);
+					}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(MisReservas.this,"Para cancelar una reserva, debe seleccionar la fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		
 		
@@ -122,7 +127,7 @@ public class MisReservas extends JInternalFrame {
 	
 
 	private void cancelar(Persona pers) {
-		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cancelar la Reserva?");
+		int Confirmar = JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cancelar la reserva de " + table.getValueAt(table.getSelectedRow(), 1) +" para el dia "+ (table.getValueAt(table.getSelectedRow(), 4)+" ?"),"Confirmar cancelación de reserva",JOptionPane.YES_NO_OPTION);
 		if (Confirmar == JOptionPane.YES_OPTION){
 			int indexElemento=table.convertRowIndexToModel(table.getSelectedRow());
 			try {

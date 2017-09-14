@@ -199,7 +199,7 @@ public class PrincipalEscritorio extends JFrame {
 		mnReserva.add(mntmAlta);
 		
 		if(pers.getCategoria().equals("Online")){
-		JMenuItem mntmBaja = new JMenuItem("Mis Reservas");
+		JMenuItem mntmBaja = new JMenuItem("Mis Reservas Pendientes");
 			mntmBaja.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MisReservas ventanaMISRE = new MisReservas(pers);

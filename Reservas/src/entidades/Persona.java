@@ -63,7 +63,7 @@ public class Persona {
 	public String toString()
 	{
 //		return	this.getNombre();
-		return (this.id + " - " + this.getNombre()+", "+this.getApellido());
+		return (this.id + " - " + this.getNombre()+", "+this.getApellido()  );
 	}
 	
 	

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import entidades.Elemento;
 import entidades.Reserva;
@@ -48,7 +49,12 @@ public class AnularReserva extends JInternalFrame {
 		JButton btnAnular = new JButton("Anular");
 		btnAnular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				anularReserva();
+				try{
+					anularReserva();
+					}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(AnularReserva.this,"Para anular una reserva, debe seleccionar la fila  "," Error de selección",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		
@@ -86,6 +92,7 @@ public class AnularReserva extends JInternalFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setBackground(Color.LIGHT_GRAY);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getContentPane().setLayout(groupLayout);
 		
 		consultar();

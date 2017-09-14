@@ -63,9 +63,12 @@ public class Login extends JFrame {
 		
 		txtPass.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ingresar();
+					try {
+						ingresar();
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(getContentPane(),"Datos incorrectos, intente nuevamente","Error de Login",JOptionPane.WARNING_MESSAGE);
+					}
 				}
-			
 		});
 		
 		txtUsuario = new JTextField();
@@ -153,7 +156,11 @@ public class Login extends JFrame {
 		});
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ingresar();
+					try {
+						ingresar();
+					} catch (Exception e) {
+						JOptionPane.showInternalMessageDialog(getContentPane(),"Datos incorrectos, intente nuevamente","Error de Login",JOptionPane.WARNING_MESSAGE);
+					}
 			}
 		});
 		btnSalir.addActionListener(new ActionListener() {
@@ -178,7 +185,7 @@ public class Login extends JFrame {
 		
 	}
 
-	protected void ingresar() 
+	protected void ingresar() throws Exception 
 	{		
 			Persona pers = new Persona();
 			pers.setUsuario(txtUsuario.getText());
@@ -189,17 +196,24 @@ public class Login extends JFrame {
 				persBaseDatos = ctrlPersona.buscarPersonaPorUsuyClave(pers);
 				
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "No se encontraron los datos de la persona");
+				throw e;
+				//JOptionPane.showMessageDialog(this, "No se encontraron los datos de la persona");
+				//JOptionPane.showMessageDialog(this,"Usuario o contraseña no válido","Error de Login",JOptionPane.WARNING_MESSAGE);
 			}
 			if (persBaseDatos !=null)
 			{
-				PrincipalEscritorio menu = new PrincipalEscritorio(persBaseDatos);
-				menu.setVisible(true);
-				dispose();
+				if (persBaseDatos.isHabilitado()){
+					PrincipalEscritorio menu = new PrincipalEscritorio(persBaseDatos);
+					menu.setVisible(true);
+					dispose();
+				}
+				else {
+					JOptionPane.showMessageDialog(getContentPane(),"El usuario no se encuentra habilitado","Error de Acceso",JOptionPane.ERROR_MESSAGE);	
+				}
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(this, "Datos incorrectos. Por favor vuelva a ingresar Usuario y Contraseña");
+				JOptionPane.showMessageDialog(getContentPane(), "Datos incorrectos. Por favor vuelva a ingresar Usuario y Contraseña","Error de Acceso",JOptionPane.ERROR_MESSAGE);
 			}
 			
 			
